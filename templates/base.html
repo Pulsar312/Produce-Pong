@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - Pulsar's Produce Pong</title>
+    {# Template inheritance documentaiton https://flask.palletsprojects.com/en/2.0.x/patterns/templateinheritance/ #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}
+        {# If we need any page-specific head info it can go here in the child template #}
+    {% endblock %}
+</head>
+<body>
+<div class="header">
+    <p>Header</p>
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+<div class="footer">
+    <p>&copy; Copyright 2022 by <a href="https://github.com/Pulsar312">Team Pulsar</a>. All rights reserved.</p>
+</div>
+
+</body>
+</html>
