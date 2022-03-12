@@ -1,7 +1,11 @@
+import pymongo
 from flask import Flask, send_from_directory, render_template
 
 app = Flask(__name__)
 
+
+client = pymongo.MongoClient('mongo')
+db = client.mydata
 
 @app.route("/")
 def index():
@@ -15,4 +19,4 @@ def static_files(file):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run("0.0.0.0", 8080)
