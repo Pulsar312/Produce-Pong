@@ -1,26 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %} - Pulsar's Produce Pong</title>
-    {# Template inheritance documentaiton https://flask.palletsprojects.com/en/2.0.x/patterns/templateinheritance/ #}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    {% block head %}
-        {# If we need any page-specific head info it can go here in the child template #}
-    {% endblock %}
+   <meta charset="UTF-8">
+   <title>{% block title %}{% endblock %} - Pulsar's Produce Pong</title>
+   {# Template inheritance documentaiton https://flask.palletsprojects.com/en/2.0.x/patterns/templateinheritance/ #}
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   {% block head %}
+       {# If we need any page-specific head info it can go here in the child template #}
+   {% endblock %}
 </head>
 <body>
 <div class="header">
-    <p>Header</p>
+        <div class="topnav">
+            <a style="font-size: 30px; padding-top: 15px; padding-bottom: 15px" onclick="toggle_homepage()"> Pulsar </a>
+            <a onclick="toggle_about()">About</a>
+            <a onclick="toggle_contact()">Contact</a>
+            <a onclick="toggle_play()">Play</a>
+        </div>
+</div>
+<div class="div">
+
+    <div id="div_homepage">
+       {% block content %}
+
+       {% endblock %}
+    </div>
+
+    <div id="div_about">
+        <p>About page</p>
+    </div>
+
+    <div id="div_contact">
+        <p>Contact page</p>
+    </div>
+
+    <div id="div_play">
+        <p>Play page</p>
+
+        <form action="/sign-in" id="sign-in" method="post" enctype="multipart/form-data">
+            <label for="sign-in-username">Username: </label>
+            <input type="text" id="sign-in-username" name="username" ></text>
+            <br/>
+            <label for="sign-in-password">Password: </label>
+            <input type="text" id="sign-in-password" name="password"></text>
+            <input type="submit" value="Play">
+        </form>
+    </div>
+
 </div>
 
-{% block content %}
-
-{% endblock %}
 
 <div class="footer">
-    <p>&copy; Copyright 2022 by <a href="https://github.com/Pulsar312">Team Pulsar</a>. All rights reserved.</p>
+   <p>&copy; Copyright 2022 by <a href="https://github.com/Pulsar312">Team Pulsar</a>. All rights reserved.</p>
 </div>
+
+<script src="static/toggles.js"></script>
 
 </body>
 </html>
