@@ -41,12 +41,12 @@ p {
    background-color: var(--primary);
    color: var(--background);
 
-   background-image: url("/static/replace_this_image.jpg"); /*  replace this with our banner  */
+   background-image: url("/static/Pulsar_Pros.png"); /*  replace this with our banner  */
 
     min-height: 250px;
 
     /* Center and scale the image nicely */
-    background-position: center;
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
 
