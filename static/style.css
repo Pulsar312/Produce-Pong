@@ -30,11 +30,6 @@ p {
    padding-left: 30px;
 }
 
-#div_homepage {display: block;}
-#div_about {display: none;}
-#div_contact {display: none;}
-#div_play {display: none;}
-
 
 /*-----------------HEADER-----------------*/
 .header {

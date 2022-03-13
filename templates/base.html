@@ -12,39 +12,53 @@
 <body>
 <div class="header">
         <div class="topnav">
-            <a style="font-size: 30px; padding-top: 15px; padding-bottom: 15px" onclick="toggle_homepage()"> Pulsar </a>
-            <a onclick="toggle_about()">About</a>
-            <a onclick="toggle_contact()">Contact</a>
-            <a onclick="toggle_play()">Play</a>
+            <a style="font-size: 30px; padding-top: 15px; padding-bottom: 15px" onclick="toggle_homepage()" id = "Pulsar"> Pulsar </a>
+            <a onclick="toggle_about()" id = "About">About</a>
+            <a onclick="toggle_contact()" id = "Contact">Contact</a>
+            <a onclick="toggle_play()" id = "Play">Play</a>
+            <a onclick="toggle_profile()" id = "Profile" style = "display: none;">Profile</a>
+            <a onclick="logout()" id = "Logout" style = "display: none;">Logout</a> <!--  TODO: create function to log out (delete the cookie and go to homepage)-->
         </div>
 </div>
 <div class="div">
 
-    <div id="div_homepage">
+    <div id="div_homepage_signed_out" style = "display: block;">
+        <!--  TODO:  Show advertising-->
        {% block content %}
 
        {% endblock %}
     </div>
 
-    <div id="div_about">
+    <div id="div_homepage_signed_in" style = "display: none;">
+        <!--  TODO:  Show chats-->
+        <p>Show chats</p>
+    </div>
+
+    <div id="div_about" style = "display: none;">
+        <!--  TODO:  Show instructions to play here! -->
         <p>About page</p>
     </div>
 
-    <div id="div_contact">
+    <div id="div_contact" style = "display: none;">
+        <!--  TODO:  Show basic contact stuff (maybe githubs or smth idk)-->
         <p>Contact page</p>
     </div>
 
-    <div id="div_play">
-        <p>Play page</p>
-
-        <form action="/sign-in" id="sign-in" method="post" enctype="multipart/form-data">
+    <div id="div_play" style = "display: none;">
+        <!-- TODO: move the form into a template html maybe? need to make sure it will still work with the js file though-->
+        <form>
             <label for="sign-in-username">Username: </label>
-            <input type="text" id="sign-in-username" name="username" ></text>
+            <input type="text" id="sign-in-username" name="username" >
             <br/>
             <label for="sign-in-password">Password: </label>
-            <input type="text" id="sign-in-password" name="password"></text>
-            <input type="submit" value="Play">
+            <input type="text" id="sign-in-password" name="password">
         </form>
+        <button onclick="sign_in()">Play!</button>
+    </div>
+
+    <div id="div_profile" style = "display: none;">
+        <!--  TODO: Show profile for user -->
+        <p>Profile page</p>
     </div>
 
 </div>
@@ -54,7 +68,7 @@
    <p>&copy; Copyright 2022 by <a href="https://github.com/Pulsar312">Team Pulsar</a>. All rights reserved.</p>
 </div>
 
-<script src="static/toggles.js"></script>
+<script src="static/functions.js"></script>
 
 </body>
 </html>
