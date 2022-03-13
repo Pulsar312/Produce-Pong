@@ -1,19 +1,99 @@
 :root {
-    --primary: #492390;
-    --background: #ffffff;
+   --primary: #492390;
+   --background: #f0e8ff;
+   --dark: #18063b;
+   --light: #ffffff;
+   --pink: #ffb3de;
 }
 
+/*-----------------BODY-----------------*/
 body {
-    background-color: var(--background);
-    color: var(--primary);
+   background-color: var(--background);
+   color: var(--primary);
 }
 
+p {
+   color: var(--dark);
+}
+
+/*-----------------DIV CONTAINERS-----------------*/
+.div {
+   background-color: var(--light);
+
+   border-style: solid;
+   border-width: 1px;
+   border-color: var(--primary);
+
+   padding-top: 30px;
+   padding-right: 30px;
+   padding-bottom: 30px;
+   padding-left: 30px;
+}
+
+
+/*-----------------HEADER-----------------*/
 .header {
-    background-color: var(--primary);
-    color: var(--background);
+   background-color: var(--primary);
+   color: var(--background);
+
+   background-image: url("/static/Pulsar_Pros.png"); /*  replace this with our banner  */
+
+    min-height: 250px;
+
+    /* Center and scale the image nicely */
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /* Needed to position the navbar */
+    position: relative;
+
 }
 
+.header p {
+   color: var(--light);
+   padding-right: 5px;
+   padding-left: 5px;
+}
+
+
+/*-----------------NAV BAR-----------------*/
+.topnav {
+    overflow: hidden;
+    background-color: var(--dark);
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    font-size: 17px;
+    text-decoration: none;
+    width: 90px;
+    padding-top: 24px;
+    padding-bottom: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.topnav a:hover {
+    background-color: var(--pink);
+    color: black;
+}
+
+
+/*-----------------FOOTER-----------------*/
 .footer {
-    background-color: var(--primary);
-    color: var(--background);
+   background-color: var(--primary);
+   color: var(--background);
+}
+
+.footer p{
+   color: var(--light);
+   padding-right: 5px;
+   padding-left: 5px;
+}
+
+.footer a{
+    color: var(--pink);
 }
