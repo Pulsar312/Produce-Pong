@@ -1,4 +1,5 @@
 import os
+import time
 
 import pymongo
 from flask import Flask, send_from_directory, render_template, request
@@ -31,6 +32,18 @@ def static_files(file):
 @app.route("/sign-in", methods=['POST'])
 def request_sign_in():
     return do_request.sign_in(request, users, count_users)
+
+
+@app.route("/ajax-test", methods=["GET"])
+def request_test_ajax():
+    # This is just a demo/test
+    return render_template("ajax_test.html", time=time.time())
+
+
+@app.route("/ajax-test2", methods=["GET"])
+def request_test_ajax2():
+    # This is just a demo/test
+    return render_template("ajax_test2.html", time=time.time())
 
 
 if __name__ == "__main__":
