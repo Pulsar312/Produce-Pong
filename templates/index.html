@@ -11,6 +11,11 @@
             <a onclick="logout()" id="Logout" style="display: none;">Logout</a> <!--  TODO: create function to log out (delete the cookie and go to homepage)-->
         </div>
     </div>
+
+    <button onclick="makeAjaxRequest(`GET`, `/ajax-test`, ajaxTest, {});">Ajax Test</button>
+    <button onclick="makeAjaxRequest(`GET`, `/ajax-test2`, ajaxTest, {});">A different Ajax Test</button>
+    <div id="ajax-div"></div>
+
     <div class="div">
 
         <div id="div_homepage_signed_out" style="display: block;">
