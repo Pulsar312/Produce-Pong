@@ -12,6 +12,7 @@ client = pymongo.MongoClient(os.getenv("MONGO_HOST", "localhost"))
 db = client.mydata
 users = db.users  # creating/retrieving a collection for saving usernames and passwords
 count_users = db.count_users  # creating/retrieving a collection for saving the amount of users we have
+user_profiles = db.profileImages # creating/retrieving a collection for saving the user with their associated profile image
 
 
 # NOTE: Please try to keep this file as clean as possible! redirect to other python files to do the actual logic
@@ -31,7 +32,7 @@ def static_files(file):
 # method to sign a user in
 @app.route("/sign-in", methods=['POST'])
 def request_sign_in():
-    return do_request.sign_in(request, users, count_users)
+    return do_request.sign_in(request, users, count_users, user_profiles) #adding in user_profiles so that it can be initialized as users are made
 
 
 @app.route("/ajax-test", methods=["GET"])
