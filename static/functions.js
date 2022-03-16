@@ -1,4 +1,5 @@
-window.onload = toggle_homepage;
+window.onload = makeAjaxRequest('POST', '/homepage', loadDiv, {"id": get_cookie("id")});
+window.onload = makeAjaxRequest('POST', '/header', loadHeader, {"id": get_cookie("id")});
 
 //Generic method to make a request and get a response
 //method: 'GET', 'POST', 'PUT', 'DELETE', etc.
@@ -28,71 +29,21 @@ function sign_in_complete(xhttp) {
     const user_id = JSON.parse(xhttp.responseText)["id"];
     if (user_id > 0) {
         document.cookie = "id=" + user_id; //save the cookie
-        toggle_homepage(); //go to homepage
+        makeAjaxRequest('POST', '/homepage', loadDiv, {"id": get_cookie("id")});
+        makeAjaxRequest('POST', '/header', loadHeader, {"id": get_cookie("id")});
     }
     document.getElementById("sign-in-username").value = "";
     document.getElementById("sign-in-password").value = "";
 }
 
-function ajaxTest(data) {
-    const div = document.getElementById("ajax-div");
+function loadDiv(data) {
+    const div = document.getElementById("div");
     div.innerHTML = data.responseText;
 }
 
-
-//logout function
-function logout() {
-    //TODO: delete cookies
-    toggle_homepage();
-}
-
-
-//-------------------------TOGGLE FUNCTIONS-----------------------------
-
-function toggle_all_off() {
-    document.getElementById("div_homepage_signed_out").style.display = "none";
-    document.getElementById("div_homepage_signed_in").style.display = "none";
-    document.getElementById("div_about").style.display = "none";
-    document.getElementById("div_contact").style.display = "none";
-    document.getElementById("div_play").style.display = "none";
-    document.getElementById("div_profile").style.display = "none";
-}
-
-function toggle_homepage() {
-    toggle_all_off();
-    console.log(get_cookie("id"));
-    if (get_cookie("id") != "") {
-        document.getElementById("div_homepage_signed_in").style.display = "block";
-        document.getElementById("Play").style.display = "none"; //hide sign-in option
-        document.getElementById("Profile").style.display = "block"; //show profile option
-        document.getElementById("Logout").style.display = "block"; //show Logout option
-    } else {
-        document.getElementById("div_homepage_signed_out").style.display = "block";
-        document.getElementById("Play").style.display = "block"; //show sign-in option
-        document.getElementById("Profile").style.display = "none"; //hide profile option
-        document.getElementById("Logout").style.display = "none"; //hide Logout option
-    }
-}
-
-function toggle_about() {
-    toggle_all_off();
-    document.getElementById("div_about").style.display = "block";
-}
-
-function toggle_contact() {
-    toggle_all_off();
-    document.getElementById("div_contact").style.display = "block";
-}
-
-function toggle_play() {
-    toggle_all_off();
-    document.getElementById("div_play").style.display = "block";
-}
-
-
-function toggle_profile() {
-    toggle_all_off();
-    document.getElementById("div_profile").style.display = "block";
+function loadHeader(data){
+    const div = document.getElementById("header");
+    div.innerHTML = data.responseText;
 }
 
 

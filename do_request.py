@@ -1,8 +1,24 @@
 import json
 import sys
 
-from flask import jsonify
+from flask import jsonify, render_template
 
+
+def homepage(request):
+    print(request)
+    data = json.loads(request.data)
+    if(data["id"] == ""):
+        return render_template("div_templates/homepage_templates/homepage-signed-out.html")
+    else:
+        return render_template("div_templates/homepage_templates/homepage-signed-in.html")
+
+def header(request):
+    print(request)
+    data = json.loads(request.data)
+    if(data["id"] == ""):
+        return render_template("header_templates/header-signed-out.html")
+    else:
+        return render_template("header_templates/header-signed-in.html")
 
 # method which signs user in (signs up if necessary)
 # returns the id of the user (or -1 if invalid)
