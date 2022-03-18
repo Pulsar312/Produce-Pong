@@ -6,9 +6,10 @@
     {# Template inheritance documentaiton https://flask.palletsprojects.com/en/2.0.x/patterns/templateinheritance/ #}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block head %}
-        {# If we need any page-specific head info it can go here in the child template #}
+    {# If we need any page-specific head info it can go here in the child template #}
     {% endblock %}
 </head>
+
 <body>
 {% block content %}{% endblock content %}
 <div class="footer">
@@ -16,4 +17,6 @@
 </div>
 <script src="static/functions.js"></script>
 </body>
+
+
 </html>

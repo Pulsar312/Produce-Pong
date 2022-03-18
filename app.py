@@ -30,7 +30,8 @@ def static_files(file):
 
 @app.route("/about", methods=['GET'])
 def request_about():
-    return render_template("div_templates/about.html")
+    data = {"dessert": "ice cream", "ingredients":["cream", "sugar", "sprinkles"]}
+    return render_template("div_templates/about.html", **data)
 
 
 @app.route("/contact", methods=['GET'])
