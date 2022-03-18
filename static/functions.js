@@ -1,16 +1,17 @@
-window.onload = makeAjaxRequest('POST', '/homepage', loadDiv, {"id": get_cookie("id")});
-window.onload = makeAjaxRequest('POST', '/header', loadHeader, {"id": get_cookie("id")});
+//TODO: make an onload function
+window.onload = makeAjaxRequest('POST', '/homepage', loadDiv, {"id": get_cookie("id")}, "div");
+window.onload = makeAjaxRequest('POST', '/header', loadDiv, {"id": get_cookie("id")}, "header");
 
 //Generic method to make a request and get a response
 //method: 'GET', 'POST', 'PUT', 'DELETE', etc.
 //path: the path for the request
 //inputFunction: function to call after getting response from the server
 //data: the data to send- note that it will be converted to a json string before sending
-function makeAjaxRequest(method, path, inputFunction, data) {
+function makeAjaxRequest(method, path, inputFunction, data, div_id) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            inputFunction(this);
+            inputFunction(this, div_id);
         }
     };
     xhttp.open(method, path);
@@ -29,22 +30,18 @@ function sign_in_complete(xhttp) {
     const user_id = JSON.parse(xhttp.responseText)["id"];
     if (user_id > 0) {
         document.cookie = "id=" + user_id; //save the cookie
-        makeAjaxRequest('POST', '/homepage', loadDiv, {"id": get_cookie("id")});
-        makeAjaxRequest('POST', '/header', loadHeader, {"id": get_cookie("id")});
+        makeAjaxRequest('POST', '/homepage', loadDiv, {"id": get_cookie("id")}, "div");
+        makeAjaxRequest('POST', '/header', loadDiv, {"id": get_cookie("id")}, "header");
     }
     document.getElementById("sign-in-username").value = "";
     document.getElementById("sign-in-password").value = "";
 }
 
-function loadDiv(data) {
-    const div = document.getElementById("div");
+function loadDiv(data, div_id) {
+    const div = document.getElementById(div_id);
     div.innerHTML = data.responseText;
 }
 
-function loadHeader(data){
-    const div = document.getElementById("header");
-    div.innerHTML = data.responseText;
-}
 
 
 // ------------------------------------COOKIE FUNCTIONS ---------------------------
