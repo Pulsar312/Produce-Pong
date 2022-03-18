@@ -27,6 +27,7 @@ def index():
 def static_files(file):
     return send_from_directory("static", file)
 
+
 @app.route("/about", methods=['GET'])
 def request_about():
     return render_template("div_templates/about.html")
@@ -36,17 +37,21 @@ def request_about():
 def request_contact():
     return render_template("div_templates/contact.html")
 
+
 @app.route("/play", methods=['GET'])
 def request_play():
     return render_template("div_templates/play.html")
+
 
 @app.route("/profile", methods=['GET'])
 def request_profile():
     return render_template("div_templates/profile.html")
 
+
 @app.route("/homepage", methods=['POST'])
 def request_homepage():
     return do_request.homepage(request)
+
 
 @app.route("/header", methods=['POST'])
 def request_header():
@@ -57,7 +62,6 @@ def request_header():
 @app.route("/sign-in", methods=['POST'])
 def request_sign_in():
     return do_request.sign_in(request, users, count_users)
-
 
 
 if __name__ == "__main__":
