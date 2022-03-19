@@ -1,0 +1,58 @@
+/* getting rid of certain things from the main style.css */
+body {
+    background: url("/static/bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.div {
+    background-color: transparent;
+    border: none;
+}
+.header {
+    background-color: transparent;
+    background-image: none;
+    min-height: 0;
+    padding: 0;
+}
+/* login box */
+.loginBox {
+    background-color: rgba(34, 26, 41, 0.75);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    height: 365px;
+    width: 537px;
+    border-radius: 10px;
+    margin: 0 auto;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 6vh;
+    margin-bottom: 6vh;
+}
+.loginTitle {
+    font-size: 20px;
+    color: #A284D3;
+    font-weight: bold;
+}
+.formText {
+    margin-right: 260px;
+}
+.forgotPass {
+    font-size: 12px;
+    color: #A284D3;
+}
+input[type="text"], button {
+    border-radius: 10px;
+    height: 36px;
+    width: 331px;
+    border-style: none;
+}
+button {
+    cursor: pointer;
+    background-color: #A284D3;
+    color: white;
+    font-family: "Quantico";
+    font-size: 16px;
+}
+button:hover {
+    background-color: #9170BB;
+    color: #D7D7D7;
+}
