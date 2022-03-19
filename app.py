@@ -28,22 +28,40 @@ def static_files(file):
     return send_from_directory("static", file)
 
 
+@app.route("/about", methods=['GET'])
+def request_about():
+    return render_template("div_templates/about.html")
+
+
+@app.route("/contact", methods=['GET'])
+def request_contact():
+    return render_template("div_templates/contact.html")
+
+
+@app.route("/play", methods=['GET'])
+def request_play():
+    return render_template("div_templates/play.html")
+
+
+@app.route("/profile", methods=['GET'])
+def request_profile():
+    return render_template("div_templates/profile.html")
+
+
+@app.route("/homepage", methods=['POST'])
+def request_homepage():
+    return do_request.homepage(request)
+
+
+@app.route("/header", methods=['POST'])
+def request_header():
+    return do_request.header(request)
+
+
 # method to sign a user in
 @app.route("/sign-in", methods=['POST'])
 def request_sign_in():
     return do_request.sign_in(request, users, count_users)
-
-
-@app.route("/ajax-test", methods=["GET"])
-def request_test_ajax():
-    # This is just a demo/test
-    return render_template("ajax_test.html", time=time.time())
-
-
-@app.route("/ajax-test2", methods=["GET"])
-def request_test_ajax2():
-    # This is just a demo/test
-    return render_template("ajax_test2.html", time=time.time())
 
 
 if __name__ == "__main__":
