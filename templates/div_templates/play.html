@@ -1,31 +1,20 @@
 <!-- TODO: move the form into a template html maybe? need to make sure it will still work with the js file though-->
 
-<!-- docker-compose up --build http://localhost:9090 -->
 <link rel="stylesheet" href="{{ url_for('static', filename='stylePlay.css') }}">
 
-<div class="loginBox">
+<div class="login-box">
 
-    <br/>
-    <p></p>
-    <span class="loginTitle">Sign in to Play!</span>
-    <br/>
-    <span>New here? Input any avaliable username and password to sign up!</span>
-    <p></p>
+    <span class="login-title">Sign in to Play!</span>
+    <span class="login-text">New here? Input any avaliable username and password to sign up!</span>
 
-    <form class="loginForm">
-        <label class="formText" for="sign-in-username">Username</label>
-        <br/>
+    <form>
+        <label class="user" for="sign-in-username">Username</label>
         <input type="text" name="username">
-        <br/>
         <p></p>
-        <label class="formText" for="sign-in-password">Password</label>
-        <br/>
+        <label class="pass" for="sign-in-password">Password</label>
         <input type="text" name="password">
     </form>
 
-    <br/>
     <button onclick="sign_in()">Login</button>
-    <br/>
-    <span class="forgotPass">Forgot Your Password?</span>
 
 </div>

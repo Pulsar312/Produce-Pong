@@ -1,4 +1,4 @@
-/* getting rid of certain things from the main style.css */
+/* getting rid of certain css from style.css */
 body {
     background: url("/static/bg.jpg") no-repeat center center fixed;
     background-size: cover;
@@ -14,30 +14,36 @@ body {
     padding: 0;
 }
 /* login box */
-.loginBox {
-    background-color: rgba(34, 26, 41, 0.75);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
-    height: 365px;
+.login-box {
+    font-family: "Roboto", sans-serif;
+    color: white;
+    background-color: var(--trans-black);
+    box-shadow: 0px 4px 4px 0px var(--box-shadow);
+    height: 340px;
     width: 537px;
     border-radius: 10px;
     margin: 0 auto;
-    color: white;
     font-size: 16px;
-    text-align: center;
     margin-top: 6vh;
     margin-bottom: 6vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
 }
-.loginTitle {
+.login-title {
     font-size: 20px;
-    color: #A284D3;
+    color: var(--purple);
     font-weight: bold;
+    font-family: "Quantico";
 }
-.formText {
+.login-text {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.user, .pass {
     margin-right: 260px;
-}
-.forgotPass {
-    font-size: 12px;
-    color: #A284D3;
 }
 input[type="text"], button {
     border-radius: 10px;
@@ -47,12 +53,13 @@ input[type="text"], button {
 }
 button {
     cursor: pointer;
-    background-color: #A284D3;
+    background-color: var(--purple);
     color: white;
-    font-family: "Quantico";
     font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 10px;
 }
 button:hover {
-    background-color: #9170BB;
+    background-color: var(--darker-purple);
     color: #D7D7D7;
 }
