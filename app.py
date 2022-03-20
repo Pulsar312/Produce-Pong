@@ -1,6 +1,3 @@
-import os
-import time
-
 import database
 from flask import Flask, send_from_directory, render_template, request
 import do_request
@@ -39,16 +36,18 @@ def request_profile():
     return render_template("div_templates/profile.html")
 
 
-@app.route("/homepage", methods=['POST'])
+@app.route("/homepage", methods=['GET'])
 def request_homepage():
-    data = {"username": get_username(request)}
-    return render_template("div_templates/homepage_templates/homepage-signed-in.html")
+    username = get_username(request)
+    data = {"username": username}
+    return render_template("div_templates/homepage_templates/homepage-signed-in.html", **data)
     # return do_request.homepage(request)
 
 
-@app.route("/header", methods=['POST'])
+@app.route("/header", methods=['GET'])
 def request_header():
-    return do_request.header(request)
+    data = {"logged_in": get_username(request)}
+    return render_template("header_templates/header.html", **data)
 
 
 # method to sign a user in

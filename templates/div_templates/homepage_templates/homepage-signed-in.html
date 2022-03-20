@@ -1,4 +1,8 @@
 <!--  TODO:  Show chats-->
 <p>Show chats</p>
 
-<p>You're signed in as {{ username }}</p>
+{% if username %}
+    <p>You're signed in as {{ username }}</p>
+{% else %}
+    <p>You're not logged in.</p>
+{% endif %}

@@ -1,6 +1,6 @@
 function pageLoaded() {
-    makeAjaxRequest('POST', '/homepage', loadDiv, {});
-    makeAjaxRequest('POST', '/header', loadHeader, {});
+    makeAjaxRequest('GET', '/homepage', loadDiv, {});
+    makeAjaxRequest('GET', '/header', loadHeader, {});
 }
 
 //Generic method to make a request and get a response

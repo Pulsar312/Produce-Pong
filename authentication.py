@@ -62,10 +62,15 @@ def create_new_user(username: str, password: str) -> Tuple[bool, str]:
 
 
 # Get the user's username based on their request session cookie
-# Returns None of they're not logged in
+# Returns an empty string they're not logged in
 def get_username(request):
-    # TODO get the username from the pulsar_session cookie in the request
-    return "sample_username"
+    if request.cookies and request.cookies["pulsar_session"]:
+        pulsar_session = request.cookies["pulsar_session"]
+        session = database.sessions.find_one({"token": pulsar_session})
+        if session:
+            return session["username"]
+
+    return ""
 
 
 def generate_random_string(length: int = 1024):
