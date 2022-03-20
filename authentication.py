@@ -101,6 +101,11 @@ def delete_all_sessions(username: str):
     database.sessions.delete_many({"username": username})
 
 
+# Set a cookie securely on a response object from make_response()
+def set_secure_cookie(resp, cookie_name, cookie_value):
+    resp.set_cookie(cookie_name, cookie_value, secure=True, httponly=True, samesite="Strict")
+
+
 # Handle login form being submitted
 # If successful login, make a session, set their cookie, return a partial template with some JavaScript commands
 # If unsuccessful, return the login form again, but with an error message
@@ -115,7 +120,7 @@ def handle_login(request):
             # Successful login
             data = {"username": username}
             resp = make_response(render_template("div_templates/after_login.html", **data))
-            resp.set_cookie(av.SESSION_COOKIE_NAME, create_session(username))
+            set_secure_cookie(resp, av.SESSION_COOKIE_NAME, create_session(username))
             return resp
         else:
             # Wrong password
@@ -129,7 +134,7 @@ def handle_login(request):
             # New user successfully created
             data = {"username": username, "new_account": True}
             resp = make_response(render_template("div_templates/after_login.html", **data))
-            resp.set_cookie(av.SESSION_COOKIE_NAME, create_session(username))
+            set_secure_cookie(resp, av.SESSION_COOKIE_NAME, create_session(username))
             return resp
         else:
             # Signup failed for some reason explained in create_message
@@ -145,6 +150,6 @@ def handle_logout(request):
     delete_session(cookie)
 
     # Erase the client's cookie
-    resp.set_cookie(av.SESSION_COOKIE_NAME, "", expires=0)
+    resp.delete_cookie(av.SESSION_COOKIE_NAME)
 
     return resp
