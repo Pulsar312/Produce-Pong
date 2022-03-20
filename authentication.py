@@ -1,6 +1,7 @@
 import secrets
 from typing import Tuple
 
+import bcrypt
 from flask import render_template, make_response
 
 # Get the login page for the initial page request
@@ -13,15 +14,19 @@ def get_login_page():
 
 
 # Return a secure string representing the password salted and hashed
-def hash_password(password: str):
-    # TODO actually implement salting and hashing
-    return f"NOT_HASHED_{password}"
+def hash_password(password: str) -> str:
+    # https://pypi.org/project/bcrypt/
+    hashed_and_salted_password = bcrypt.hashpw(password.encode(encoding="utf-8"), bcrypt.gensalt())
+    return hashed_and_salted_password.decode("utf-8")
 
 
 # Check if the provided password matches the secure string when salted and hashed
 def check_password(clear_password: str, secure_string: str):
-    # TODO this will need to account for hashing and salting in the future
-    return hash_password(clear_password) == secure_string
+    try:
+        return bcrypt.checkpw(clear_password.encode("utf-8"), secure_string.encode("utf-8"))
+    except ValueError:
+        # If there's an issue with the format of the hash
+        return False
 
 
 # Check if the provided password matches the secure version stored in the database for this user
