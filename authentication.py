@@ -61,12 +61,19 @@ def create_new_user(username: str, password: str) -> Tuple[bool, str]:
     return True, ""
 
 
+# Get the value of the session token from a request
+def get_session_cookie(request):
+    if request.cookies and av.SESSION_COOKIE_NAME in request.cookies:
+        return request.cookies[av.SESSION_COOKIE_NAME]
+    return None
+
+
 # Get the user's username based on their request session cookie
 # Returns an empty string they're not logged in
 def get_username(request):
-    if request.cookies and request.cookies["pulsar_session"]:
-        pulsar_session = request.cookies["pulsar_session"]
-        session = database.sessions.find_one({"token": pulsar_session})
+    cookie = get_session_cookie(request)
+    if cookie:
+        session = database.sessions.find_one({"token": cookie})
         if session:
             return session["username"]
 
@@ -84,6 +91,16 @@ def create_session(username: str):
     return token
 
 
+# Delete one session to invalidate a cookie after manually logging out
+def delete_session(token: str):
+    database.sessions.delete_one({"token": token})
+
+
+# Remove all sessions from username, to "log them out everywhere"
+def delete_all_sessions(username: str):
+    database.sessions.delete_many({"username": username})
+
+
 # Handle login form being submitted
 # If successful login, make a session, set their cookie, return a partial template with some JavaScript commands
 # If unsuccessful, return the login form again, but with an error message
@@ -98,7 +115,7 @@ def handle_login(request):
             # Successful login
             data = {"username": username}
             resp = make_response(render_template("div_templates/after_login.html", **data))
-            resp.set_cookie("pulsar_session", create_session(username))
+            resp.set_cookie(av.SESSION_COOKIE_NAME, create_session(username))
             return resp
         else:
             # Wrong password
@@ -112,9 +129,22 @@ def handle_login(request):
             # New user successfully created
             data = {"username": username, "new_account": True}
             resp = make_response(render_template("div_templates/after_login.html", **data))
-            resp.set_cookie("pulsar_session", create_session(username))
+            resp.set_cookie(av.SESSION_COOKIE_NAME, create_session(username))
             return resp
         else:
             # Signup failed for some reason explained in create_message
             data = {"error": f"Error creating new account. {create_message}"}
             return render_template("div_templates/login.html", **data)
+
+
+def handle_logout(request):
+    resp = make_response(render_template("div_templates/logged_out.html"))
+
+    # Delete the session
+    cookie = get_session_cookie(request)
+    delete_session(cookie)
+
+    # Erase the client's cookie
+    resp.set_cookie(av.SESSION_COOKIE_NAME, "", expires=0)
+
+    return resp

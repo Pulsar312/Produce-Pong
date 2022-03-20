@@ -1,7 +1,6 @@
 import database
 from flask import Flask, send_from_directory, render_template, request
-import do_request
-from authentication import handle_login, get_login_page, get_username
+from authentication import handle_login, get_login_page, get_username, handle_logout
 
 app = Flask(__name__)
 database.initialize()
@@ -11,8 +10,7 @@ database.initialize()
 
 @app.route("/", methods=['GET'])
 def index():
-    data = {"food": "Pizza"}
-    return render_template("index.html", **data)
+    return render_template("index.html")
 
 
 # method gets images, CSS, and JS
@@ -33,7 +31,8 @@ def request_contact():
 
 @app.route("/profile", methods=['GET'])
 def request_profile():
-    return render_template("div_templates/profile.html")
+    data = {"username": get_username(request)}
+    return render_template("div_templates/profile.html", **data)
 
 
 @app.route("/homepage", methods=['GET'])
@@ -65,6 +64,12 @@ def request_play():
 @app.route("/auth/login", methods=['POST'])
 def request_login():
     return handle_login(request)
+
+
+# Handle clicking the logout button
+@app.route("/auth/logout", methods=['POST'])
+def request_logout():
+    return handle_logout(request)
 
 
 if __name__ == "__main__":
