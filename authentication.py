@@ -29,6 +29,10 @@ def check_password(clear_password: str, secure_string: str):
         return False
 
 
+def hash_string_without_salt(string: str):
+    return bcrypt.hashpw(string.encode(encoding="utf-8"), b"$2b$12$PULSARxxxxxxxxxxxxxxxx").decode("utf-8")
+
+
 # Check if the provided password matches the secure version stored in the database for this user
 # Returns true if this user entered the correct password
 def check_user_password(username: str, password: str):
@@ -78,27 +82,27 @@ def get_session_cookie(request):
 def get_username(request):
     cookie = get_session_cookie(request)
     if cookie:
-        session = database.sessions.find_one({"token": cookie})
+        session = database.sessions.find_one({"token": hash_string_without_salt(cookie)})
         if session:
             return session["username"]
 
     return ""
 
 
-def generate_random_string(length: int = 1024):
+def generate_random_string(length: int = 256):
     return secrets.token_urlsafe(length)
 
 
 # Create a session for the provided username and return the session cookie value
 def create_session(username: str):
     token = generate_random_string()
-    database.sessions.insert_one({"username": username, "token": token})
+    database.sessions.insert_one({"username": username, "token": hash_string_without_salt(token)})
     return token
 
 
 # Delete one session to invalidate a cookie after manually logging out
 def delete_session(token: str):
-    database.sessions.delete_one({"token": token})
+    database.sessions.delete_one({"token": hash_string_without_salt(token)})
 
 
 # Remove all sessions from username, to "log them out everywhere"
