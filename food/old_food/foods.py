@@ -1,7 +1,7 @@
 from typing import List
-from food.Food import Food
-from food.Substitution import Substitution
-from food.ingredients import cheese, noodles, hot_sauce, lettuce, carrot, tomato
+from food.old_food.Food import Food
+from food.old_food.Substitution import Substitution
+from food.old_food.ingredients import cheese, noodles, hot_sauce, lettuce, carrot, tomato
 
 optional_hot_sauce = Substitution([], hot_sauce, 0)
 tomatoes_are_bad_cheese_is_good = Substitution([tomato], [cheese], 5)

@@ -1,5 +1,5 @@
 from typing import List
-from food.Ingredient import Ingredient
+from food.old_food.Ingredient import Ingredient
 
 cheese = Ingredient("cheese", "Cheese", "cheese.png")
 tomato = Ingredient("tomato", "Tomato", "tomato.png")

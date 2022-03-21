@@ -1,4 +1,4 @@
-from food.Ingredient import Ingredient
+from food.old_food.Ingredient import Ingredient
 from typing import List
 
 

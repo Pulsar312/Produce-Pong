@@ -1,6 +1,6 @@
 from typing import List
 import Ingredient
-from food import Substitution
+from food.old_food import Substitution
 
 
 class Food:
