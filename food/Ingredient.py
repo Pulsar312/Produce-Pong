@@ -1,9 +1,19 @@
-class Ingredient:
-    def __init__(self, technical_name: str,
-                 friendly_name: str,
-                 image_name: str = ""):
-        self.image_name = image_name
-        self.friendly_name = friendly_name
-        self.technical_name = technical_name
+from food import Recipe
 
-    # TODO a lot more
+
+class Ingredient:
+    def __init__(self, name: str):
+        self.name = name
+        self.recipes = []
+
+    def add_recipes(self, recipe: Recipe):
+        self.recipes.append(recipe)
+
+    def to_string(self):
+        str = "Name: " + self.name
+        str += "\t\t\t\t\t"
+        str += "Recipes: ["
+        for r in self.recipes:
+            str += r.name + ", "
+        str = str[:len(str) - 2] + "]"
+        return str
