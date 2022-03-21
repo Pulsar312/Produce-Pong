@@ -23,23 +23,23 @@ class Cooking:
         json_extra_ingredients = json_recipe["extra_ingredients"]
         json_alternative_ingredients = json_recipe["alternative_ingredients"]
 
-        recipe = Recipe(json_recipe_name)
+        recipe = Recipe(json_recipe_name) # create a Recipe
 
-        for i in json_main_ingredients:
+        for i in json_main_ingredients: # add all the main ingredients
             ingredient = self.get_ingredient(i)
             recipe.add_main_ingredient(ingredient)
             ingredient.add_recipes(recipe)
 
-        for i in json_extra_ingredients:
+        for i in json_extra_ingredients: # add all the extra ingredients
             ingredient = self.get_ingredient(i)
             recipe.add_extra_ingredient(ingredient)
             ingredient.add_recipes(recipe)
 
-        for (key_substituted, value_substitution) in json_alternative_ingredients:
+        for (key_substituted, value_substitution) in json_alternative_ingredients: # add all the alternative ingredients
             substituted = self.get_ingredient(key_substituted)
             substitution = self.get_ingredient(value_substitution)
             recipe.add_alternative(substituted, substitution)
-            substitution.add_recipes(recipe) #note substituted should already be in ingredients list from earlier for loop
+            substitution.add_recipes(recipe) #note substituted should already be in ingredients list from earlier for loop, if not, then the json file is not formatted properly
 
         return recipe
 
@@ -51,3 +51,7 @@ class Cooking:
             new_ingredient = Ingredient(name)  # else, if it doesnt exist, then create it and add it to ingredients list
             self.ingredients[name] = new_ingredient
             return new_ingredient
+
+    # Get next random ingredient
+    def get_random_ingredient(self):
+        print()

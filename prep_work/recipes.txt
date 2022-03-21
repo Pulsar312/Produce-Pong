@@ -1,7 +1,7 @@
 Recipe Name: Ice Cream Sandwich Cake
-Main Ingredients: Ice Cream Sandwiches, Cool Whip, Crushed Oreos
+Main Ingredients: Ice Cream Sandwiches, Cool Whip, Oreos
 Extra Ingredients: Sprinkles, Cherries
-Alternative Ingredients: Frosting(Cool Whip), Crushed M&Ms(Crushed Oreos)
+Alternative Ingredients: Frosting(Cool Whip), M&Ms(Oreos)
 
 Recipe Name: Pizza
 Main Ingredients: Dough, Tomatoes, Cheese, Pepperoni

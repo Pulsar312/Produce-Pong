@@ -23,6 +23,7 @@ class Recipe:
     def add_alternative(self, ingredient_main: Ingredient, ingredient_alternative: Ingredient):
         self.alternative_ingredients[ingredient_main] = ingredient_alternative
 
+    # method prints out all recipes with the ingredients
     def to_string(self):
         str = "Name: " + self.name
 
@@ -30,18 +31,24 @@ class Recipe:
         str += "Main Ingredients: ["
         for i in self.main_ingredients:
             str += i.name + ", "
-        str = str[:len(str) - 2] + "]"
+        if str[len(str) - 1] != "[":
+            str = str[:len(str) - 2]
+        str = str + "]"
 
         str += "\t\t\t\t\t"
         str += "Extra Ingredients: ["
         for i in self.extra_ingredients:
             str += i.name + ", "
-        str = str[:len(str) - 2] + "]"
+        if str[len(str) - 1] != "[":
+            str = str[:len(str) - 2]
+        str = str + "]"
 
         str += "\t\t\t\t\t"
         str += "Alternative Ingredients: ["
         for i in self.alternative_ingredients:
             str += self.alternative_ingredients[i].name + ", "
-        str = str[:len(str) - 2] + "]"
+        if str[len(str)-1] != "[":
+            str = str[:len(str) - 2]
+        str = str + "]"
 
         return str

@@ -37,7 +37,7 @@ def read_txt_file(filename):
             recipe[key] = value
 
         all_recipes.append(recipe)
-        i += rows_per_recipe + 1
+        i += rows_per_recipe + 1 # plus 1 because empty line
     return all_recipes
 
 

@@ -7,8 +7,10 @@ class Ingredient:
         self.recipes = []
 
     def add_recipes(self, recipe: Recipe):
-        self.recipes.append(recipe)
+        if( recipe not in self.recipes):
+            self.recipes.append(recipe)
 
+    #method prints out all ingredients with the recipes
     def to_string(self):
         str = "Name: " + self.name
         str += "\t\t\t\t\t"

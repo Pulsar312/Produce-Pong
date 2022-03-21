@@ -4,13 +4,12 @@ import json
 
 from food.Cooking import Cooking
 
-if __name__ == '__main__':
+def print_ingredients_and_recipes():
     my_cooking: Cooking = Cooking('recipes.json')
 
     ingr = list(my_cooking.ingredients)
     print(ingr)
     print("ingr length: ", len(ingr))
-
 
     print(my_cooking.ingredients)
     for i in my_cooking.ingredients:
@@ -20,4 +19,9 @@ if __name__ == '__main__':
 
     for r in my_cooking.recipes:
         print(my_cooking.recipes[r].to_string())
+
+if __name__ == '__main__':
+    print_ingredients_and_recipes()
+    print()
+
 
