@@ -3,5 +3,12 @@
     <a onclick="makeAjaxRequest(`GET`, `/about`, loadDiv, {});" id="about">About</a>
     <a onclick="makeAjaxRequest(`GET`, `/contact`, loadDiv, {});" id="contact">Contact</a>
     <a onclick="makeAjaxRequest(`GET`, `/profile`, loadDiv, {});" id="profile">Profile</a>
-    <a onclick="" id="logout" >Logout</a> <!--  TODO: create function to log out (delete the cookie and go to homepage)-->
+
+    {% if logged_in %}
+        <a onclick="makeAjaxRequest(`POST`, `/auth/logout`, loadDiv, {});" id="logout">Logout</a>
+    {% else %}
+        <a onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {});" id="play">Play</a>
+    {% endif %}
+
+
 </div>
