@@ -1,0 +1,65 @@
+/* getting rid of certain css from style.css */
+body {
+    background: url("/static/bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.div {
+    background-color: transparent;
+    border: none;
+}
+.header {
+    background-color: transparent;
+    background-image: none;
+    min-height: 0;
+    padding: 0;
+}
+/* login box */
+.login-box {
+    font-family: "Roboto", sans-serif;
+    color: white;
+    background-color: var(--trans-black);
+    box-shadow: 0px 4px 4px 0px var(--box-shadow);
+    height: 340px;
+    width: 537px;
+    border-radius: 10px;
+    margin: 0 auto;
+    font-size: 16px;
+    margin-top: 6vh;
+    margin-bottom: 6vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.login-title {
+    font-size: 20px;
+    color: var(--purple);
+    font-weight: bold;
+    font-family: "Quantico";
+}
+.login-text {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.user, .pass {
+    margin-right: 260px;
+}
+input[type="text"], button {
+    border-radius: 10px;
+    height: 36px;
+    width: 331px;
+    border-style: none;
+}
+button {
+    cursor: pointer;
+    background-color: var(--purple);
+    color: white;
+    font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+button:hover {
+    background-color: var(--darker-purple);
+    color: #D7D7D7;
+}

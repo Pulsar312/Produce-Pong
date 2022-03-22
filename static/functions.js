@@ -12,10 +12,9 @@ function makeAjaxRequest(method, path, inputFunction, data, div_id, isBinaryData
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if(div_id != ""){
+            if (div_id !== "") {
                 inputFunction(this, div_id);
-            }
-            else{
+            } else {
                 inputFunction(this);
             }
         }
@@ -30,8 +29,9 @@ function makeAjaxRequest(method, path, inputFunction, data, div_id, isBinaryData
 
 function submitAjaxForm(form, callback) {
     makeAjaxRequest(form.method, form.action, callback, new FormData(form), "div", true);
-    return false; // Avoid a page reload
+    return false; // This is important! Prevents the browser from loading a new page on form submission.
 }
+
 
 function loadDiv(data, div_id) {
     const div = document.getElementById(div_id);
