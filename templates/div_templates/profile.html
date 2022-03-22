@@ -1,7 +1,7 @@
 <!--  TODO: Show profile for user -->
-<img src = "{{pfp}}">
+<img src = "{{pfp}}" width = "100" height = "100" style = "border-radius:50%">
 <form action="/change_avatar" id="image-form" method="post" enctype="multipart/form-data">
     <label for="form-file">Image: </label>
-    <input id="form-file" type="file" name="upload">
-    <input type="submit" value="Change Profile Picture">
- </form>
+    <input id="pfp-file" type="file" name="upload">
+    <input type = "submit" name = "Change Profile Picture">
+</form>

@@ -63,3 +63,4 @@ function get_cookie(key) { //TODO: this will probably be wrong for the future, n
     }
     return "";
 }
+
