@@ -1,12 +1,10 @@
 import database
 from flask import Flask, send_from_directory, render_template, request
-
 import do_request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 
 app = Flask(__name__)
 database.initialize()
-
 
 # NOTE: Please try to keep this file as clean as possible! redirect to other python files to do the actual logic
 
@@ -31,13 +29,7 @@ def request_about():
 def request_contact():
     return render_template("div_templates/contact.html")
 
-
-# method to sign a user in
-# @app.route("/sign-in", methods=['POST'])
-# def request_sign_in():
-#     return do_request.sign_in(request, users, count_users, user_profiles, logged_in) #adding in user_profiles so that it can be initialized as users are made
-
-
+  
 @app.route("/profile", methods=['GET'])
 def request_profile():
     user = database.logged_in.find_one({})
@@ -80,6 +72,11 @@ def request_logout():
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
     return do_request.change_avatar(request, database.user_profiles, database.logged_in)
+
+
+@app.route("/change_avatar", methods=['POST'])
+def change_avatar():
+    return do_request.change_avatar(request,user_profiles,logged_in)
 
 
 if __name__ == "__main__":

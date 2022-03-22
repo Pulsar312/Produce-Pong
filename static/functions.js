@@ -32,7 +32,6 @@ function submitAjaxForm(form, callback) {
     return false; // This is important! Prevents the browser from loading a new page on form submission.
 }
 
-
 function loadDiv(data, div_id) {
     const div = document.getElementById(div_id);
     div.innerHTML = data.responseText;
