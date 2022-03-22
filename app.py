@@ -1,5 +1,7 @@
 import database
 from flask import Flask, send_from_directory, render_template, request
+
+import do_request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 
 app = Flask(__name__)
@@ -21,7 +23,7 @@ def static_files(file):
 
 @app.route("/about", methods=['GET'])
 def request_about():
-    data = {"dessert": "ice cream", "ingredients":["cream", "sugar", "sprinkles"]}
+    data = {"dessert": "ice cream", "ingredients": ["cream", "sugar", "sprinkles"]}
     return render_template("div_templates/about.html", **data)
 
 
@@ -30,18 +32,25 @@ def request_contact():
     return render_template("div_templates/contact.html")
 
 
+# method to sign a user in
+# @app.route("/sign-in", methods=['POST'])
+# def request_sign_in():
+#     return do_request.sign_in(request, users, count_users, user_profiles, logged_in) #adding in user_profiles so that it can be initialized as users are made
+
+
 @app.route("/profile", methods=['GET'])
 def request_profile():
-    data = {"username": get_username(request)}
-    return render_template("div_templates/profile.html", **data)
+    user = database.logged_in.find_one({})
+    profile = database.user_profiles.find_one({'username': user['username']})
+    toSend = {"pfp": profile["pfp"]}
+    return render_template("div_templates/profile.html", **toSend)
 
 
 @app.route("/homepage", methods=['GET'])
 def request_homepage():
     username = get_username(request)
     data = {"username": username}
-    return render_template("div_templates/homepage_templates/homepage-signed-in.html", **data)
-    # return do_request.homepage(request)
+    return render_template("div_templates/homepage.html", **data)
 
 
 @app.route("/header", methods=['GET'])
@@ -49,11 +58,6 @@ def request_header():
     data = {"logged_in": get_username(request)}
     return render_template("header_templates/header.html", **data)
 
-
-# method to sign a user in
-# @app.route("/sign-in", methods=['POST'])
-# def request_sign_in():
-#     return do_request.sign_in(request, users, count_users)
 
 # Get the login page
 @app.route("/play", methods=['GET'])
@@ -71,6 +75,11 @@ def request_login():
 @app.route("/auth/logout", methods=['POST'])
 def request_logout():
     return handle_logout(request)
+
+
+@app.route("/change_avatar", methods=['POST'])
+def change_avatar():
+    return do_request.change_avatar(request, database.user_profiles, database.logged_in)
 
 
 if __name__ == "__main__":
