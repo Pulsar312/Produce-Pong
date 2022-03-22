@@ -1,6 +1,6 @@
 function pageLoaded() {
-    makeAjaxRequest('GET', '/homepage', loadDiv, {});
-    makeAjaxRequest('GET', '/header', loadHeader, {});
+    makeAjaxRequest('GET', '/homepage', loadDiv, {}, "div");
+    makeAjaxRequest('GET', '/header', loadDiv, {}, "header");
 }
 
 //Generic method to make a request and get a response
@@ -8,11 +8,16 @@ function pageLoaded() {
 //path: the path for the request
 //inputFunction: function to call after getting response from the server
 //data: the data to send- note that it will be converted to a json string before sending
-function makeAjaxRequest(method, path, inputFunction, data, isBinaryData = false) {
+function makeAjaxRequest(method, path, inputFunction, data, div_id, isBinaryData = false) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            inputFunction(this);
+            if(div_id != ""){
+                inputFunction(this, div_id);
+            }
+            else{
+                inputFunction(this);
+            }
         }
     };
     xhttp.open(method, path);
@@ -24,16 +29,11 @@ function makeAjaxRequest(method, path, inputFunction, data, isBinaryData = false
 }
 
 function submitAjaxForm(form, callback) {
-    makeAjaxRequest(form.method, form.action, callback, new FormData(form), true);
+    makeAjaxRequest(form.method, form.action, callback, new FormData(form), "div", true);
     return false; // Avoid a page reload
 }
 
-function loadDiv(data) {
-    const div = document.getElementById("div");
-    div.innerHTML = data.responseText;
-}
-
-function loadHeader(data) {
-    const div = document.getElementById("header");
+function loadDiv(data, div_id) {
+    const div = document.getElementById(div_id);
     div.innerHTML = data.responseText;
 }
