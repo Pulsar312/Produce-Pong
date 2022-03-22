@@ -51,9 +51,28 @@ def test_get_random_ingredient(cooking):
             print(k.name, end=", ")
         print()
 
+def test_find_recipes(cooking):
+    chef1 = Chef()
+    chef2 = Chef()
+
+    for j in range(0, 15):
+        print()
+        i = cooking.get_random_ingredient(chef1, chef2)
+        chef1.add_ingredient(i)
+
+    print("chef1: ", end="\t\t")
+    for k in chef1.ingredients:
+        print(k.name, end=", ")
+    print()
+
+    rec = cooking.get_recipes_from_ingredient_list(chef1.ingredients)
+    print("recipes: ", end="\t\t")
+    for r in rec:
+        print(r.name, end = ", ")
 
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
     # print_ingredients_and_recipes(cooking)
     # test_get_random_ingredient(cooking)
+    test_find_recipes(cooking)
 
