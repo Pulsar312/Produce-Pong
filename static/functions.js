@@ -6,7 +6,7 @@ window.onload = makeAjaxRequest('POST', '/header', loadHeader, {"id": get_cookie
 //path: the path for the request
 //inputFunction: function to call after getting response from the server
 //data: the data to send- note that it will be converted to a json string before sending
-function makeAjaxRequest(method, path, inputFunction, data) {
+function makeAjaxRequest(method, path, inputFunction, data, isBinaryData = false) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -14,9 +14,12 @@ function makeAjaxRequest(method, path, inputFunction, data) {
         }
     };
     xhttp.open(method, path);
-    xhttp.send(JSON.stringify(data));
+    if (isBinaryData) {
+        xhttp.send(data);
+    } else {
+        xhttp.send(JSON.stringify(data));
+    }
 }
-
 //Sign in request + response
 function sign_in() {
     const username = document.getElementById("sign-in-username").value;
@@ -34,6 +37,11 @@ function sign_in_complete(xhttp) {
     }
     document.getElementById("sign-in-username").value = "";
     document.getElementById("sign-in-password").value = "";
+}
+
+function submitAjaxForm(form, callback) {
+    makeAjaxRequest(form.method, form.action, callback, new FormData(form), true);
+    return false; 
 }
 
 function loadDiv(data) {
