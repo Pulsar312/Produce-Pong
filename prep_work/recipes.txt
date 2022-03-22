@@ -1,0 +1,109 @@
+Recipe Name: Ice Cream Sandwich Cake
+Main Ingredients: Ice Cream Sandwiches, Cool Whip, Oreos
+Extra Ingredients: Sprinkles, Cherries
+Alternative Ingredients: Frosting(Cool Whip), M&Ms(Oreos)
+
+Recipe Name: Pizza
+Main Ingredients: Dough, Tomatoes, Cheese, Pepperoni
+Extra Ingredients: Onions
+Alternative Ingredients: Bacon(Pepperoni)
+
+Recipe Name: sandwiches
+Main ingredients: bread, ham, cheese
+Extra ingredients: lettuce, tomatoes, ketchup
+Alternative Ingredients: bacon(ham)
+
+Recipe Name: Pancake
+Main ingredients: pancake mix, milk, eggs, sugar
+Extra ingredients: butter, cinnamon, blueberries
+Alternative ingredients: honey(sugar)
+
+Recipe Name: Fried Rice
+Main ingredients: rice, sesame oil, peas, carrots
+Extra ingredients: eggs, bell peppers, onions, cabbage, broccoli
+Alternative ingredients: vegetable oil(sesame oil)
+
+Recipe Name: Instant Ramen
+Main ingredients: Ramen Pack
+Extra ingredients: Sausage, eggs, beef, broth
+Alternative ingredients: noodles(Ramen Pack)
+
+Recipe Name: Fruit Smoothie
+Main Ingredients: Strawberries, Kiwis, Orange Juice, Ice
+Extra Ingredients: Blueberries, Sherbet, cherries, raspberries
+Alternative Ingredients: Bananas(Kiwis)
+
+Recipe Name: Nicholas' Special Mac and Cheese
+Main Ingredients: Noodles, Cheese, Milk
+Extra Ingredients: Hot Sauce
+Alternative Ingredients:
+
+Recipe name: avocado toast
+main ingredients: avocado, bread
+extra ingredients: eggs, tomatoes, smoked salmon
+alternative ingredients:
+
+Recipe name: blueberry muffins
+main ingredients: blueberries, sugar, flour, butter
+extra ingredients: spices, raspberries
+alternative ingredients: vegetable oil(butter)
+
+Recipe name: banana nut bread
+main ingredients: bananas, flour, butter, sugar, eggs
+extra ingredients: spices, nuts
+alternative ingredients: vegetable oil(butter)
+
+Recipe name: salad
+main ingredients: lettuce, tomatoes, cucumbers
+extra ingredients: chicken, cranberries, dressing, bacon
+alternative ingredients: bell peppers(cucumbers)
+
+Recipe name: Shepherd's pie
+main ingredients: potatoes, beef, carrots, onions
+extra ingredients: peas, corn
+alternative ingredients: lamb( beef)
+
+Recipe name: breakfast hash
+main ingredients: potatoes, bacon, eggs
+extra ingredients: carrots, onions, cheese, mushrooms
+alternative ingredients: beef(bacon)
+
+Recipe name: Spicy noodles
+main ingredients: red chili oil, soy sauce, sesame oil, noodles
+extra ingredients: pork, eggs, garlic, scallions, broth
+alternative ingredients:
+
+Recipe name: stuffed potatoes
+main ingredients: potatoes, sour cream, cheese
+extra ingredients: butter, bacon, scallions
+alternative ingredients:
+
+Recipe name: pot roast
+main ingredients: potatoes, carrots, beef
+extra ingredients: garlic, onions
+alternative ingredients: chicken(beef)
+
+Recipe name: steak and mashed potatoes
+main ingredients: steak, potatoes
+extra ingredients: butter
+alternative ingredients:
+
+Recipe Name: French Fries
+Main Ingredients: Potatoes, Spices, vegetable oil
+Extra Ingredients: hot sauce
+Alternative Ingredients:
+
+Recipe name: potato soup
+main ingredients: potatoes, bacon, cream, cheese
+extra ingredients: garlic, butter, mushrooms, flour, corn
+alternative ingredients: milk(cream)
+
+Recipe name: Curry
+main ingredients: Spices, chicken, broth, cream
+extra ingredients: onions, garlic, tomatoes
+alternative ingredients:
+
+Recipe name: french onion soup
+main ingredients: onions, broth, bread, cheese
+extra ingredients: garlic, spices
+alternative ingredients:

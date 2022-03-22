@@ -1,0 +1,14 @@
+<div class="topnav">
+    <a style="font-size: 30px; padding-top: 15px; padding-bottom: 15px" onclick="makeAjaxRequest(`GET`, `/homepage`, loadDiv, {}, 'div');" id="Pulsar"> Pulsar </a>
+    <a onclick="makeAjaxRequest(`GET`, `/about`, loadDiv, {},'div');" id="about">About</a>
+    <a onclick="makeAjaxRequest(`GET`, `/contact`, loadDiv, {}, 'div');" id="contact">Contact</a>
+    <a onclick="makeAjaxRequest(`GET`, `/profile`, loadDiv, {}, 'div');" id="profile">Profile</a>
+
+    {% if logged_in %}
+        <a onclick="makeAjaxRequest(`POST`, `/auth/logout`, loadDiv, {}, 'div');" id="logout">Logout</a>
+    {% else %}
+        <a onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {}, 'div');" id="play">Play</a>
+    {% endif %}
+
+
+</div>

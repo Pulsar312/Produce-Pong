@@ -1,0 +1,18 @@
+{# This should only be presented when the user isn't logged in #}
+{# Replaces play.html #}
+
+<p>Already have an account? Sign in here!</p>
+<p>New here? Register with the same form!</p>
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+<form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
+    <label for="sign-in-username">Username: </label>
+    <input type="text" id="sign-in-username" name="username">
+    <br/>
+    <label for="sign-in-password">Password: </label>
+    <input type="password" id="sign-in-password" name="password">
+    <button type="submit">Join the Fun!</button>
+</form>
