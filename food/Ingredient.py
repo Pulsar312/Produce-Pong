@@ -7,7 +7,7 @@ class Ingredient:
         self.recipes = []
 
     def add_recipes(self, recipe: Recipe):
-        if( recipe not in self.recipes):
+        if recipe not in self.recipes:
             self.recipes.append(recipe)
 
     #method prints out all ingredients with the recipes
