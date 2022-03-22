@@ -6,6 +6,7 @@ from authentication import handle_login, get_login_page, get_username, handle_lo
 app = Flask(__name__)
 database.initialize()
 
+
 # NOTE: Please try to keep this file as clean as possible! redirect to other python files to do the actual logic
 
 @app.route("/", methods=['GET'])
@@ -29,13 +30,13 @@ def request_about():
 def request_contact():
     return render_template("div_templates/contact.html")
 
-  
+
 @app.route("/profile", methods=['GET'])
 def request_profile():
     user = database.logged_in.find_one({})
     profile = database.user_profiles.find_one({'username': user['username']})
-    toSend = {"pfp": profile["pfp"]}
-    return render_template("div_templates/profile.html", **toSend)
+    to_send = {"pfp": profile["pfp"]}
+    return render_template("div_templates/profile.html", **to_send)
 
 
 @app.route("/homepage", methods=['GET'])
@@ -71,12 +72,8 @@ def request_logout():
 
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
+    # TODO move logic to avatar.py
     return do_request.change_avatar(request, database.user_profiles, database.logged_in)
-
-
-@app.route("/change_avatar", methods=['POST'])
-def change_avatar():
-    return do_request.change_avatar(request,user_profiles,logged_in)
 
 
 if __name__ == "__main__":
