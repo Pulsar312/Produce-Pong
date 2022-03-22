@@ -35,17 +35,24 @@ def request_sign_in():
     return do_request.sign_in(request, users, count_users, user_profiles) #adding in user_profiles so that it can be initialized as users are made
 
 
-@app.route("/ajax-test", methods=["GET"])
-def request_test_ajax():
-    # This is just a demo/test
-    return render_template("ajax_test.html", time=time.time())
+@app.route("/profile", methods=['GET'])
+def request_profile():
+    return render_template("div_templates/profile.html")
 
 
-@app.route("/ajax-test2", methods=["GET"])
-def request_test_ajax2():
-    # This is just a demo/test
-    return render_template("ajax_test2.html", time=time.time())
+@app.route("/homepage", methods=['POST'])
+def request_homepage():
+    return do_request.homepage(request)
 
+
+@app.route("/header", methods=['POST'])
+def request_header():
+    return do_request.header(request)
+
+#method
+@app.route("/change-avatar", methods=['POST'])
+def change_avatar():
+    return do_request.change_avatar(request,user_profiles)
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 9091)

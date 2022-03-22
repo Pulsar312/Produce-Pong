@@ -2,8 +2,24 @@ import json
 from random import random
 import sys
 
-from flask import jsonify
+from flask import jsonify, render_template
 
+
+def homepage(request):
+    print(request)
+    data = json.loads(request.data)
+    if(data["id"] == ""):
+        return render_template("div_templates/homepage_templates/homepage-signed-out.html")
+    else:
+        return render_template("div_templates/homepage_templates/homepage-signed-in.html")
+
+def header(request):
+    print(request)
+    data = json.loads(request.data)
+    if(data["id"] == ""):
+        return render_template("header_templates/header-signed-out.html")
+    else:
+        return render_template("header_templates/header-signed-in.html")
 
 # method which signs user in (signs up if necessary)
 # returns the id of the user (or -1 if invalid)
@@ -29,7 +45,7 @@ def sign_in(request, users, count_users, user_profiles):
         users.insert_one(data)  # insert the user
         result = users.find_one({'username': data['username'], 'password': data['password']})
         random_init = random.randint(1,8) # will choose a random integer to append to following line
-        user_profiles.insert_one({'username': data['username'], 'pfp': 'static/image'+random_init}) # will initialize a user with one of the eight possible given profile pictures 
+        user_profiles.insert_one({'username': data['username'], 'pfp': 'static/avatar'+random_init}+'.jpg') # will initialize a user with one of the eight possible given profile pictures 
         print("User created with id:  ", result['id'])  # just making sure it works
         return jsonify({'id': result['id']})  # returns the id to save as a cookie
     elif users.count_documents({'username': data['username'], 'password': data['password']}) == 1:  # username and password exist in the database, so sign user in
@@ -39,3 +55,8 @@ def sign_in(request, users, count_users, user_profiles):
     else:  # username must be in database, but password doesn't match, so can't sign in
         print("Could not sign in, invalid username or password")
         return jsonify({'id': -1})  # returns the invalid id
+
+def change_avatar(request, user_profiles):
+    data = json.loads(request.data)
+    
+    print(data)
