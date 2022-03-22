@@ -1,0 +1,20 @@
+<!-- TODO: move the form into a template html maybe? need to make sure it will still work with the js file though-->
+
+<link rel="stylesheet" href="{{ url_for('static', filename='stylePlay.css') }}">
+
+<div class="login-box">
+
+    <span class="login-title">Sign in to Play!</span>
+    <span class="login-text">New here? Input any avaliable username and password to sign up!</span>
+
+    <form>
+        <label class="user" for="sign-in-username">Username</label>
+        <input type="text" name="username">
+        <p></p>
+        <label class="pass" for="sign-in-password">Password</label>
+        <input type="text" name="password">
+    </form>
+
+    <button onclick="sign_in()">Login</button>
+
+</div>
