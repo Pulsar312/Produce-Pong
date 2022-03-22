@@ -1,6 +1,6 @@
 function pageLoaded() {
     makeAjaxRequest('GET', '/homepage', loadDiv, {}, "div");
-    makeAjaxRequest('GET', '/header', loadHeader, {}, "header");
+    makeAjaxRequest('GET', '/header', loadDiv, {}, "header");
 }
 
 //Generic method to make a request and get a response
@@ -12,7 +12,12 @@ function makeAjaxRequest(method, path, inputFunction, data, div_id, isBinaryData
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            inputFunction(this, div_id);
+            if(div_id != ""){
+                inputFunction(this, div_id);
+            }
+            else{
+                inputFunction(this);
+            }
         }
     };
     xhttp.open(method, path);
@@ -24,7 +29,7 @@ function makeAjaxRequest(method, path, inputFunction, data, div_id, isBinaryData
 }
 
 function submitAjaxForm(form, callback) {
-    makeAjaxRequest(form.method, form.action, callback, new FormData(form), true);
+    makeAjaxRequest(form.method, form.action, callback, new FormData(form), "div", true);
     return false; // Avoid a page reload
 }
 

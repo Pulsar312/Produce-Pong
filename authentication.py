@@ -141,6 +141,7 @@ def handle_login(request):
         create_success, create_message = create_new_user(username, password)
         if create_success:
             # New user successfully created
+            print("should be here")
             data = {"username": username, "new_account": True}
             resp = make_response(render_template("div_templates/after_login.html", **data))
             set_secure_cookie(resp, av.SESSION_COOKIE_NAME, create_session(username))
