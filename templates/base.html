@@ -6,17 +6,14 @@
     {# Template inheritance documentaiton https://flask.palletsprojects.com/en/2.0.x/patterns/templateinheritance/ #}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block head %}
-    {# If we need any page-specific head info it can go here in the child template #}
+        {# If we need any page-specific head info it can go here in the child template #}
     {% endblock %}
 </head>
-
-<body>
+<body onload="pageLoaded();">
 {% block content %}{% endblock content %}
 <div class="footer">
     <p>&copy; Copyright 2022 by <a href="https://github.com/Pulsar312">Team Pulsar</a>. All rights reserved.</p>
 </div>
 <script src="static/functions.js"></script>
 </body>
-
-
 </html>

@@ -1,25 +1,16 @@
-import os
-import time
-
-import pymongo
+import database
 from flask import Flask, send_from_directory, render_template, request
-import do_request
+from authentication import handle_login, get_login_page, get_username, handle_logout
 
 app = Flask(__name__)
-
-# Create database collections here, and pass as parameter
-client = pymongo.MongoClient(os.getenv("MONGO_HOST", "localhost"))
-db = client.mydata
-users = db.users  # creating/retrieving a collection for saving usernames and passwords
-count_users = db.count_users  # creating/retrieving a collection for saving the amount of users we have
+database.initialize()
 
 
 # NOTE: Please try to keep this file as clean as possible! redirect to other python files to do the actual logic
 
 @app.route("/", methods=['GET'])
 def index():
-    data = {"food": "Pizza"}
-    return render_template("index.html", **data)
+    return render_template("index.html")
 
 
 # method gets images, CSS, and JS
@@ -39,30 +30,47 @@ def request_contact():
     return render_template("div_templates/contact.html")
 
 
-@app.route("/play", methods=['GET'])
-def request_play():
-    return render_template("div_templates/play.html")
-
-
 @app.route("/profile", methods=['GET'])
 def request_profile():
-    return render_template("div_templates/profile.html")
+    data = {"username": get_username(request)}
+    return render_template("div_templates/profile.html", **data)
 
 
-@app.route("/homepage", methods=['POST'])
+@app.route("/homepage", methods=['GET'])
 def request_homepage():
-    return do_request.homepage(request)
+    username = get_username(request)
+    data = {"username": username}
+    return render_template("div_templates/homepage_templates/homepage-signed-in.html", **data)
+    # return do_request.homepage(request)
 
 
-@app.route("/header", methods=['POST'])
+@app.route("/header", methods=['GET'])
 def request_header():
-    return do_request.header(request)
+    data = {"logged_in": get_username(request)}
+    return render_template("header_templates/header.html", **data)
 
 
 # method to sign a user in
-@app.route("/sign-in", methods=['POST'])
-def request_sign_in():
-    return do_request.sign_in(request, users, count_users)
+# @app.route("/sign-in", methods=['POST'])
+# def request_sign_in():
+#     return do_request.sign_in(request, users, count_users)
+
+# Get the login page
+@app.route("/play", methods=['GET'])
+def request_play():
+    return get_login_page()
+
+
+# Handle the login form being submitted through Ajax
+@app.route("/auth/login", methods=['POST'])
+def request_login():
+    return handle_login(request)
+
+
+# Handle clicking the logout button
+@app.route("/auth/logout", methods=['POST'])
+def request_logout():
+    return handle_logout(request)
 
 
 if __name__ == "__main__":
