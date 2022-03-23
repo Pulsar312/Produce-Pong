@@ -7,6 +7,7 @@ import avatar
 app = Flask(__name__)
 database.initialize()
 
+
 # NOTE: Please try to keep this file as clean as possible! redirect to other python files to do the actual logic
 
 @app.route("/", methods=['GET'])
@@ -30,7 +31,7 @@ def request_about():
 def request_contact():
     return render_template("div_templates/contact.html")
 
-  
+
 @app.route("/profile", methods=['GET'])
 def request_profile():
     user = get_username(request)
@@ -75,8 +76,6 @@ def request_logout():
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
     return avatar.change_avatar(request, database.user_profiles, get_username(request))
-
-
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 9091)
