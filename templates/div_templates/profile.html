@@ -2,14 +2,14 @@
 <p>Profile page</p>
 
 {% if username %}
-    <p>Welcome, {{ username }}!</p>
-{% else %}
-    <p>Sign in or register to join the fun!</p>
-{% endif %}
-
 <img src = "{{pfp}}" width = "100" height = "100" style = "border-radius:50%">
 <form action="/change_avatar" id="image-form" method="post" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
     <label for="form-file">Image: </label>
     <input id="pfp-file" type="file" name="upload">
     <button type = "submit">Change Profile Picture</button>
 </form>
+{% else %}
+    <p>Sign in or register to join the fun!</p>
+{% endif %}
+
+

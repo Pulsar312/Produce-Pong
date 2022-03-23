@@ -1,6 +1,6 @@
 import secrets
 from typing import Tuple
-
+import avatar
 import bcrypt
 from flask import render_template, make_response
 
@@ -142,6 +142,7 @@ def handle_login(request):
         if create_success:
             # New user successfully created
             print("should be here")
+            avatar.sign_up(username,database.user_profiles)
             data = {"username": username, "new_account": True}
             resp = make_response(render_template("div_templates/after_login.html", **data))
             set_secure_cookie(resp, av.SESSION_COOKIE_NAME, create_session(username))

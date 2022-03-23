@@ -1,7 +1,5 @@
 import json
 import random
-import secrets
-from werkzeug.utils import secure_filename  # for profile image uploads
 from flask import jsonify, render_template
 
 
@@ -64,20 +62,3 @@ def sign_in(request, users, count_users, user_profiles, logged_in):
         return jsonify({'id': -1})  # returns the invalid id
 
 
-def change_avatar(request, user_profiles, logged_in):
-    user = logged_in.find_one({})
-    up = request.files['upload']
-    secured = secure_filename(up.filename)
-    up.save(secured)
-    image_to_be = "./static/avatar" + secrets.token_urlsafe(20)
-    with open(secured, "rb") as f:
-        with open(image_to_be, "wb") as f2:
-            for byte in f:
-                f2.write(byte)
-        f2.closed
-    f.closed
-    new_pic = {"$set": {"pfp": image_to_be}}
-    user_profiles.update_one({"username": user["username"]}, new_pic)
-    profile = user_profiles.find_one({'username': user['username']})
-    to_send = {"pfp": profile["pfp"]}
-    return render_template("div_templates/profile.html", **to_send)

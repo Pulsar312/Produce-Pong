@@ -2,6 +2,7 @@ import database
 from flask import Flask, send_from_directory, render_template, request
 import do_request
 from authentication import handle_login, get_login_page, get_username, handle_logout
+import avatar
 
 app = Flask(__name__)
 database.initialize()
@@ -33,9 +34,11 @@ def request_contact():
 
 @app.route("/profile", methods=['GET'])
 def request_profile():
-    user = database.logged_in.find_one({})
-    profile = database.user_profiles.find_one({'username': user['username']})
-    to_send = {"pfp": profile["pfp"]}
+    user = get_username(request)
+    profile = database.user_profiles.find_one({'username': user})
+    to_send ={}
+    if profile != None:
+        to_send = {"pfp": profile["pfp"],"username": user}
     return render_template("div_templates/profile.html", **to_send)
 
 
@@ -72,9 +75,7 @@ def request_logout():
 
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
-    # TODO move logic to avatar.py
-    return do_request.change_avatar(request, database.user_profiles, database.logged_in)
-
+    return avatar.change_avatar(request, database.user_profiles, get_username(request))
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 9091)
