@@ -32,9 +32,11 @@ def request_contact():
   
 @app.route("/profile", methods=['GET'])
 def request_profile():
-    user = database.logged_in.find_one({})
-    profile = database.user_profiles.find_one({'username': user['username']})
-    toSend = {"pfp": profile["pfp"]}
+    user = get_username(request)
+    profile = database.user_profiles.find_one({'username': user})
+    toSend ={}
+    if profile != None:
+        toSend = {"pfp": profile["pfp"],"username": user}
     return render_template("div_templates/profile.html", **toSend)
 
 
@@ -71,12 +73,8 @@ def request_logout():
 
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
-    return do_request.change_avatar(request, database.user_profiles, database.logged_in)
+    return do_request.change_avatar(request, database.user_profiles, get_username(request))
 
-
-@app.route("/change_avatar", methods=['POST'])
-def change_avatar():
-    return do_request.change_avatar(request,user_profiles,logged_in)
 
 
 if __name__ == "__main__":

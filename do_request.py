@@ -62,8 +62,7 @@ def sign_in(request, users, count_users, user_profiles,logged_in):
         print("Could not sign in, invalid username or password")
         return jsonify({'id': -1})  # returns the invalid id
 
-def change_avatar(request, user_profiles, logged_in):
-    user = logged_in.find_one({})
+def change_avatar(request, user_profiles, username):
     up = request.files['upload']
     secured = secure_filename(up.filename)
     up.save(secured)
@@ -75,7 +74,7 @@ def change_avatar(request, user_profiles, logged_in):
         f2.closed
     f.closed
     new_pic = {"$set": {"pfp": image_to_be}}
-    user_profiles.update_one({"username": user["username"]}, new_pic)
-    profile = user_profiles.find_one({'username': user['username']})
-    toSend = {"pfp":profile["pfp"]}
+    user_profiles.update_one({"username": username}, new_pic)
+    profile = user_profiles.find_one({'username': username})
+    toSend = {"pfp":profile["pfp"], "username": username}
     return render_template("div_templates/profile.html", **toSend)
