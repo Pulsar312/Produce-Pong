@@ -15,7 +15,7 @@ class Ingredient:
         if recipe not in self.extra_recipes:
             self.extra_recipes.append(recipe)
 
-    #method prints out all ingredients with the recipes
+    # method prints out all ingredients with the recipes
     def to_string(self):
         str = "Name: " + self.name
 

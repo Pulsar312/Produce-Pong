@@ -58,7 +58,7 @@ class Recipe:
         for i in self.extra_ingredients:
             if i in ingredients:
                 this_ingredient_occurrence = len(i.main_recipes) + (len(i.extra_recipes) * 0.5)  # weigh the main_recipes more than the extra_recipes
-                score = 0.25 * math.pow((total_ingredient_occurrence - this_ingredient_occurrence) / total_ingredient_occurrence, math.pow(this_ingredient_occurrence,2)) # make the scores
+                score = 0.25 * math.pow((total_ingredient_occurrence - this_ingredient_occurrence) / total_ingredient_occurrence, math.pow(this_ingredient_occurrence, 2))  # make the scores
                 # print("{:<10s}{:<24s}{:<7s}{:<5.4f}".format("ingredient: ", i.name, "score: ", score))
                 total_score += score
         # for i in self.extra_ingredients:
@@ -91,7 +91,7 @@ class Recipe:
         str += "Alternative Ingredients: ["
         for i in self.alternative_ingredients:
             str += self.alternative_ingredients[i].name + ", "
-        if str[len(str)-1] != "[":
+        if str[len(str) - 1] != "[":
             str = str[:len(str) - 2]
         str = str + "]"
 
