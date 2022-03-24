@@ -71,6 +71,7 @@ def test_find_recipes(cooking):
     for r in rec:
         print(r.name, end=", ")
 
+
 def test_all_recipe_scores(cooking):
     chef1 = Chef()
     for i in cooking.ingredients:
@@ -84,6 +85,7 @@ def test_all_recipe_scores(cooking):
     print("Total recipes: ", len(rec))
 
     cooking.get_recipes_scores_from_ingredients(chef1.ingredients)
+
 
 def test_one_recipe_score(cooking):
     chef1 = Chef()
@@ -109,14 +111,15 @@ def test_one_recipe_score(cooking):
     for j in scores:
         print(j.name, ": ", scores[j])
 
+
 def test_alternative_and_extra(cooking):
     chef1 = Chef()
     recipe = cooking.recipes["Fried Rice"]
     for i in recipe.main_ingredients:
-        if(i.name != "sesame oil"):
+        if (i.name != "sesame oil"):
             chef1.add_ingredient(i)
     for i in recipe.alternative_ingredients:
-        if(recipe.alternative_ingredients[i].name == "vegetable oil"):
+        if (recipe.alternative_ingredients[i].name == "vegetable oil"):
             chef1.add_ingredient(recipe.alternative_ingredients[i])
     for i in recipe.extra_ingredients:
         chef1.add_ingredient(i)
@@ -137,6 +140,7 @@ def test_alternative_and_extra(cooking):
     scores = cooking.get_recipes_scores_from_ingredients(chef1.ingredients)
     for j in scores:
         print(j.name, ": ", scores[j])
+
 
 def test_get_top_recipe(cooking):
     chef1 = Chef()
@@ -159,6 +163,24 @@ def test_get_top_recipe(cooking):
     print("Top recipe: ", top_recipe.name, ",    score: ", top_score)
 
 
+def test_get_top_recipe_no_ingredients(cooking):
+    chef1 = Chef()
+
+    rec = cooking.get_recipes_from_ingredient_list(chef1.ingredients)
+    print("recipes: ", end="\t\t")
+    for r in rec:
+        print(r.name, end=", ")
+    print()
+    print("Total recipes: ", len(rec))
+
+    scores = cooking.get_recipes_scores_from_ingredients(chef1.ingredients)
+    for (recipe) in scores:
+        print("{:<35s}{:<10.4f}".format(recipe.name + ":", scores[recipe]))
+
+    top_recipe, top_score = cooking.get_best_recipe_and_score(chef1.ingredients)
+
+    print("Top recipe: ", top_recipe, ",    score: ", top_score)
+
 
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
@@ -168,4 +190,5 @@ if __name__ == '__main__':
     # test_all_recipe_scores(cooking)
     # test_one_recipe_score(cooking)
     # test_alternative_and_extra(cooking)
-    test_get_top_recipe(cooking)
+    # test_get_top_recipe(cooking)
+    # test_get_top_recipe_no_ingredients(cooking)
