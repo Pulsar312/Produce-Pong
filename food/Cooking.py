@@ -103,12 +103,8 @@ class Cooking:
     # Get all possible recipes from the list of ingredients
     def get_recipes_from_ingredient_list(self, ing: List[Ingredient]):
 
-        sorted_ingredients = sorted(ing, key=lambda i: len(i.main_recipes), reverse=False)
-
-        sorted_ingredients = [i for i in sorted_ingredients if len(i.main_recipes) != 0]
-
-        # [print(i.name, end = ", ") for i in sorted_ingredients]
-        # print()
+        sorted_ingredients = [i for i in ing if len(i.main_recipes) != 0]
+        sorted_ingredients = sorted(sorted_ingredients, key=lambda i: len(i.main_recipes), reverse=False)
 
         recipe_list = []
 
@@ -133,3 +129,16 @@ class Cooking:
                 filtered_recipes.append(r)
 
         return filtered_recipes
+
+    # Returns a dictionary of recipe -> score
+    def get_recipes_scores_from_ingredients(self, ingredients: List[Ingredient], recipes: List[Recipe] = None):
+        if recipes == None:
+            recipes = self.get_recipes_from_ingredient_list(ingredients)
+
+        scores = {}
+        for r in recipes:
+            scores[r] = r.get_score_from_ingredients(ingredients, self.total_ingredient_occurrence)
+
+
+
+        return scores
