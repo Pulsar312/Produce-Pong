@@ -138,11 +138,34 @@ def test_alternative_and_extra(cooking):
     for j in scores:
         print(j.name, ": ", scores[j])
 
+def test_get_top_recipe(cooking):
+    chef1 = Chef()
+    for i in cooking.ingredients:
+        chef1.add_ingredient(cooking.ingredients[i])
+
+    rec = cooking.get_recipes_from_ingredient_list(chef1.ingredients)
+    print("recipes: ", end="\t\t")
+    for r in rec:
+        print(r.name, end=", ")
+    print()
+    print("Total recipes: ", len(rec))
+
+    scores = cooking.get_recipes_scores_from_ingredients(chef1.ingredients)
+    for (recipe) in scores:
+        print("{:<35s}{:<10.4f}".format(recipe.name + ":", scores[recipe]))
+
+    top_recipe, top_score = cooking.get_best_recipe_and_score(chef1.ingredients)
+
+    print("Top recipe: ", top_recipe.name, ",    score: ", top_score)
+
+
+
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
     # print_ingredients_and_recipes(cooking)
     # test_get_random_ingredient(cooking)
     # test_find_recipes(cooking)
-    test_all_recipe_scores(cooking)
+    # test_all_recipe_scores(cooking)
     # test_one_recipe_score(cooking)
     # test_alternative_and_extra(cooking)
+    test_get_top_recipe(cooking)
