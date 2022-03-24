@@ -1,18 +1,22 @@
+from typing import List
+
 from food import Recipe
 
 
 class Ingredient:
     def __init__(self, name: str):
         self.name = name
-        self.main_recipes = []
-        self.extra_recipes = []
+        self.main_recipes: List[Recipe] = []
+        self.extra_recipes: List[Recipe] = []
 
+    # Method to add a recipe in which the ingredient is a main ingredient
     def add_main_recipes(self, recipe: Recipe):
-        if recipe not in self.main_recipes:
+        if recipe not in self.main_recipes:  # if we haven't added the recipe yet, then add it
             self.main_recipes.append(recipe)
 
+    # Method to add a recipe in which the ingredient is an extra ingredient
     def add_extra_recipes(self, recipe: Recipe):
-        if recipe not in self.extra_recipes:
+        if recipe not in self.extra_recipes:  # if we haven't added the recipe yet, then add it
             self.extra_recipes.append(recipe)
 
     # method prints out all ingredients with the recipes
