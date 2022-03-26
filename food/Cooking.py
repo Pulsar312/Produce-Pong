@@ -54,7 +54,7 @@ class Cooking:
 
     # Create or get an ingredient
     def get_ingredient(self, name):
-        if (name in self.ingredients):  # if ingredient exists, then just retrieve it
+        if name in self.ingredients:  # if ingredient exists, then just retrieve it
             return self.ingredients[name]
         else:
             new_ingredient = Ingredient(name)  # else, if it doesnt exist, then create it and add it to ingredients list
@@ -70,7 +70,7 @@ class Cooking:
         min_chef_list = []
         max_chef_list = []
 
-        if (len(chef1.ingredients) > len(chef2.ingredients)):
+        if len(chef1.ingredients) > len(chef2.ingredients):
             min_chef_list = chef2.ingredients
             max_chef_list = chef1.ingredients
         else:
@@ -83,13 +83,13 @@ class Cooking:
                 updated_total -= (len(i.main_recipes) + len(i.extra_recipes))  # lower the total ingredient occurrence, so that we don't go past the length of our list
                 ingredient_list.remove(i)  # remove ingredient from our list of ingredients to pick from
 
-        if (len(ingredient_list) == 0):  # this should really never happen, if theres no ingredients left in the list, then both people should have a dish
+        if len(ingredient_list) == 0:  # this should really never happen, if theres no ingredients left in the list, then both people should have a dish
             return None
 
         random_num = random.randint(0, updated_total - 1)  # get a random ingredient
 
         ingredient_index = 0  # start at index 0 to find ingredient
-        while (random_num >= (len(ingredient_list[ingredient_index].main_recipes) + len(ingredient_list[ingredient_index].extra_recipes))):  # calculate which ingredient to get
+        while random_num >= (len(ingredient_list[ingredient_index].main_recipes) + len(ingredient_list[ingredient_index].extra_recipes)):  # calculate which ingredient to get
             random_num -= (len(ingredient_list[ingredient_index].main_recipes) + len(ingredient_list[ingredient_index].extra_recipes))  # decrease random_num until 0. decreasing by the number of recipes the given ingredient occurs in (more common ingredients are more likely to get chosen this way, while rare-er ingredients are less likely to get chosen)
             ingredient_index += 1  # increment to our next ingredient
 
@@ -109,7 +109,7 @@ class Cooking:
         for r in potential_recipe_list:  # go through every potential recipe
             has_all_ingredients = True  # by default, assume we have all the ingredients
             for i in r.main_ingredients:  # go through the main ingredients for the recipe
-                if (i not in ing):  # if we don't have a main ingredient
+                if i not in ing:  # if we don't have a main ingredient
                     if (i in r.alternative_ingredients) and (r.alternative_ingredients[i] not in ing):  # if there exists an alternative for the ingredient, but we don't actually have that alternative
                         has_all_ingredients = False  # we know we don't have the ingredient, so we set False, and break out of the loop
                         break
@@ -125,7 +125,7 @@ class Cooking:
     # Method to get all the scores for each recipe
     # Returns a dictionary of recipe -> score
     def get_recipes_scores_from_ingredients(self, ingredients: List[Ingredient], recipes: List[Recipe] = None):
-        if recipes == None:  # if we didn't specify a list of recipes,
+        if recipes is None:  # if we didn't specify a list of recipes,
             recipes = self.get_recipes_from_ingredient_list(ingredients)  # then we go and find the list of recipes that we can construct
 
         scores: Dict[Recipe, float] = {}
@@ -142,7 +142,7 @@ class Cooking:
         best_recipe: Recipe = None
         best_score: float = 0
         for recipe in score_dict:
-            if (best_recipe == None and best_score == 0) or (best_score < score_dict[recipe]):  # if we havent found a recipe yet, or if the score is better than the score saved, then update best_recipe and best_score
+            if (best_recipe is None and best_score == 0) or (best_score < score_dict[recipe]):  # if we haven't found a recipe yet, or if the score is better than the score saved, then update best_recipe and best_score
                 best_recipe = recipe
                 best_score = score_dict[recipe]
 

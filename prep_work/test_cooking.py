@@ -1,4 +1,4 @@
-# Note: This is a testing file for converting the json recipes into objects, and back into json.
+# Note: This is a example usage file for food
 import json
 
 from food.Cooking import Cooking
