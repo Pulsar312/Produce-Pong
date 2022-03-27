@@ -8,7 +8,7 @@
     <p>{{ error }}</p>
 {% endif %}
 
-<form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
+<form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv, true);" enctype="multipart/form-data">
     <label for="sign-in-username">Username: </label>
     <input type="text" id="sign-in-username" name="username">
     <br/>
