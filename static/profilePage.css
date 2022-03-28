@@ -29,6 +29,10 @@
   background-color: aliceblue;
   max-height: 60vmin;
 }
+.error {
+  color: #9e172d;
+  font-weight: bold;
+}
 .achievements {
   display: block;
   font-size: x-large;
