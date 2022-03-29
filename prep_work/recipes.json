@@ -24,8 +24,8 @@
   {
     "recipe_name": "Pizza",
     "main_ingredients": [
-      "dough",
-      "tomatoes",
+      "flour",
+      "tomato",
       "cheese",
       "pepperoni"
     ],
@@ -48,7 +48,7 @@
     ],
     "extra_ingredients": [
       "lettuce",
-      "tomatoes",
+      "tomato",
       "ketchup"
     ],
     "alternative_ingredients": [
@@ -159,7 +159,7 @@
     ],
     "extra_ingredients": [
       "eggs",
-      "tomatoes",
+      "tomato",
       "smoked salmon"
     ],
     "alternative_ingredients": []
@@ -207,7 +207,7 @@
     "recipe_name": "Salad",
     "main_ingredients": [
       "lettuce",
-      "tomatoes",
+      "tomato",
       "cucumbers"
     ],
     "extra_ingredients": [
@@ -367,7 +367,7 @@
     "extra_ingredients": [
       "onions",
       "garlic",
-      "tomatoes"
+      "tomato"
     ],
     "alternative_ingredients": []
   },

@@ -4,13 +4,13 @@ Extra Ingredients: Sprinkles, Cherries
 Alternative Ingredients: Frosting(Cool Whip), M&Ms(Oreos)
 
 Recipe Name: Pizza
-Main Ingredients: Dough, Tomatoes, Cheese, Pepperoni
+Main Ingredients: Flour, Tomato, Cheese, Pepperoni
 Extra Ingredients: Onions
 Alternative Ingredients: Bacon(Pepperoni)
 
 Recipe Name: sandwiches
 Main ingredients: bread, ham, cheese
-Extra ingredients: lettuce, tomatoes, ketchup
+Extra ingredients: lettuce, tomato, ketchup
 Alternative Ingredients: bacon(ham)
 
 Recipe Name: Pancake
@@ -40,7 +40,7 @@ Alternative Ingredients:
 
 Recipe name: avocado toast
 main ingredients: avocado, bread
-extra ingredients: eggs, tomatoes, smoked salmon
+extra ingredients: eggs, tomato, smoked salmon
 alternative ingredients:
 
 Recipe name: blueberry muffins
@@ -54,7 +54,7 @@ extra ingredients: spices, nuts
 alternative ingredients: vegetable oil(butter)
 
 Recipe name: salad
-main ingredients: lettuce, tomatoes, cucumbers
+main ingredients: lettuce, tomato, cucumbers
 extra ingredients: chicken, cranberries, dressing, bacon
 alternative ingredients: bell peppers(cucumbers)
 
@@ -100,7 +100,7 @@ alternative ingredients: milk(cream)
 
 Recipe name: Curry
 main ingredients: Spices, chicken, broth, cream
-extra ingredients: onions, garlic, tomatoes
+extra ingredients: onions, garlic, tomato
 alternative ingredients:
 
 Recipe name: french onion soup
