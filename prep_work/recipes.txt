@@ -29,7 +29,7 @@ Extra ingredients: Sausage, egg, beef, broth
 Alternative ingredients: noodle(Ramen Pack)
 
 Recipe Name: Fruit Smoothie
-Main Ingredients: Strawberry, Kiwi, Orange Juice, Ice
+Main Ingredients: Strawberry, Kiwi, Orange, Ice
 Extra Ingredients: Blueberry, Sherbet, cherry, raspberry
 Alternative Ingredients: Banana(Kiwi)
 
@@ -40,7 +40,7 @@ Alternative Ingredients:
 
 Recipe name: avocado toast
 main ingredients: avocado, bread
-extra ingredients: egg, tomato, smoked salmon
+extra ingredients: egg, tomato, salmon
 alternative ingredients:
 
 Recipe name: blueberry muffins
@@ -55,13 +55,13 @@ alternative ingredients: vegetable oil(butter)
 
 Recipe name: salad
 main ingredients: lettuce, tomato, cucumber
-extra ingredients: chicken, cranberry, dressing, bacon
+extra ingredients: chicken, cranberry, caesar dressing, bacon
 alternative ingredients: bell pepper(cucumber)
 
 Recipe name: Shepherd's pie
 main ingredients: potato, beef, carrot, onion
 extra ingredients: pea, corn
-alternative ingredients: lamb( beef)
+alternative ingredients: lamb(beef)
 
 Recipe name: breakfast hash
 main ingredients: potato, bacon, egg
@@ -84,12 +84,12 @@ extra ingredients: garlic, onion
 alternative ingredients: chicken(beef)
 
 Recipe name: steak and mashed potato
-main ingredients: steak, potato
+main ingredients: beef, potato
 extra ingredients: butter
 alternative ingredients:
 
 Recipe Name: French Fries
-Main Ingredients: Potatoe, spice, vegetable oil
+Main Ingredients: Potato, spice, vegetable oil
 Extra Ingredients: hot sauce
 Alternative Ingredients:
 

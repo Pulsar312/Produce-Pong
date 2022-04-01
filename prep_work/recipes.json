@@ -123,7 +123,7 @@
         "main_ingredients": [
             "strawberry",
             "kiwi",
-            "orange juice",
+            "orange",
             "ice"
         ],
         "extra_ingredients": [
@@ -160,7 +160,7 @@
         "extra_ingredients": [
             "egg",
             "tomato",
-            "smoked salmon"
+            "salmon"
         ],
         "alternative_ingredients": []
     },
@@ -213,7 +213,7 @@
         "extra_ingredients": [
             "chicken",
             "cranberry",
-            "dressing",
+            "caesar dressing",
             "bacon"
         ],
         "alternative_ingredients": [
@@ -314,7 +314,7 @@
     {
         "recipe_name": "Steak And Mashed Potato",
         "main_ingredients": [
-            "steak",
+            "beef",
             "potato"
         ],
         "extra_ingredients": [
@@ -325,7 +325,7 @@
     {
         "recipe_name": "French Fries",
         "main_ingredients": [
-            "potatoe",
+            "potato",
             "spice",
             "vegetable oil"
         ],
