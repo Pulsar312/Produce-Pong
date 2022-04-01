@@ -36,9 +36,9 @@ def request_contact():
 def request_profile():
     user = get_username(request)
     profile = database.user_profiles.find_one({'username': user})
-    to_send ={}
+    to_send = {}
     if profile != None:
-        to_send = {"pfp": profile["pfp"],"username": user}
+        to_send = {"pfp": profile["pfp"], "username": user}
     return render_template("div_templates/profile.html", **to_send)
 
 
@@ -76,6 +76,7 @@ def request_logout():
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
     return avatar.change_avatar(request, database.user_profiles, get_username(request))
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 9091)
