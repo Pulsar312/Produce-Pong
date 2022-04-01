@@ -1,388 +1,388 @@
 [
-  {
-    "recipe_name": "Ice Cream Sandwich Cake",
-    "main_ingredients": [
-      "ice cream sandwiches",
-      "cool whip",
-      "oreos"
-    ],
-    "extra_ingredients": [
-      "sprinkles",
-      "cherries"
-    ],
-    "alternative_ingredients": [
-      [
-        "cool whip",
-        "frosting"
-      ],
-      [
-        "oreos",
-        "m&ms"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Pizza",
-    "main_ingredients": [
-      "flour",
-      "tomato",
-      "cheese",
-      "pepperoni"
-    ],
-    "extra_ingredients": [
-      "onions"
-    ],
-    "alternative_ingredients": [
-      [
-        "pepperoni",
-        "bacon"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Sandwiches",
-    "main_ingredients": [
-      "bread",
-      "ham",
-      "cheese"
-    ],
-    "extra_ingredients": [
-      "lettuce",
-      "tomato",
-      "ketchup"
-    ],
-    "alternative_ingredients": [
-      [
-        "ham",
-        "bacon"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Pancake",
-    "main_ingredients": [
-      "pancake mix",
-      "milk",
-      "eggs",
-      "sugar"
-    ],
-    "extra_ingredients": [
-      "butter",
-      "cinnamon",
-      "blueberries"
-    ],
-    "alternative_ingredients": [
-      [
-        "sugar",
-        "honey"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Fried Rice",
-    "main_ingredients": [
-      "rice",
-      "sesame oil",
-      "peas",
-      "carrots"
-    ],
-    "extra_ingredients": [
-      "eggs",
-      "bell peppers",
-      "onions",
-      "cabbage",
-      "broccoli"
-    ],
-    "alternative_ingredients": [
-      [
-        "sesame oil",
-        "vegetable oil"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Instant Ramen",
-    "main_ingredients": [
-      "ramen pack"
-    ],
-    "extra_ingredients": [
-      "sausage",
-      "eggs",
-      "beef",
-      "broth"
-    ],
-    "alternative_ingredients": [
-      [
-        "ramen pack",
-        "noodles"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Fruit Smoothie",
-    "main_ingredients": [
-      "strawberries",
-      "kiwis",
-      "orange juice",
-      "ice"
-    ],
-    "extra_ingredients": [
-      "blueberries",
-      "sherbet",
-      "cherries",
-      "raspberries"
-    ],
-    "alternative_ingredients": [
-      [
-        "kiwis",
-        "bananas"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Nicholas' Special Mac And Cheese",
-    "main_ingredients": [
-      "noodles",
-      "cheese",
-      "milk"
-    ],
-    "extra_ingredients": [
-      "hot sauce"
-    ],
-    "alternative_ingredients": []
-  },
-  {
-    "recipe_name": "Avocado Toast",
-    "main_ingredients": [
-      "avocado",
-      "bread"
-    ],
-    "extra_ingredients": [
-      "eggs",
-      "tomato",
-      "smoked salmon"
-    ],
-    "alternative_ingredients": []
-  },
-  {
-    "recipe_name": "Blueberry Muffins",
-    "main_ingredients": [
-      "blueberries",
-      "sugar",
-      "flour",
-      "butter"
-    ],
-    "extra_ingredients": [
-      "spices",
-      "raspberries"
-    ],
-    "alternative_ingredients": [
-      [
-        "butter",
-        "vegetable oil"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Banana Nut Bread",
-    "main_ingredients": [
-      "bananas",
-      "flour",
-      "butter",
-      "sugar",
-      "eggs"
-    ],
-    "extra_ingredients": [
-      "spices",
-      "nuts"
-    ],
-    "alternative_ingredients": [
-      [
-        "butter",
-        "vegetable oil"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Salad",
-    "main_ingredients": [
-      "lettuce",
-      "tomato",
-      "cucumbers"
-    ],
-    "extra_ingredients": [
-      "chicken",
-      "cranberries",
-      "dressing",
-      "bacon"
-    ],
-    "alternative_ingredients": [
-      [
-        "cucumbers",
-        "bell peppers"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Shepherd's Pie",
-    "main_ingredients": [
-      "potatoes",
-      "beef",
-      "carrots",
-      "onions"
-    ],
-    "extra_ingredients": [
-      "peas",
-      "corn"
-    ],
-    "alternative_ingredients": [
-      [
-        "beef",
-        "lamb"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Breakfast Hash",
-    "main_ingredients": [
-      "potatoes",
-      "bacon",
-      "eggs"
-    ],
-    "extra_ingredients": [
-      "carrots",
-      "onions",
-      "cheese",
-      "mushrooms"
-    ],
-    "alternative_ingredients": [
-      [
-        "bacon",
-        "beef"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Spicy Noodles",
-    "main_ingredients": [
-      "red chili oil",
-      "soy sauce",
-      "sesame oil",
-      "noodles"
-    ],
-    "extra_ingredients": [
-      "pork",
-      "eggs",
-      "garlic",
-      "scallions",
-      "broth"
-    ],
-    "alternative_ingredients": []
-  },
-  {
-    "recipe_name": "Stuffed Potatoes",
-    "main_ingredients": [
-      "potatoes",
-      "sour cream",
-      "cheese"
-    ],
-    "extra_ingredients": [
-      "butter",
-      "bacon",
-      "scallions"
-    ],
-    "alternative_ingredients": []
-  },
-  {
-    "recipe_name": "Pot Roast",
-    "main_ingredients": [
-      "potatoes",
-      "carrots",
-      "beef"
-    ],
-    "extra_ingredients": [
-      "garlic",
-      "onions"
-    ],
-    "alternative_ingredients": [
-      [
-        "beef",
-        "chicken"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Steak And Mashed Potatoes",
-    "main_ingredients": [
-      "steak",
-      "potatoes"
-    ],
-    "extra_ingredients": [
-      "butter"
-    ],
-    "alternative_ingredients": []
-  },
-  {
-    "recipe_name": "French Fries",
-    "main_ingredients": [
-      "potatoes",
-      "spices",
-      "vegetable oil"
-    ],
-    "extra_ingredients": [
-      "hot sauce"
-    ],
-    "alternative_ingredients": []
-  },
-  {
-    "recipe_name": "Potato Soup",
-    "main_ingredients": [
-      "potatoes",
-      "bacon",
-      "cream",
-      "cheese"
-    ],
-    "extra_ingredients": [
-      "garlic",
-      "butter",
-      "mushrooms",
-      "flour",
-      "corn"
-    ],
-    "alternative_ingredients": [
-      [
-        "cream",
-        "milk"
-      ]
-    ]
-  },
-  {
-    "recipe_name": "Curry",
-    "main_ingredients": [
-      "spices",
-      "chicken",
-      "broth",
-      "cream"
-    ],
-    "extra_ingredients": [
-      "onions",
-      "garlic",
-      "tomato"
-    ],
-    "alternative_ingredients": []
-  },
-  {
-    "recipe_name": "French Onion Soup",
-    "main_ingredients": [
-      "onions",
-      "broth",
-      "bread",
-      "cheese"
-    ],
-    "extra_ingredients": [
-      "garlic",
-      "spices"
-    ],
-    "alternative_ingredients": []
-  }
+    {
+        "recipe_name": "Ice Cream Sandwich Cake",
+        "main_ingredients": [
+            "ice cream sandwich",
+            "cool whip",
+            "oreo"
+        ],
+        "extra_ingredients": [
+            "sprinkle",
+            "cherry"
+        ],
+        "alternative_ingredients": [
+            [
+                "cool whip",
+                "frosting"
+            ],
+            [
+                "oreo",
+                "m&m"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Pizza",
+        "main_ingredients": [
+            "flour",
+            "tomato",
+            "cheese",
+            "pepperoni"
+        ],
+        "extra_ingredients": [
+            "onion"
+        ],
+        "alternative_ingredients": [
+            [
+                "pepperoni",
+                "bacon"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Sandwich",
+        "main_ingredients": [
+            "bread",
+            "ham",
+            "cheese"
+        ],
+        "extra_ingredients": [
+            "lettuce",
+            "tomato",
+            "ketchup"
+        ],
+        "alternative_ingredients": [
+            [
+                "ham",
+                "bacon"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Pancake",
+        "main_ingredients": [
+            "pancake mix",
+            "milk",
+            "egg",
+            "sugar"
+        ],
+        "extra_ingredients": [
+            "butter",
+            "cinnamon",
+            "blueberry"
+        ],
+        "alternative_ingredients": [
+            [
+                "sugar",
+                "honey"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Fried Rice",
+        "main_ingredients": [
+            "rice",
+            "sesame oil",
+            "pea",
+            "carrot"
+        ],
+        "extra_ingredients": [
+            "egg",
+            "bell pepper",
+            "onion",
+            "cabbage",
+            "broccoli"
+        ],
+        "alternative_ingredients": [
+            [
+                "sesame oil",
+                "vegetable oil"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Instant Ramen",
+        "main_ingredients": [
+            "ramen pack"
+        ],
+        "extra_ingredients": [
+            "sausage",
+            "egg",
+            "beef",
+            "broth"
+        ],
+        "alternative_ingredients": [
+            [
+                "ramen pack",
+                "noodle"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Fruit Smoothie",
+        "main_ingredients": [
+            "strawberry",
+            "kiwi",
+            "orange juice",
+            "ice"
+        ],
+        "extra_ingredients": [
+            "blueberry",
+            "sherbet",
+            "cherry",
+            "raspberry"
+        ],
+        "alternative_ingredients": [
+            [
+                "kiwi",
+                "banana"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Nicholas' Special Mac And Cheese",
+        "main_ingredients": [
+            "noodle",
+            "cheese",
+            "milk"
+        ],
+        "extra_ingredients": [
+            "hot sauce"
+        ],
+        "alternative_ingredients": []
+    },
+    {
+        "recipe_name": "Avocado Toast",
+        "main_ingredients": [
+            "avocado",
+            "bread"
+        ],
+        "extra_ingredients": [
+            "egg",
+            "tomato",
+            "smoked salmon"
+        ],
+        "alternative_ingredients": []
+    },
+    {
+        "recipe_name": "Blueberry Muffins",
+        "main_ingredients": [
+            "blueberry",
+            "sugar",
+            "flour",
+            "butter"
+        ],
+        "extra_ingredients": [
+            "spice",
+            "raspberry"
+        ],
+        "alternative_ingredients": [
+            [
+                "butter",
+                "vegetable oil"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Banana Nut Bread",
+        "main_ingredients": [
+            "banana",
+            "flour",
+            "butter",
+            "sugar",
+            "egg"
+        ],
+        "extra_ingredients": [
+            "spice",
+            "nut"
+        ],
+        "alternative_ingredients": [
+            [
+                "butter",
+                "vegetable oil"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Salad",
+        "main_ingredients": [
+            "lettuce",
+            "tomato",
+            "cucumber"
+        ],
+        "extra_ingredients": [
+            "chicken",
+            "cranberry",
+            "dressing",
+            "bacon"
+        ],
+        "alternative_ingredients": [
+            [
+                "cucumber",
+                "bell pepper"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Shepherd's Pie",
+        "main_ingredients": [
+            "potato",
+            "beef",
+            "carrot",
+            "onion"
+        ],
+        "extra_ingredients": [
+            "pea",
+            "corn"
+        ],
+        "alternative_ingredients": [
+            [
+                "beef",
+                "lamb"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Breakfast Hash",
+        "main_ingredients": [
+            "potato",
+            "bacon",
+            "egg"
+        ],
+        "extra_ingredients": [
+            "carrot",
+            "onion",
+            "cheese",
+            "mushroom"
+        ],
+        "alternative_ingredients": [
+            [
+                "bacon",
+                "beef"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Spicy Noodle",
+        "main_ingredients": [
+            "red chili oil",
+            "soy sauce",
+            "sesame oil",
+            "noodle"
+        ],
+        "extra_ingredients": [
+            "pork",
+            "egg",
+            "garlic",
+            "scallion",
+            "broth"
+        ],
+        "alternative_ingredients": []
+    },
+    {
+        "recipe_name": "Stuffed Potato",
+        "main_ingredients": [
+            "potato",
+            "sour cream",
+            "cheese"
+        ],
+        "extra_ingredients": [
+            "butter",
+            "bacon",
+            "scallion"
+        ],
+        "alternative_ingredients": []
+    },
+    {
+        "recipe_name": "Pot Roast",
+        "main_ingredients": [
+            "potato",
+            "carrot",
+            "beef"
+        ],
+        "extra_ingredients": [
+            "garlic",
+            "onion"
+        ],
+        "alternative_ingredients": [
+            [
+                "beef",
+                "chicken"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Steak And Mashed Potato",
+        "main_ingredients": [
+            "steak",
+            "potato"
+        ],
+        "extra_ingredients": [
+            "butter"
+        ],
+        "alternative_ingredients": []
+    },
+    {
+        "recipe_name": "French Fries",
+        "main_ingredients": [
+            "potatoe",
+            "spice",
+            "vegetable oil"
+        ],
+        "extra_ingredients": [
+            "hot sauce"
+        ],
+        "alternative_ingredients": []
+    },
+    {
+        "recipe_name": "Potato Soup",
+        "main_ingredients": [
+            "potato",
+            "bacon",
+            "cream",
+            "cheese"
+        ],
+        "extra_ingredients": [
+            "garlic",
+            "butter",
+            "mushroom",
+            "flour",
+            "corn"
+        ],
+        "alternative_ingredients": [
+            [
+                "cream",
+                "milk"
+            ]
+        ]
+    },
+    {
+        "recipe_name": "Curry",
+        "main_ingredients": [
+            "spice",
+            "chicken",
+            "broth",
+            "cream"
+        ],
+        "extra_ingredients": [
+            "onion",
+            "garlic",
+            "tomato"
+        ],
+        "alternative_ingredients": []
+    },
+    {
+        "recipe_name": "French Onion Soup",
+        "main_ingredients": [
+            "onion",
+            "broth",
+            "bread",
+            "cheese"
+        ],
+        "extra_ingredients": [
+            "garlic",
+            "spice"
+        ],
+        "alternative_ingredients": []
+    }
 ]

@@ -1,109 +1,109 @@
 Recipe Name: Ice Cream Sandwich Cake
-Main Ingredients: Ice Cream Sandwiches, Cool Whip, Oreos
-Extra Ingredients: Sprinkles, Cherries
-Alternative Ingredients: Frosting(Cool Whip), M&Ms(Oreos)
+Main Ingredients: Ice Cream Sandwich, Cool Whip, Oreo
+Extra Ingredients: Sprinkle, Cherry
+Alternative Ingredients: Frosting(Cool Whip), M&M(Oreo)
 
 Recipe Name: Pizza
 Main Ingredients: Flour, Tomato, Cheese, Pepperoni
-Extra Ingredients: Onions
+Extra Ingredients: Onion
 Alternative Ingredients: Bacon(Pepperoni)
 
-Recipe Name: sandwiches
+Recipe Name: sandwich
 Main ingredients: bread, ham, cheese
 Extra ingredients: lettuce, tomato, ketchup
 Alternative Ingredients: bacon(ham)
 
 Recipe Name: Pancake
-Main ingredients: pancake mix, milk, eggs, sugar
-Extra ingredients: butter, cinnamon, blueberries
+Main ingredients: pancake mix, milk, egg, sugar
+Extra ingredients: butter, cinnamon, blueberry
 Alternative ingredients: honey(sugar)
 
 Recipe Name: Fried Rice
-Main ingredients: rice, sesame oil, peas, carrots
-Extra ingredients: eggs, bell peppers, onions, cabbage, broccoli
+Main ingredients: rice, sesame oil, pea, carrot
+Extra ingredients: egg, bell pepper, onion, cabbage, broccoli
 Alternative ingredients: vegetable oil(sesame oil)
 
 Recipe Name: Instant Ramen
 Main ingredients: Ramen Pack
-Extra ingredients: Sausage, eggs, beef, broth
-Alternative ingredients: noodles(Ramen Pack)
+Extra ingredients: Sausage, egg, beef, broth
+Alternative ingredients: noodle(Ramen Pack)
 
 Recipe Name: Fruit Smoothie
-Main Ingredients: Strawberries, Kiwis, Orange Juice, Ice
-Extra Ingredients: Blueberries, Sherbet, cherries, raspberries
-Alternative Ingredients: Bananas(Kiwis)
+Main Ingredients: Strawberry, Kiwi, Orange Juice, Ice
+Extra Ingredients: Blueberry, Sherbet, cherry, raspberry
+Alternative Ingredients: Banana(Kiwi)
 
 Recipe Name: Nicholas' Special Mac and Cheese
-Main Ingredients: Noodles, Cheese, Milk
+Main Ingredients: Noodle, Cheese, Milk
 Extra Ingredients: Hot Sauce
 Alternative Ingredients:
 
 Recipe name: avocado toast
 main ingredients: avocado, bread
-extra ingredients: eggs, tomato, smoked salmon
+extra ingredients: egg, tomato, smoked salmon
 alternative ingredients:
 
 Recipe name: blueberry muffins
-main ingredients: blueberries, sugar, flour, butter
-extra ingredients: spices, raspberries
+main ingredients: blueberry, sugar, flour, butter
+extra ingredients: spice, raspberry
 alternative ingredients: vegetable oil(butter)
 
 Recipe name: banana nut bread
-main ingredients: bananas, flour, butter, sugar, eggs
-extra ingredients: spices, nuts
+main ingredients: banana, flour, butter, sugar, egg
+extra ingredients: spice, nut
 alternative ingredients: vegetable oil(butter)
 
 Recipe name: salad
-main ingredients: lettuce, tomato, cucumbers
-extra ingredients: chicken, cranberries, dressing, bacon
-alternative ingredients: bell peppers(cucumbers)
+main ingredients: lettuce, tomato, cucumber
+extra ingredients: chicken, cranberry, dressing, bacon
+alternative ingredients: bell pepper(cucumber)
 
 Recipe name: Shepherd's pie
-main ingredients: potatoes, beef, carrots, onions
-extra ingredients: peas, corn
+main ingredients: potato, beef, carrot, onion
+extra ingredients: pea, corn
 alternative ingredients: lamb( beef)
 
 Recipe name: breakfast hash
-main ingredients: potatoes, bacon, eggs
-extra ingredients: carrots, onions, cheese, mushrooms
+main ingredients: potato, bacon, egg
+extra ingredients: carrot, onion, cheese, mushroom
 alternative ingredients: beef(bacon)
 
-Recipe name: Spicy noodles
-main ingredients: red chili oil, soy sauce, sesame oil, noodles
-extra ingredients: pork, eggs, garlic, scallions, broth
+Recipe name: Spicy noodle
+main ingredients: red chili oil, soy sauce, sesame oil, noodle
+extra ingredients: pork, egg, garlic, scallion, broth
 alternative ingredients:
 
-Recipe name: stuffed potatoes
-main ingredients: potatoes, sour cream, cheese
-extra ingredients: butter, bacon, scallions
+Recipe name: stuffed potato
+main ingredients: potato, sour cream, cheese
+extra ingredients: butter, bacon, scallion
 alternative ingredients:
 
 Recipe name: pot roast
-main ingredients: potatoes, carrots, beef
-extra ingredients: garlic, onions
+main ingredients: potato, carrot, beef
+extra ingredients: garlic, onion
 alternative ingredients: chicken(beef)
 
-Recipe name: steak and mashed potatoes
-main ingredients: steak, potatoes
+Recipe name: steak and mashed potato
+main ingredients: steak, potato
 extra ingredients: butter
 alternative ingredients:
 
 Recipe Name: French Fries
-Main Ingredients: Potatoes, Spices, vegetable oil
+Main Ingredients: Potatoe, spice, vegetable oil
 Extra Ingredients: hot sauce
 Alternative Ingredients:
 
 Recipe name: potato soup
-main ingredients: potatoes, bacon, cream, cheese
-extra ingredients: garlic, butter, mushrooms, flour, corn
+main ingredients: potato, bacon, cream, cheese
+extra ingredients: garlic, butter, mushroom, flour, corn
 alternative ingredients: milk(cream)
 
 Recipe name: Curry
-main ingredients: Spices, chicken, broth, cream
-extra ingredients: onions, garlic, tomato
+main ingredients: spice, chicken, broth, cream
+extra ingredients: onion, garlic, tomato
 alternative ingredients:
 
 Recipe name: french onion soup
-main ingredients: onions, broth, bread, cheese
-extra ingredients: garlic, spices
+main ingredients: onion, broth, bread, cheese
+extra ingredients: garlic, spice
 alternative ingredients:
