@@ -1,6 +1,5 @@
 import database
 from flask import Flask, send_from_directory, render_template, request
-import do_request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 import avatar
 
