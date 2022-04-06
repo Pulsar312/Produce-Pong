@@ -7,6 +7,8 @@ class PhysicsObject:
         self.y = y
         self.width = width
         self.height = height
+        self.x_velocity = 0
+        self.y_velocity = 0
 
     # Return the absolute coordinates of the top left of this object (x, y)
     def top_left(self) -> Tuple[float, float]:
@@ -24,6 +26,12 @@ class PhysicsObject:
     def center(self) -> Tuple[float, float]:
         return self.x + self.width / 2, self.y + self.height / 2
 
-    # Calculate the center of the collision location between this and another PhysicsObject
-    def intersection(self, other: "PhysicsObject") -> Optional[Tuple[float, float]]:
+    # Calculate the overlap of this physics object and another
+    # Return a rectangular physics object representing the overlap region if it exists, otherwise, None
+    def intersection(self, other: "PhysicsObject") -> Optional["PhysicsObject"]:
         pass
+
+    # Update the location of this PhysicsObject based on its velocity and how much time has passed
+    def update_position(self, time_elapsed: float):
+        self.x += self.x_velocity * time_elapsed
+        self.y += self.y_velocity * time_elapsed
