@@ -11,27 +11,39 @@ class PongGame:
 
     # delta_time is how much time passed since the last frame
     def update_frame(self, delta_time: float):
+
+        self.left.paddle.update_position(delta_time)
+        print(f"{self.left.paddle.y=}")
+
         print(f"Updating frame {delta_time=}, {time.time()=}")
-        time.sleep(random.uniform(0.01, 0.06))
+        wait: float = random.uniform(0.01, 0.06)
+        print(f"simulating frame render time {wait=}")
+        time.sleep(wait)
 
     def game_loop(self):
         time_per_frame: float = 1 / self.config.framerate
+        print(f"{time_per_frame=}")
         last_update_time: float = time.time()
         while True:
-            current_time: float = time.time()
-            delta_time = current_time - last_update_time
+            frame_start_time: float = time.time()
+            print(f"{frame_start_time=}")
+            time_since_last_frame: float = frame_start_time - last_update_time
+            print(f"{time_since_last_frame=}")
 
-            self.update_frame(delta_time)
+            self.update_frame(time_since_last_frame)
+            after_update_time: float = time.time()
+            print(f"{after_update_time=}")
+            last_update_time = after_update_time
+            time_took_to_update_frame: float = after_update_time - frame_start_time
+            print(f"{time_took_to_update_frame=}")
+            time_until_next_frame: float = time_per_frame - time_took_to_update_frame
 
             # Wait until the next frame should happen to avoid exceeding the target framerate
-            remaining_time: float = time_per_frame - delta_time
-            print(f"{remaining_time=}")
-            if remaining_time > 0:
+            print(f"{time_until_next_frame=}")
+            if time_until_next_frame > 0:
                 # If this frame was rendered faster than the framerate, wait until next frame
-                time.sleep(remaining_time)
+                time.sleep(time_until_next_frame)
             # Otherwise, we're lagging behind, so just render the next frame ASAP
-
-            last_update_time = time.time()
 
     def __init__(self, config: PongConfig):
         self.config: PongConfig = config
@@ -49,4 +61,6 @@ class PongGame:
 
         # Game timing logic
         self.game_thread = threading.Thread(target=self.game_loop)
+
+    def start_game_loop(self):
         self.game_thread.start()

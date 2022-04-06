@@ -9,6 +9,7 @@ class Test(unittest.TestCase):
     def test_pong_game_loop(self):
         config = PongConfig(800, 500, 100, 25, 1, 30, 10)
         game = PongGame(config)
+        game.left.paddle.y_velocity = 1
 
 
 
