@@ -5,8 +5,8 @@
 
 <div class="login-box">
 
-    <p class="login-title">Already have an account? Sign in here!</p>
-    <p class="login-text">New here? Register with the same form!</p>
+    <span class="login-title">Already have an account? Sign in here!</span>
+    <span class="login-text">New here? Register with the same form!</span>
 
     {% if error %}
         <p>{{ error }}</p>
@@ -15,13 +15,17 @@
 
     <form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv, true);"
           enctype="multipart/form-data">
-        <label class="user" for="sign-in-username">Username: </label>
-        <input type="text" id="sign-in-username" name="username">
+
+        <label class="user" for="sign-in-username">Username</label>
         <br/>
+        <input type="text" name="username">
         <p></p>
-        <label class="pass" for="sign-in-password">Password: </label>
-        <input type="password" id="sign-in-password" name="password">
+        <label class="pass" for="sign-in-password">Password</label>
+        <br/>
+        <input type="text" name="password">
+
         <button type="submit">Join the Fun!</button>
+
     </form>
 
 </div>
