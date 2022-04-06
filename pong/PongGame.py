@@ -1,4 +1,3 @@
-import random
 import threading
 import time
 
@@ -15,9 +14,7 @@ class PongGame:
         self.left.paddle.update_position(delta_time)
         print(f"{delta_time=}")
         print(f"{time.time()} {self.left.paddle.y=}")
-
-        wait: float = random.uniform(0.01, 0.06)
-        time.sleep(wait)
+        # TODO put all logic to prepare the next frame and send it to clients here
 
     def game_loop(self):
         time_per_frame: float = 1 / self.config.framerate

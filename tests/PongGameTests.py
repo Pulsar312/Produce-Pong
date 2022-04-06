@@ -13,7 +13,5 @@ class Test(unittest.TestCase):
         game.start_game_loop()
 
 
-
-
 if __name__ == '__main__':
     unittest.main()
