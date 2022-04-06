@@ -2,6 +2,8 @@ import database
 from flask import Flask, send_from_directory, render_template, request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 import avatar
+from pong.pong_views import handle_game_page_request
+from pong.pongapi import create_new_game
 
 app = Flask(__name__)
 database.initialize()
@@ -75,6 +77,17 @@ def request_logout():
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
     return avatar.change_avatar(request, database.user_profiles, get_username(request))
+
+
+@app.route("/game/<game_id>", methods=['GET'])
+def request_game(game_id: str):
+    return handle_game_page_request(request, game_id)
+
+
+@app.route("/create_game_testing", methods=['GET'])
+def create_game_testing():
+    game = create_new_game("nicholas")
+    return f"Game created: {game.uid}", 201
 
 
 if __name__ == "__main__":

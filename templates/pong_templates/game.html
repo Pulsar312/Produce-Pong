@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Game{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='pong.css') }}">
+{% endblock %}
+{% block content %}
+
+    <h1>Pulsar's Produce Pong</h1>
+    <p>Game page</p>
+    <p>Game id {{ game_id }} requested by {{ username }}</p>
+    <p>{{ game }}</p>
+    <p>{{ game2 }}</p>
+
+    <script src="{{ url_for('static', filename='pong.js') }}"></script>
+
+{% endblock %}

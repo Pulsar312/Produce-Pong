@@ -1,10 +1,11 @@
 class PongConfig:
-    def __init__(self, game_width: int, game_height: int, paddle_height: int, paddle_width: int,
-                 speed_multiplier: float, ball_height: int, framerate: int):
-        self.framerate = framerate
-        self.ball_height = ball_height
-        self.speed_multiplier = speed_multiplier
-        self.paddle_height = paddle_height
-        self.paddle_width = paddle_width
-        self.game_height = game_height
-        self.game_width = game_width
+    def __init__(self):
+        # These are all reasonable defaults, but they can be changed externally
+        # This layout makes it very easy to add future game variables
+        self.framerate = 60
+        self.ball_height = 30
+        self.speed_multiplier = 1.0
+        self.paddle_height = 100
+        self.paddle_width = 20
+        self.game_height = 500
+        self.game_width = 800

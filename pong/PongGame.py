@@ -1,5 +1,8 @@
+import json
 import threading
 import time
+from typing import Dict, Any
+from uuid import uuid4
 
 from pong.PhysicsObject import PhysicsObject
 from pong.PongConfig import PongConfig
@@ -7,6 +10,10 @@ from pong.PongPlayer import PongPlayer
 
 
 class PongGame:
+
+    # Map game IDs to their PongGame instance. Only currently running games should be here.
+    # Previous games will be in the database, but not in memory.
+    all_games: Dict[str, "PongGame"] = {}
 
     # delta_time is how much time passed since the last frame
     def update_frame(self, delta_time: float):
@@ -37,6 +44,7 @@ class PongGame:
 
     def __init__(self, config: PongConfig):
         self.config: PongConfig = config
+        self.uid: str = uuid4().hex
 
         # Create the players and their paddles
         paddle_vertical_center = self.config.game_height // 2 - self.config.paddle_height // 2
@@ -49,8 +57,36 @@ class PongGame:
                                      self.config.paddle_height)
         self.right = PongPlayer(right_paddle)
 
+        # Add this game to current games
+        PongGame.all_games[self.uid] = self
+
         # Game timing logic
         self.game_thread = threading.Thread(target=self.game_loop)
 
     def start_game_loop(self):
         self.game_thread.start()
+
+    def stop_game_loop(self):
+        self.game_thread.join()
+
+    # For writing to the database after the game is complete, NOT for sending to the client
+    def to_json(self) -> str:
+        d = {
+            "id": self.uid,
+            "left": self.left.username,
+            "right": self.right.username,
+            "left_score": self.left.score,
+            "right_score": self.right.score,
+        }
+        return json.dumps(d)
+
+    # Dictionary with info to send to all clients (both players and spectators)
+    def to_all_clients(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "left_username": self.left.username,
+            "right_username": self.right.username,
+            "left_paddle_y": self.left.paddle.y,
+            "right_paddle_y": self.right.paddle.y,
+            # TODO more
+        }
+        return d
