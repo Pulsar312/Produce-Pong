@@ -1,3 +1,4 @@
+import json
 import time
 from flask_sock import Sock
 import database
@@ -100,7 +101,7 @@ def request_game_websocket(socket, game_id: str):
         raw_data = socket.receive(timeout=0)
         if raw_data:
             game.on_websocket_message(username, raw_data)
-        socket.send(game.to_all_clients())
+        socket.send(json.dumps(game.to_all_clients()))
         time.sleep(1 / game.config.framerate)
 
 

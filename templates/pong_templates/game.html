@@ -5,11 +5,28 @@
 {% endblock %}
 {% block content %}
 
+    {# ONLY the game config is guaranteed to exist within this template. The players might not be assigned yet! #}
+    {# DO NOT fetch player info in this template, that must be obtained through the websocket and JavaScript #}
+
     <h1>Pulsar's Produce Pong</h1>
     <p>Game page</p>
     <p>Game id {{ game_id }} requested by {{ username }}</p>
     <p>{{ game }}</p>
     <p>{{ game2 }}</p>
+    <p>{{ game3 }}</p>
+
+    <div id="game-border" style="width: {{ game.config.game_width }}px; height: {{ game.config.game_height }}px;">
+        <div id="left" class="paddle" style="width: {{ game.config.paddle_width }}px;
+                height: {{ game.config.paddle_height }}px;
+                left: {{ game.left.paddle.top_left()[0] }}px;
+                top: {{ game.left.paddle.top_left()[1] }}px;"></div>
+        <div id="right" class="paddle" style="width: {{ game.config.paddle_width }}px;
+                height: {{ game.config.paddle_height }}px;
+                left: {{ game.right.paddle.top_left()[0] }}px;
+                top: {{ game.right.paddle.top_left()[1] }}px;"></div>
+    </div>
+
+
 
     <script>
         const socket = new WebSocket("ws://" + location.host + "/gamews/{{ game_id }}");

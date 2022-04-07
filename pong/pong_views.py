@@ -29,8 +29,9 @@ def handle_game_page_request(request, game_id: str):
         data = {
             "game_id": game_id,
             "username": username,
-            "game": current_game.to_json(),
-            "game2": current_game.to_all_clients(),
+            "game": current_game,
+            "game2": current_game.to_json(),
+            "game3": current_game.to_all_clients(),
         }
         return render_template("pong_templates/game.html", **data)
 

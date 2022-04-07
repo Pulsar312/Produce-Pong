@@ -2,11 +2,14 @@
 // Accessible via `socket`
 
 socket.addEventListener("message", event => {
-    updateGame(event.data);
+    updateGame(JSON.parse(event.data));
 });
 
 function updateGame(data) {
-    console.log("Update game (got from server) " + data);
+    const left = document.getElementById("left");
+    left.style.top = `${data.left_paddle_y}px`;
+    const right = document.getElementById("right");
+    right.style.top = `${data.right_paddle_y}px`;
 }
 
 function movePlayer(velocity) {

@@ -1,7 +1,8 @@
 import json
 import threading
 import time
-from typing import Dict, Any
+from json import JSONDecodeError
+from typing import Dict, Any, Optional
 from uuid import uuid4
 
 from pong.PhysicsObject import PhysicsObject
@@ -18,9 +19,10 @@ class PongGame:
     def update_frame(self, delta_time: float):
 
         self.left.paddle.update_position(delta_time)
-        print(f"{delta_time=}")
-        print(f"{time.time()} {self.left.paddle.y=}")
-        # TODO put all logic to prepare the next frame and send it to clients here
+        self.right.paddle.update_position(delta_time)
+        # print(f"{delta_time=}")
+        # print(f"{time.time()} {self.left.paddle.y=}")
+        # TODO put all logic to prepare the next frame here
 
     def game_loop(self):
         time_per_frame: float = 1 / self.config.framerate
@@ -61,6 +63,7 @@ class PongGame:
 
         # Game timing logic
         self.game_thread = threading.Thread(target=self.game_loop)
+        self.start_game_loop()
 
     def start_game_loop(self):
         self.game_thread.start()
@@ -90,6 +93,50 @@ class PongGame:
         }
         return d
 
+    # Return the PongPlayer instance for a given username
+    def get_player(self, username: str) -> Optional[PongPlayer]:
+        if self.left.username == username:
+            return self.left
+        if self.right.username == username:
+            return self.right
+        return None
+
+    # This is error handled in on_websocket_message, so it's okay if an action raises an exception
+    def handle_player_input(self, player: PongPlayer, data: Dict[str, Any]):
+        velocity = int(data["velocity"])
+        if velocity < 0:
+            player.paddle.y_velocity = -1 * self.config.paddle_speed
+        elif velocity > 0:
+            player.paddle.y_velocity = self.config.paddle_speed
+        else:
+            player.paddle.y_velocity = 0
+
     # This gets called every time a message is received from the websocket for this game
     def on_websocket_message(self, username: str, message: str):
         print(f"{username=}, {message=}")
+
+        # Identify who sent the message
+        this_player: PongPlayer = self.get_player(username)
+        if not this_player:
+            # Only allow players to influence the game
+            print(f"Ignoring command sent from non-player: {username}: {message}")
+            return
+
+        # Decode the JSON string
+        try:
+            d = json.loads(message)
+        except JSONDecodeError as e:
+            print(f"Error decoding JSON from {username}: '{message}': {e}")
+            return
+
+        # Handle the input and potential errors
+        try:
+            self.handle_player_input(this_player, d)
+        except Exception as e:
+            print(f"Error handling player input from {username}: '{message}': {e}")
+
+    def __repr__(self):
+        return f"PongGame {self.uid} ({self.left.username} vs {self.right.username})"
+
+    def __str__(self):
+        return self.__repr__()
