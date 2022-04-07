@@ -7,9 +7,12 @@ socket.addEventListener("message", event => {
 
 function updateGame(data) {
     const left = document.getElementById("left");
-    left.style.top = `${data.left_paddle_y}px`;
+    left.style.top = `${data.left.paddle.y}px`;
     const right = document.getElementById("right");
-    right.style.top = `${data.right_paddle_y}px`;
+    right.style.top = `${data.right.paddle.y}px`;
+    const ball = document.getElementById("ball");
+    ball.style.top = `${data.ball.physics_object.y}px`;
+    ball.style.left = `${data.ball.physics_object.x}px`;
 }
 
 function movePlayer(velocity) {

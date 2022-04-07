@@ -1,4 +1,4 @@
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Dict, Any
 
 
 class PhysicsObject:
@@ -35,3 +35,13 @@ class PhysicsObject:
     def update_position(self, time_elapsed: float):
         self.x += self.x_velocity * time_elapsed
         self.y += self.y_velocity * time_elapsed
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "x": self.x,
+            "y": self.y,
+            "width": self.width,
+            "height": self.height,
+            "x_velocity": self.x_velocity,
+            "y_velocity": self.y_velocity,
+        }

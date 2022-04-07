@@ -5,6 +5,7 @@ from json import JSONDecodeError
 from typing import Dict, Any, Optional
 from uuid import uuid4
 
+from pong.PongBall import PongBall
 from pong.PhysicsObject import PhysicsObject
 from pong.PongConfig import PongConfig
 from pong.PongPlayer import PongPlayer
@@ -58,6 +59,11 @@ class PongGame:
                                      self.config.paddle_height)
         self.right = PongPlayer(right_paddle)
 
+        center_x = self.config.game_width // 2
+        center_y = self.config.game_height // 2
+
+        self.ball = PongBall(self.config.ball_height, "", (center_x, center_y))
+
         # Add this game to current games
         PongGame.all_games[self.uid] = self
 
@@ -85,10 +91,10 @@ class PongGame:
     # Dictionary with info to send to all clients (both players and spectators)
     def to_all_clients(self) -> Dict[str, Any]:
         d: Dict[str, Any] = {
-            "left_username": self.left.username,
-            "right_username": self.right.username,
-            "left_paddle_y": self.left.paddle.y,
-            "right_paddle_y": self.right.paddle.y,
+            "id": self.uid,
+            "left": self.left.to_dict(),
+            "right": self.right.to_dict(),
+            "ball": self.ball.to_dict(),
             # TODO more
         }
         return d

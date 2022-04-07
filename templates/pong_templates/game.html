@@ -24,6 +24,10 @@
                 height: {{ game.config.paddle_height }}px;
                 left: {{ game.right.paddle.top_left()[0] }}px;
                 top: {{ game.right.paddle.top_left()[1] }}px;"></div>
+        <div id="ball" class="ball" style="width: {{ game.config.ball_height }}px;
+                height: {{ game.config.ball_height }}px;
+                left: {{ game.ball.physics_object.top_left()[0] }}px;
+                top: {{ game.ball.physics_object.top_left()[1] }}px;"></div>
     </div>
 
 

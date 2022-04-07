@@ -5,6 +5,11 @@
 }
 
 .paddle {
-    background-color: red;
+    background-color: darkblue;
+    position: absolute;
+}
+
+.ball {
+    background-color: #18063b;
     position: absolute;
 }
