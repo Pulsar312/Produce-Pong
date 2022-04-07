@@ -11,6 +11,10 @@
     <p>{{ game }}</p>
     <p>{{ game2 }}</p>
 
+    <script>
+        const socket = new WebSocket("ws://" + location.host + "/gamews/{{ game_id }}");
+    </script>
     <script src="{{ url_for('static', filename='pong.js') }}"></script>
+
 
 {% endblock %}

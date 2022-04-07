@@ -36,3 +36,6 @@ def find_current_game(game_id: str) -> Optional[PongGame]:
     return None
 
 
+# Find the game a player is currently in. Useful to prevent playing multiple games simultaneously. Returns None if they're not in a game.
+def find_player_current_game(username: str) -> Optional[PongGame]:
+    pass  # TODO

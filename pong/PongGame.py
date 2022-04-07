@@ -10,7 +10,6 @@ from pong.PongPlayer import PongPlayer
 
 
 class PongGame:
-
     # Map game IDs to their PongGame instance. Only currently running games should be here.
     # Previous games will be in the database, but not in memory.
     all_games: Dict[str, "PongGame"] = {}
@@ -90,3 +89,7 @@ class PongGame:
             # TODO more
         }
         return d
+
+    # This gets called every time a message is received from the websocket for this game
+    def on_websocket_message(self, username: str, message: str):
+        print(f"{username=}, {message=}")
