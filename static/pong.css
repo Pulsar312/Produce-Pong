@@ -2,6 +2,7 @@
     border: 1px solid black;
     margin: 0 auto;
     position: relative;
+    overflow: hidden;
 }
 
 .paddle {
@@ -10,6 +11,6 @@
 }
 
 .ball {
-    background-color: #18063b;
+    background-color: black;
     position: absolute;
 }

@@ -16,11 +16,55 @@ class PongGame:
     # Previous games will be in the database, but not in memory.
     all_games: Dict[str, "PongGame"] = {}
 
+    # Move the ball to the center of the game region
+    def center_ball(self):
+        center_x = self.config.game_width // 2
+        center_y = self.config.game_height // 2
+        self.ball.physics_object.x = center_x
+        self.ball.physics_object.y = center_y
+
+    # Handle a round victory
+    def round_won(self, winner: PongPlayer):
+        winner.score += 1
+        print(f"{winner.username} won that round. Score: {self.left.score} to {self.right.score}")
+        # TODO give ingredient to winner and set up next round
+        self.center_ball()
+
+    # Push an element (e.g. a paddle) into the game region if it's not (vertically only)
+    def ensure_in_bounds(self, physics_object: PhysicsObject):
+        if physics_object.y < 0:
+            physics_object.y = 0
+        if physics_object.y > self.config.game_height - physics_object.height:
+            physics_object.y = self.config.game_height - physics_object.height
+
     # delta_time is how much time passed since the last frame
     def update_frame(self, delta_time: float):
 
+        # Handle paddle movement
         self.left.paddle.update_position(delta_time)
         self.right.paddle.update_position(delta_time)
+        self.ensure_in_bounds(self.right.paddle)
+        self.ensure_in_bounds(self.left.paddle)
+
+        # Handle ball movement - TEMPORARY TODO: clean this up
+        self.ball.physics_object.update_position(delta_time)
+        if self.ball.physics_object.temporary_collides(self.left.paddle) and self.ball.physics_object.x <= self.left.paddle.top_right()[0]:
+            # Hit left paddle
+            self.ball.physics_object.x = self.left.paddle.x + self.left.paddle.width
+            self.ball.physics_object.x_velocity *= -1
+        elif self.ball.physics_object.temporary_collides(self.right.paddle) and self.ball.physics_object.x + self.ball.physics_object.width >= self.right.paddle.top_left()[0]:
+            # Hit right paddle
+            self.ball.physics_object.x = self.right.paddle.x - self.ball.physics_object.width
+            self.ball.physics_object.x_velocity *= -1
+
+        # Handle scoring
+        # Goal on left (by right)
+        if self.ball.physics_object.x + self.ball.physics_object.width < 0:
+            self.round_won(self.right)
+        # Goal on right (by left)
+        elif self.ball.physics_object.x > self.config.game_width:
+            self.round_won(self.left)
+
         # print(f"{delta_time=}")
         # print(f"{time.time()} {self.left.paddle.y=}")
         # TODO put all logic to prepare the next frame here
@@ -62,7 +106,7 @@ class PongGame:
         center_x = self.config.game_width // 2
         center_y = self.config.game_height // 2
 
-        self.ball = PongBall(self.config.ball_height, "", (center_x, center_y))
+        self.ball = PongBall(self.config.ball_height, "", (center_x, center_y), self.config.ball_speed)
 
         # Add this game to current games
         PongGame.all_games[self.uid] = self

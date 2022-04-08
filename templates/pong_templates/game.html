@@ -18,16 +18,16 @@
     <div id="game-border" style="width: {{ game.config.game_width }}px; height: {{ game.config.game_height }}px;">
         <div id="left" class="paddle" style="width: {{ game.config.paddle_width }}px;
                 height: {{ game.config.paddle_height }}px;
-                left: {{ game.left.paddle.top_left()[0] }}px;
-                top: {{ game.left.paddle.top_left()[1] }}px;"></div>
+                left: {{ game.left.paddle.x }}px;
+                top: {{ game.left.paddle.y }}px;"></div>
         <div id="right" class="paddle" style="width: {{ game.config.paddle_width }}px;
                 height: {{ game.config.paddle_height }}px;
-                left: {{ game.right.paddle.top_left()[0] }}px;
-                top: {{ game.right.paddle.top_left()[1] }}px;"></div>
-        <div id="ball" class="ball" style="width: {{ game.config.ball_height }}px;
-                height: {{ game.config.ball_height }}px;
-                left: {{ game.ball.physics_object.top_left()[0] }}px;
-                top: {{ game.ball.physics_object.top_left()[1] }}px;"></div>
+                left: {{ game.right.paddle.x }}px;
+                top: {{ game.right.paddle.y }}px;"></div>
+        <div id="ball" class="ball" style="width: {{ game.ball.physics_object.width }}px;
+                height: {{ game.ball.physics_object.height }}px;
+                left: {{ game.ball.physics_object.x }}px;
+                top: {{ game.ball.physics_object.y }}px;"></div>
     </div>
 
 
