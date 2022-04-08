@@ -1,15 +1,54 @@
 <!--  TODO: Show profile for user -->
-<p>Profile page</p>
+<link rel="stylesheet" href="{{ url_for('static', filename='profilePage.css') }}">
 
 {% if username %}
-<img src = "{{pfp}}" width = "100" height = "100" style = "border-radius:50%">
+<div class = "bookmark">
+<img src = "{{pfp}}" class = "pfpAvatar">
+<div class = "forms">
 <form action="/change_avatar" id="image-form" method="post" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
-    <label for="form-file">Image: </label>
-    <input id="pfp-file" type="file" name="upload">
-    <button type = "submit">Change Profile Picture</button>
+    <label for="form-file" class="imageLabel">Image: </label>
+    <input id="pfp-file" type="file" name="upload" class="uploadButton">
+    <button type = "submit" class="changeButton">Change Profile Picture</button>
+    {% if error %}
+    <div class = "error">{{error}}</div>
+    {% endif %}
 </form>
+<form action = "/default_avatar" method = "post" onsubmit="return submitAjaxForm(this,loadDiv);" enctype="multipart/form-data">
+<button type = "submit" class="changeButton">Use A Random Default Picture</button>
+</form>
+</div>
+<div class = "achievements">Achievements</br>
+    <!--All of these are for testing yes it's messy but it's quick-->
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+    <img src = "./static/avatar1.jpg" class = "achievement">
+</div>
+</div>
 {% else %}
-    <p>Sign in or register to join the fun!</p>
+    <p>Sign in or register to view your profile!</p>
 {% endif %}
 
 

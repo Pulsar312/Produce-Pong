@@ -5,6 +5,7 @@ from authentication import handle_login, get_login_page, get_username, handle_lo
 import avatar
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000 #limits uploaded profile image size to 16MB
 database.initialize()
 
 
@@ -41,6 +42,12 @@ def request_profile():
         to_send = {"pfp": profile["pfp"],"username": user}
     return render_template("div_templates/profile.html", **to_send)
 
+@app.errorhandler(413)
+def pfp_too_big(e):
+    user = get_username(request)
+    profile = database.user_profiles.find_one({'username': user})
+    to_send = {"pfp": profile["pfp"],"username": user, "error": "WOAH! This file exceeds the size of our universe. Please choose something smaller."}
+    return render_template("div_templates/profile.html", **to_send)
 
 @app.route("/homepage", methods=['GET'])
 def request_homepage():
@@ -76,6 +83,10 @@ def request_logout():
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
     return avatar.change_avatar(request, database.user_profiles, get_username(request))
+
+@app.route("/default_avatar", methods=['POST'])
+def default_avatar():
+    return avatar.default_avatar(database.user_profiles, get_username(request))
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 9091)
