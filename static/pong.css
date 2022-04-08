@@ -1,0 +1,16 @@
+#game-border {
+    border: 1px solid black;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.paddle {
+    background-color: darkblue;
+    position: absolute;
+}
+
+.ball {
+    background-color: black;
+    position: absolute;
+}
