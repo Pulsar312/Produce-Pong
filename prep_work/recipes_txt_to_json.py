@@ -42,8 +42,8 @@ def read_txt_file(filename):
 
 
 if __name__ == '__main__':
-    filename  = 'recipes.txt'
+    filename  = 'prep_work/recipes.txt'
     all_recipes = read_txt_file(filename)
-    with open('recipes.json', 'w') as writeFile:
+    with open('prep_work/recipes.json', 'w') as writeFile:
         writeFile.write(json.dumps(all_recipes))
     json.dumps(all_recipes)

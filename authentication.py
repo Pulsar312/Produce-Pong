@@ -158,9 +158,11 @@ def handle_logout(request):
 
     # Delete the session
     cookie = get_session_cookie(request)
-    delete_session(cookie)
-
-    # Erase the client's cookie
-    resp.delete_cookie(av.SESSION_COOKIE_NAME)
+    if cookie:
+        delete_session(cookie)
+        # Erase the client's cookie
+        resp.delete_cookie(av.SESSION_COOKIE_NAME)
+    else:
+        return "You're not logged in, so you can't log out.", 400
 
     return resp
