@@ -16,13 +16,13 @@
     <form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv, true);"
           enctype="multipart/form-data">
 
-        <label class="user" for="sign-in-username">Username</label>
+        <label class="user" for="username">Username</label>
         <br/>
-        <input type="text" name="username">
+        <input type="text" id="username">
         <p></p>
-        <label class="pass" for="sign-in-password">Password</label>
+        <label class="pass" for="password">Password</label>
         <br/>
-        <input type="text" name="password">
+        <input type="password" id="password">
 
         <button type="submit">Join the Fun!</button>
 

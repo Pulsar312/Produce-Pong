@@ -52,7 +52,7 @@ body {
     margin-right: 260px;
 }
 
-input[type="text"], button {
+input[type="text"], input[type="password"], button {
     border-radius: 10px;
     height: 36px;
     width: 331px;
