@@ -10,7 +10,7 @@ from pong.pong_views import handle_game_page_request
 from pong.pongapi import create_new_game, find_current_game
 
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000 #limits uploaded profile image size to 16MB
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000  # limits uploaded profile image size to 16MB
 sock = Sock(app)
 database.initialize()
 
@@ -48,15 +48,15 @@ def request_profile():
         to_send = {"pfp": profile["pfp"], "username": user}
     return render_template("div_templates/profile.html", **to_send)
 
- 
+
 @app.errorhandler(413)
 def pfp_too_big(e):
     user = get_username(request)
     profile = database.user_profiles.find_one({'username': user})
-    to_send = {"pfp": profile["pfp"],"username": user, "error": "WOAH! This file exceeds the size of our universe. Please choose something smaller."}
+    to_send = {"pfp": profile["pfp"], "username": user, "error": "WOAH! This file exceeds the size of our universe. Please choose something smaller."}
     return render_template("div_templates/profile.html", **to_send)
 
- 
+
 @app.route("/homepage", methods=['GET'])
 def request_homepage():
     username = get_username(request)
@@ -92,7 +92,7 @@ def request_logout():
 def change_avatar():
     return avatar.change_avatar(request, database.user_profiles, get_username(request))
 
- 
+
 @app.route("/game/<game_id>", methods=['GET'])
 def request_game(game_id: str):
     return handle_game_page_request(request, game_id)
@@ -118,13 +118,15 @@ def request_game_websocket(socket, game_id: str):
 @app.route("/create_game_testing", methods=['GET'])
 def create_game_testing():
     my_cool_config = PongConfig()
-    my_cool_config.framerate = 60
+    my_cool_config.framerate = 120
     game = create_new_game(config=my_cool_config)
     return f"Game created: {game.uid}", 201
+
 
 @app.route("/default_avatar", methods=['POST'])
 def default_avatar():
     return avatar.default_avatar(database.user_profiles, get_username(request))
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 9091)

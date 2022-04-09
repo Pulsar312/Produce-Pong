@@ -40,6 +40,7 @@ class PongGame:
     # delta_time is how much time passed since the last frame
     def update_frame(self, delta_time: float):
 
+
         # Handle paddle movement
         self.left.paddle.update_position(delta_time)
         self.right.paddle.update_position(delta_time)
