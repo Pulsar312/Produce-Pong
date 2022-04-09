@@ -1,18 +1,31 @@
 {# This should only be presented when the user isn't logged in #}
 {# Replaces play.html #}
 
-<p>Already have an account? Sign in here!</p>
-<p>New here? Register with the same form!</p>
+<link rel="stylesheet" href="{{ url_for('static', filename='stylePlay.css') }}">
 
-{% if error %}
-    <p>{{ error }}</p>
-{% endif %}
+<div class="login-box">
 
-<form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
-    <label for="sign-in-username">Username: </label>
-    <input type="text" id="sign-in-username" name="username">
-    <br/>
-    <label for="sign-in-password">Password: </label>
-    <input type="password" id="sign-in-password" name="password">
-    <button type="submit">Join the Fun!</button>
-</form>
+    <span class="login-title">Already have an account? Sign in here!</span>
+    <span class="login-text">New here? Register with the same form!</span>
+
+    {% if error %}
+        <p>{{ error }}</p>
+        {# TODO better error style #}
+    {% endif %}
+
+    <form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv, true);"
+          enctype="multipart/form-data">
+
+        <label class="user" for="username">Username</label>
+        <br/>
+        <input type="text" id="username" name="username">
+        <p></p>
+        <label class="pass" for="password">Password</label>
+        <br/>
+        <input type="password" id="password" name="password">
+
+        <button type="submit">Join the Fun!</button>
+
+    </form>
+
+</div>
