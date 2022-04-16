@@ -5,10 +5,8 @@
     <a onclick="makeAjaxRequest(`GET`, `/profile`, loadDiv, {}, 'div');" id="profile">Profile</a>
 
     {% if logged_in %}
-        <a onclick="makeAjaxRequest(`POST`, `/auth/logout`, loadDiv, {}, 'div');" id="logout">Logout</a>
+        <a onclick="makeAjaxRequest(`POST`, `/auth/logout`, loadDiv, {}, 'div', false, true);" id="logout">Logout</a>
     {% else %}
         <a onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {}, 'div');" id="play">Play</a>
     {% endif %}
-
-
 </div>
