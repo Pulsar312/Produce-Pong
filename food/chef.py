@@ -1,6 +1,7 @@
 from typing import List
 
 from food import Ingredient, Recipe
+import database
 
 
 class Chef:
@@ -14,9 +15,9 @@ class Chef:
 
     # Adds an achievement to the achievements database if not there yet
     # returns True if an achievement was added, and False if an achievement was not added
-    def add_achievement(self, username: str, recipe: Recipe, achievements):
-        if achievements.count_documents({"username": username,"recipe":recipe.name}) == 0:
-            achievements.insert_one({"username": username, "recipe": recipe.name})
+    def add_achievement(self, username: str, recipe: Recipe):
+        if database.achievements.count_documents({"username": username,"recipe":recipe.name}) == 0:
+            database.achievements.insert_one({"username": username, "recipe": recipe.name})
             return True
         else:
             return False
