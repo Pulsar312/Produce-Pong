@@ -12,6 +12,7 @@ class Recipe:
         self.main_ingredients: List[Ingredient] = []  # list of the main ingredients in the recipe
         self.alternative_ingredients: Dict[Ingredient, Ingredient] = {}  # dictionary of the alternatives (substituted -> substitution), substituted should be in the main ingredients
         self.extra_ingredients: List[Ingredient] = []  # list of all the extra ingredients
+
     def get_recipe_image(self):
         image_name = self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
         return image_name
