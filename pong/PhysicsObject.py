@@ -35,8 +35,8 @@ class PhysicsObject:
     # Return a rectangular physics object representing the overlap region if it exists, otherwise, None
     def intersection(self, other: "PhysicsObject") -> Optional["PhysicsObject"]:
         if self.collision(other):
-            x_val = self.x if self.x > other.x else other.x
-            y_val = self.y if self.y > other.y else other.y
+            x_val = max(self.x, other.x)
+            y_val = max(self.y, other.y)
 
             width = abs(other.x + other.width - x_val) if self.x + self.width > other.x + other.width else abs(self.x + self.width - x_val)
             height = abs(other.y + other.height - y_val) if self.y + self.height > other.y + other.height else abs(self.y + self.height - y_val)
