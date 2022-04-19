@@ -26,6 +26,11 @@ class PhysicsObject:
     def center(self) -> Tuple[float, float]:
         return self.x + self.width / 2, self.y + self.height / 2
 
+    # Calculates whether there is a collision between two PhysicsObjects.
+    # Returns True if there is a collision, and False if there is no collision.
+    def collision(self, other: "PhysicsObject") -> bool:
+        return not ((self.x + self.width <= other.x) or (self.y + self.height <= other.y) or (other.x + other.width <= self.x) or (other.y + other.height <= self.y))
+
     # Calculate the overlap of this physics object and another
     # Return a rectangular physics object representing the overlap region if it exists, otherwise, None
     def intersection(self, other: "PhysicsObject") -> Optional["PhysicsObject"]:
@@ -35,7 +40,7 @@ class PhysicsObject:
     # Returns true if the ball hits the paddle so it needs to change direction
     def temporary_collides(self, paddle: "PhysicsObject") -> bool:
         # Vertical position
-        return paddle.top_left()[1] < self.bottom_right()[1] and paddle.bottom_left()[1] > paddle.top_right()[1]
+        return self.collision(paddle)
         # Yes, this is icky and won't really be used, but I need something quick for testing
 
     # Update the location of this PhysicsObject based on its velocity and how much time has passed
