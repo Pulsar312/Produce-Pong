@@ -48,13 +48,15 @@ body {
     margin-bottom: 15px;
 }
 
+.user, .pass {
+    margin-right: 260px;
+}
+
 input[type="text"], input[type="password"], button {
     border-radius: 10px;
     height: 36px;
     width: 331px;
     border-style: none;
-    padding-left: 8px;
-    padding-right: 8px;
 }
 
 button {

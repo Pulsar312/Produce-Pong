@@ -1,9 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Home - {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block body_tag_attributes %}onload="pageLoaded();"{% endblock %}
+
 {% block content %}
-<div class="header" id="header"></div>
-
-<div class="div" id="div"></div>
-
+    <script src="static/functions.js"></script>
+    <div class="header" id="header"></div>
+    <div class="div" id="div"></div>
 {% endblock %}
 
