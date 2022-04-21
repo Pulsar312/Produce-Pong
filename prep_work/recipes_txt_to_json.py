@@ -4,20 +4,21 @@ import json
 
 rows_per_recipe = 4
 
+
 def read_txt_file(filename):
-    content =  open(filename, 'r').read().split('\n')
+    content = open(filename, 'r').read().split('\n')
     all_recipes = []
     i = 0
-    while(i < len(content)):
+    while i < len(content):
 
         recipe = {}
         for j in range(0, rows_per_recipe):
-            (key, value) = content[i+j].lower().split(":")
+            (key, value) = content[i + j].lower().split(":")
 
             key = key.strip().replace(" ", "_")
             value = value.strip().split(",")
 
-            if(key == "recipe_name"):
+            if key == "recipe_name":
                 value_split = value[0].split(" ")
                 value = ""
                 for name in range(0, len(value_split)):
@@ -28,7 +29,7 @@ def read_txt_file(filename):
                     value[ingredient] = value[ingredient].strip()
                     if value[ingredient] == "":
                         value.remove("")
-                if(key == "alternative_ingredients"):
+                if key == "alternative_ingredients":
                     for ingredient in range(0, len(value)):
                         substitution = value[ingredient][:value[ingredient].find("(")]
                         substituted = value[ingredient][value[ingredient].find("(") + 1: value[ingredient].find(")")]
@@ -37,13 +38,13 @@ def read_txt_file(filename):
             recipe[key] = value
 
         all_recipes.append(recipe)
-        i += rows_per_recipe + 1 # plus 1 because empty line
+        i += rows_per_recipe + 1  # plus 1 because empty line
     return all_recipes
 
 
 if __name__ == '__main__':
-    filename  = 'prep_work/recipes.txt'
+    filename = 'recipes.txt'
     all_recipes = read_txt_file(filename)
-    with open('prep_work/recipes.json', 'w') as writeFile:
+    with open('recipes.json', 'w') as writeFile:
         writeFile.write(json.dumps(all_recipes))
     json.dumps(all_recipes)
