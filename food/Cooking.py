@@ -14,15 +14,19 @@ class Cooking:
         self.total_ingredient_occurrence: int = 0  # the total number of times the ingredients occur (151 if using the current recipes); this is used to calculate scores (and saves on runtime so that we dont need to recalculate every time)
         self.setup_cooking(filename)  # set up all the above variables
 
-    def setup_cooking(self, filename):
+    def setup_cooking(self, filename: str):
         content = json.loads(open(filename, 'r').read())  # read the file into json
 
         for recipe in content:
             new_recipe: Recipe = self.create_recipe(recipe)  # create a recipe for every element in json file
             self.recipes[new_recipe.name] = new_recipe  # add the recipe to map
 
+    def get_image_from_name(self, name: str):
+        image_name = name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
+        return image_name
+
     # create recipes
-    def create_recipe(self, json_recipe):
+    def create_recipe(self, json_recipe: json):
         recipe = Recipe(json_recipe["recipe_name"])  # create a Recipe
         self.add_all_main_ingredients(recipe, json_recipe["main_ingredients"])  # add the main ingredients
         self.add_all_extra_ingredients(recipe, json_recipe["extra_ingredients"])  # add the extra ingredients
@@ -30,21 +34,21 @@ class Cooking:
 
         return recipe
 
-    def add_all_main_ingredients(self, recipe, json_main_ingredients):
+    def add_all_main_ingredients(self, recipe: Recipe, json_main_ingredients: json):
         for i in json_main_ingredients:  # add all the main ingredients
             self.total_ingredient_occurrence += 1  # we see ingredient, we add to counter
             ingredient = self.get_ingredient(i)  # create or get the ingredient
             recipe.add_main_ingredient(ingredient)  # add the ingredient to recipe's main ingredients
             ingredient.add_main_recipes(recipe)  # add the recipe to the ingredient's main recipes list
 
-    def add_all_extra_ingredients(self, recipe, json_extra_ingredients):
+    def add_all_extra_ingredients(self, recipe: Recipe, json_extra_ingredients: json):
         for i in json_extra_ingredients:  # add all the extra ingredients
             self.total_ingredient_occurrence += 1  # we see ingredient, we add to counter
             ingredient = self.get_ingredient(i)  # create or get the ingredient
             recipe.add_extra_ingredient(ingredient)  # add the ingredient to recipe's extra ingredients
             ingredient.add_extra_recipes(recipe)  # add the recipe to the ingredient's extra recipes list
 
-    def add_all_alternative_ingredients(self, recipe, json_alternative_ingredients):
+    def add_all_alternative_ingredients(self, recipe: Recipe, json_alternative_ingredients: json):
         for (key_substituted, value_substitution) in json_alternative_ingredients:  # add all the alternative ingredients
             self.total_ingredient_occurrence += 1  # we see ingredient, we add to counter
             substituted = self.get_ingredient(key_substituted)  # create or get the ingredient that will be substituted
@@ -53,7 +57,7 @@ class Cooking:
             substitution.add_main_recipes(recipe)  # Add the recipe to the substitution's main recipes (since substitutions can only happen for main ingredients). Note: substituted should already be in ingredients list from earlier for loop, if not, then the json file is not formatted properly
 
     # Create or get an ingredient
-    def get_ingredient(self, name):
+    def get_ingredient(self, name: str):
         if name in self.ingredients:  # if ingredient exists, then just retrieve it
             return self.ingredients[name]
         else:

@@ -19,6 +19,10 @@ class Ingredient:
         if recipe not in self.extra_recipes:  # if we haven't added the recipe yet, then add it
             self.extra_recipes.append(recipe)
 
+    def get_ingredient_image(self):
+        image_name = self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
+        return image_name
+
     # method returns a string of all ingredients with their recipes
     def to_string(self):
         ret_str = "Name: " + self.name
