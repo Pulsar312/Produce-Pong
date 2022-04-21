@@ -30,6 +30,37 @@ class PongGame:
         # TODO give ingredient to winner and set up next round
         self.center_ball()
 
+    # Change the velocity of the ball appropriately depending on how it hit the paddle
+    def handle_paddle_ball_collision(self, paddle: PhysicsObject, collision: PhysicsObject):
+        if not collision:
+            return
+        ball: PhysicsObject = self.ball.physics_object
+        print("Paddle ball collision")
+
+        # Determine if this is a collision from the side or the top/bottom.
+        # This can't be quite perfect because we don't have inter-frame information.
+        side_collision = collision.height > collision.width
+        if side_collision:
+            print("Side collision")
+            # Push the ball back in bounds
+            if paddle == self.left.paddle:
+                ball.x = paddle.top_right()[0]
+            elif paddle == self.right.paddle:
+                ball.x = paddle.top_left()[0] - ball.width
+
+            ball.x_velocity *= -1
+            # TODO more logic with collision location relative to paddle and paddle's velocity
+            if paddle.y_velocity > 0:
+                ball.y_velocity += ball.y_velocity / 5
+            elif paddle.y_velocity < 0:
+                ball.y_velocity -= ball.y_velocity / 5
+
+        else:
+            print("Vertical collision")
+            # If it hits the top/bottom of the paddle, just bounce it vertically, it's about to score
+            ball.y_velocity *= -1
+            # TODO prevent overlapping with paddle
+
     # Push an element (e.g. a paddle) into the game region if it's not (vertically only)
     def ensure_in_bounds(self, physics_object: PhysicsObject):
         if physics_object.y < 0:
@@ -40,23 +71,42 @@ class PongGame:
     # delta_time is how much time passed since the last frame
     def update_frame(self, delta_time: float):
 
-
         # Handle paddle movement
         self.left.paddle.update_position(delta_time)
         self.right.paddle.update_position(delta_time)
         self.ensure_in_bounds(self.right.paddle)
         self.ensure_in_bounds(self.left.paddle)
 
-        # Handle ball movement - TEMPORARY TODO: clean this up
+        # Handle ball movement
         self.ball.physics_object.update_position(delta_time)
-        if self.ball.physics_object.temporary_collides(self.left.paddle) and self.ball.physics_object.x <= self.left.paddle.top_right()[0]:
-            # Hit left paddle
-            self.ball.physics_object.x = self.left.paddle.x + self.left.paddle.width
-            self.ball.physics_object.x_velocity *= -1
-        elif self.ball.physics_object.temporary_collides(self.right.paddle) and self.ball.physics_object.x + self.ball.physics_object.width >= self.right.paddle.top_left()[0]:
-            # Hit right paddle
-            self.ball.physics_object.x = self.right.paddle.x - self.ball.physics_object.width
-            self.ball.physics_object.x_velocity *= -1
+        # Check for bouncing on top/bottom walls:
+        if self.ball.physics_object.top_left()[1] < 0:
+            self.ball.physics_object.y = 0
+            self.ball.physics_object.y_velocity *= -1
+        elif self.ball.physics_object.bottom_left()[1] > self.config.game_height:
+            self.ball.physics_object.y = self.config.game_height - self.config.ball_height
+            self.ball.physics_object.y_velocity *= -1
+
+        # Check for hitting paddles
+        left_paddle_collision = self.ball.physics_object.intersection(self.left.paddle)
+        if left_paddle_collision:
+            print("Left paddle collision")
+            self.handle_paddle_ball_collision(self.left.paddle, left_paddle_collision)
+        else:
+            right_paddle_collision = self.ball.physics_object.intersection(self.right.paddle)
+            if right_paddle_collision:
+                print("Right paddle collision")
+                print(f"{right_paddle_collision}")
+                self.handle_paddle_ball_collision(self.right.paddle, right_paddle_collision)
+
+        # if self.ball.physics_object.temporary_collides(self.left.paddle) and self.ball.physics_object.x <= self.left.paddle.top_right()[0]:
+        #     # Hit left paddle
+        #     self.ball.physics_object.x = self.left.paddle.x + self.left.paddle.width
+        #     self.ball.physics_object.x_velocity *= -1
+        # elif self.ball.physics_object.temporary_collides(self.right.paddle) and self.ball.physics_object.x + self.ball.physics_object.width >= self.right.paddle.top_left()[0]:
+        #     # Hit right paddle
+        #     self.ball.physics_object.x = self.right.paddle.x - self.ball.physics_object.width
+        #     self.ball.physics_object.x_velocity *= -1
 
         # Handle scoring
         # Goal on left (by right)

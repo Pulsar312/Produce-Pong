@@ -108,6 +108,8 @@ def request_game_websocket(socket, game_id: str):
         return
     print("Websocket connection username: " + username)
     while True:
+        # TODO exit this loop once the websocket connection closes
+        # Maybe while socket.connected:
         raw_data = socket.receive(timeout=0)
         if raw_data:
             game.on_websocket_message(username, raw_data)
@@ -118,7 +120,7 @@ def request_game_websocket(socket, game_id: str):
 @app.route("/create_game_testing", methods=['GET'])
 def create_game_testing():
     my_cool_config = PongConfig()
-    my_cool_config.framerate = 120
+    my_cool_config.framerate = 300
     game = create_new_game(config=my_cool_config)
     return f"Game created: {game.uid}", 201
 
