@@ -19,32 +19,9 @@
 </div>
 <div class = "achievements">Achievements</br>
     <!--All of these are for testing yes it's messy but it's quick-->
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
-    <img src = "./static/avatar1.jpg" class = "achievement">
+    {%for i in achievements%}
+    <img src = {{i}} class = "achievement">
+    {%endfor%}
 </div>
 </div>
 {% else %}
