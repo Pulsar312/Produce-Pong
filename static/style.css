@@ -23,6 +23,8 @@
 body {
     background-color: var(--background);
     color: var(--primary);
+    display: flex;
+    flex-direction: column;
 }
 
 p {
@@ -43,6 +45,11 @@ p {
     padding-left: 30px;
 }
 
+/* Needed to fix the footer*/
+.fixcontent{        
+    flex: 1 0 auto;
+    min-height: calc(101vh - 45px);
+}
 
 /*-----------------HEADER-----------------*/
 .header {
@@ -133,6 +140,13 @@ p {
 .footer {
     background-color: var(--primary);
     color: var(--background);
+    bottom:0;
+    left:0;
+    right:0;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .footer p {
