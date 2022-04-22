@@ -1,0 +1,2 @@
+Flask https://docs.google.com/document/d/1mXcGjTmP-XTQ1ON8GGpQBCh4oJZkeG_KOrJxw1zLHWw/edit?usp=sharing
+Flask-Sock https://docs.google.com/document/d/1DnSStdg6hNCv8keia4oKLRbJf6nTRTog4S5zgkD2Y9s/edit?usp=sharing
