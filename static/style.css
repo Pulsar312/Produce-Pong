@@ -351,7 +351,6 @@ div.loading > .dot.sharon {
     border: 3px solid var(--sharon-color);
 }
 .contact-name {
-    font-size: 15px;
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -378,7 +377,7 @@ div.loading > .dot.sharon {
     color: black;
     text-decoration: none;
 }
-.contact-page a, .meet-our-team-desc {
+.contact-page a {
     font-size: 13px;
 }
 .contact-page a:hover {
