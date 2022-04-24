@@ -135,6 +135,24 @@ p {
     color: white;
 }
 
+@media screen and (max-width: 520px) {
+    .nav-left {
+        margin-left: 4vw;
+    }
+    .webname {
+        margin: 0;
+    }
+    .pulsar {
+        display: none;
+    }
+    .nav-right {
+        margin-right: 4vw;
+    }
+    .tabs {
+        margin-left: 3vw;
+    }
+}
+
 
 /*-----------------FOOTER-----------------*/
 .footer {
