@@ -66,3 +66,6 @@ class PhysicsObject:
             "x_velocity": self.x_velocity,
             "y_velocity": self.y_velocity,
         }
+
+    def __repr__(self):
+        return str(self.to_dict())
