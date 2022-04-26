@@ -20,7 +20,7 @@ class Ingredient:
             self.extra_recipes.append(recipe)
 
     def get_ingredient_image(self):
-        image_name = self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
+        image_name = "../static/ingredients/" + self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
         return image_name
 
     def to_dict(self):

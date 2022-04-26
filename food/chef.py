@@ -17,10 +17,14 @@ class Chef:
     # returns True if an achievement was added, and False if an achievement was not added
     def add_achievement(self, username: str, recipe: Recipe):
         if database.achievements.count_documents({"username": username,"recipe":recipe.name}) == 0:
-            database.achievements.insert_one({"username": username, "recipe": recipe.name})
+            database.achievements.insert_one({"username": username, "recipe": recipe.name, "recipe_image": recipe.get_recipe_image()})
             return True
         else:
             return False
+
+    # def get_player_achievements(username: str) -> List[Recipe]:
+    #     user_achievement = database.achievements.find_one({"username": username})
+    #     # TODO: more
 
 
     def to_dict(self):

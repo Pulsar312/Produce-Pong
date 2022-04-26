@@ -22,7 +22,14 @@ class Cooking:
             self.recipes[new_recipe.name] = new_recipe  # add the recipe to map
 
     def get_image_from_name(self, name: str):
-        image_name = name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
+        image_name = ""
+        if name in self.recipes:
+            image_name = "../static/recipes/" + name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
+        elif name in self.ingredients:
+            image_name = "../static/ingredients/" + name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
+        else:
+            print("Not found: ", name)
+
         return image_name
 
     # create recipes
