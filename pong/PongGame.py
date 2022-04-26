@@ -5,6 +5,7 @@ from json import JSONDecodeError
 from typing import Dict, Any, Optional
 from uuid import uuid4
 
+from food.Recipe import Recipe
 from pong.PongBall import PongBall
 from pong.PhysicsObject import PhysicsObject
 from pong.PongConfig import PongConfig
@@ -15,6 +16,11 @@ class PongGame:
     # Map game IDs to their PongGame instance. Only currently running games should be here.
     # Previous games will be in the database, but not in memory.
     all_games: Dict[str, "PongGame"] = {}
+
+
+    # End the game, create a historic game record in the database,
+    def game_over(self, winner: PongPlayer, dish: Recipe):
+        pass
 
     # Move the ball to the center of the game region
     def center_ball(self):
@@ -35,13 +41,11 @@ class PongGame:
         if not collision:
             return
         ball: PhysicsObject = self.ball.physics_object
-        print("Paddle ball collision")
 
         # Determine if this is a collision from the side or the top/bottom.
         # This can't be quite perfect because we don't have inter-frame information.
         side_collision = collision.height > collision.width
         if side_collision:
-            print("Side collision")
             # Push the ball back in bounds
             if paddle == self.left.paddle:
                 ball.x = paddle.top_right()[0]
@@ -56,7 +60,6 @@ class PongGame:
                 ball.y_velocity -= ball.y_velocity / 5
 
         else:
-            print("Vertical collision")
             # If it hits the top/bottom of the paddle, just bounce it vertically, it's about to score
             ball.y_velocity *= -1
             # TODO prevent overlapping with paddle
@@ -90,13 +93,10 @@ class PongGame:
         # Check for hitting paddles
         left_paddle_collision = self.ball.physics_object.intersection(self.left.paddle)
         if left_paddle_collision:
-            print("Left paddle collision")
             self.handle_paddle_ball_collision(self.left.paddle, left_paddle_collision)
         else:
             right_paddle_collision = self.ball.physics_object.intersection(self.right.paddle)
             if right_paddle_collision:
-                print("Right paddle collision")
-                print(f"{right_paddle_collision}")
                 self.handle_paddle_ball_collision(self.right.paddle, right_paddle_collision)
 
         # if self.ball.physics_object.temporary_collides(self.left.paddle) and self.ball.physics_object.x <= self.left.paddle.top_right()[0]:
