@@ -31,6 +31,7 @@ class PongGame:
         else:
             self.ball.physics_object.x_velocity = (-1) * self.config.ball_speed
         self.ball.physics_object.y_velocity = 0
+        self.max_y_speed = self.config.max_y_speed
 
     # Handle a round victory
     def round_won(self, winner: PongPlayer):
@@ -45,20 +46,26 @@ class PongGame:
 
     def collision_update(self, paddle: PhysicsObject):
         # get the bounce back y velocity
-        m = max((-1 * self.config.max_y_speed), paddle.y_velocity + self.ball.physics_object.y_velocity) if paddle.y_velocity + self.ball.physics_object.y_velocity < 0 else min(self.config.max_y_speed, paddle.y_velocity + self.ball.physics_object.y_velocity)
+        y = max((-1 * self.config.max_y_speed), paddle.y_velocity + self.ball.physics_object.y_velocity) if paddle.y_velocity + self.ball.physics_object.y_velocity < 0 else min(self.config.max_y_speed, paddle.y_velocity + self.ball.physics_object.y_velocity)
 
         # add on some randomness
-        if m == 0.0:
-            m += random.randint((-1 * self.config.speed_variation), self.config.speed_variation)
+        if y == 0.0:
+            y += random.randint((-1 * self.config.speed_variation), self.config.speed_variation)
         else:
             if self.ball.physics_object.y + (self.ball.physics_object.height / 2) > paddle.y + (paddle.height / 2):
-                m += random.randint(0, self.config.speed_variation)
+                y += random.randint(0, self.config.speed_variation)
             else:
-                m += random.randint((-1) * self.config.speed_variation, 0)
+                y += random.randint((-1) * self.config.speed_variation, 0)
+
+        x = self.ball.physics_object.x_velocity * (-1)
+
+        if self.config.increase_ball_speed_each_hit:
+            x *= self.config.increase_ball_speed_multiplier
+            self.max_y_speed *= self.config.increase_ball_speed_multiplier
 
         # set up y and x velocities
-        self.ball.physics_object.y_velocity = m
-        self.ball.physics_object.x_velocity = self.ball.physics_object.x_velocity * (-1)
+        self.ball.physics_object.y_velocity = y
+        self.ball.physics_object.x_velocity = x
 
     # Change the velocity of the ball appropriately depending on how it hit the paddle
     def handle_paddle_ball_collision(self, paddle: PhysicsObject, collision: PhysicsObject):
@@ -171,6 +178,8 @@ class PongGame:
         center_y = self.config.game_height // 2
 
         self.ball = PongBall(self.config.ball_height, "", (center_x, center_y), self.config.ball_speed)
+
+        self.max_y_speed = self.config.max_y_speed
 
         # Add this game to current games
         PongGame.all_games[self.uid] = self
