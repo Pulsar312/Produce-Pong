@@ -11,3 +11,5 @@ class PongConfig:
         self.game_height: int = 500
         self.game_width: int = 800
         self.increase_ball_speed_each_hit = False
+        self.max_y_speed = 300.0
+        self.speed_variation = 30
