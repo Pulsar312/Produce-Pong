@@ -23,6 +23,9 @@ class Ingredient:
         image_name = self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
         return image_name
 
+    def to_dict(self):
+        return {"name": self.name, "image": self.get_ingredient_image()}
+
     # method returns a string of all ingredients with their recipes
     def to_string(self):
         ret_str = "Name: " + self.name

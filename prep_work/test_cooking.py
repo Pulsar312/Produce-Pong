@@ -181,6 +181,13 @@ def test_get_top_recipe_no_ingredients(cooking):
 
     print("Top recipe: ", top_recipe, ",    score: ", top_score)
 
+def test_chef_to_dict(cooking):
+    chef1 = Chef()
+    recipe = cooking.recipes["Pizza"]
+    for i in recipe.main_ingredients:
+        chef1.add_ingredient(i)
+
+    print(chef1.to_dict())
 
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
@@ -192,3 +199,4 @@ if __name__ == '__main__':
     # test_alternative_and_extra(cooking)
     # test_get_top_recipe(cooking)
     # test_get_top_recipe_no_ingredients(cooking)
+    test_chef_to_dict(cooking)

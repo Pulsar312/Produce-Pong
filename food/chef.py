@@ -21,3 +21,10 @@ class Chef:
             return True
         else:
             return False
+
+
+    def to_dict(self):
+        ing_list = []
+        for i in self.ingredients:
+            ing_list.append(i.to_dict())
+        return {"ingredients":ing_list}
