@@ -14,7 +14,7 @@ class Recipe:
         self.extra_ingredients: List[Ingredient] = []  # list of all the extra ingredients
 
     def get_recipe_image(self):
-        image_name = self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
+        image_name = "../static/recipes/" + self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
         return image_name
 
     # Method to add a main ingredient to the recipe

@@ -1,7 +1,9 @@
 # Note: This is a example usage file for food
 import json
+from pathlib import Path
 
 from food.Cooking import Cooking
+from food.Recipe import Recipe
 from food.chef import Chef
 
 
@@ -181,6 +183,31 @@ def test_get_top_recipe_no_ingredients(cooking):
 
     print("Top recipe: ", top_recipe, ",    score: ", top_score)
 
+def test_chef_to_dict(cooking):
+    chef1 = Chef()
+    recipe = cooking.recipes["Pizza"]
+    for i in recipe.main_ingredients:
+        chef1.add_ingredient(i)
+
+    print(chef1.to_dict())
+
+def test_ingredient_images(cooking):
+    for i in cooking.ingredients:
+        path_to_file = cooking.get_image_from_name(i)
+        print(path_to_file)
+        path = Path(path_to_file)
+        try:
+            assert(path.is_file())
+        except:
+            print("NOT FOUND: ", i)
+
+def test_mongo(cooking):
+    chef = Chef()
+    recipe = Recipe("soMe food's")
+    chef.add_achievement("sia", recipe)
+    result = chef.get_player_achievements("sia")
+    print(result)
+
 
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
@@ -192,3 +219,6 @@ if __name__ == '__main__':
     # test_alternative_and_extra(cooking)
     # test_get_top_recipe(cooking)
     # test_get_top_recipe_no_ingredients(cooking)
+    # test_chef_to_dict(cooking)
+    # test_ingredient_images(cooking)
+    test_mongo(cooking)

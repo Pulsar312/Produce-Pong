@@ -1,4 +1,6 @@
 import json
+import math
+import random
 import threading
 import time
 from json import JSONDecodeError
@@ -29,12 +31,52 @@ class PongGame:
         self.ball.physics_object.x = center_x
         self.ball.physics_object.y = center_y
 
+    def reset_ball(self, winner: PongPlayer):
+        if winner == self.right:
+            self.ball.physics_object.x_velocity = self.config.ball_speed
+        else:
+            self.ball.physics_object.x_velocity = (-1) * self.config.ball_speed
+        self.ball.physics_object.y_velocity = 0
+        self.max_y_speed = self.config.max_y_speed
+
     # Handle a round victory
     def round_won(self, winner: PongPlayer):
         winner.score += 1
         print(f"{winner.username} won that round. Score: {self.left.score} to {self.right.score}")
         # TODO give ingredient to winner and set up next round
         self.center_ball()
+        self.reset_ball(winner)
+
+    def determine_side_collision(self, paddle, collision):
+        return collision.height > collision.width
+
+    def collision_update(self, paddle: PhysicsObject):
+        # get the bounce back y velocity
+        y = 0
+        added_velocities = paddle.y_velocity + self.ball.physics_object.y_velocity
+        if added_velocities < 0:
+            y = max((-1 * self.max_y_speed), added_velocities)
+        else:
+            y = min(self.max_y_speed, added_velocities)
+
+        # add on some randomness
+        if y == 0.0:
+            y += random.randint((-1 * self.config.speed_variation), self.config.speed_variation)
+        else:
+            if self.ball.physics_object.y + (self.ball.physics_object.height / 2) > paddle.y + (paddle.height / 2):
+                y += random.randint(0, self.config.speed_variation)
+            else:
+                y += random.randint((-1) * self.config.speed_variation, 0)
+
+        x = self.ball.physics_object.x_velocity * (-1)
+
+        if self.config.increase_ball_speed_each_hit:
+            x *= self.config.increase_ball_speed_multiplier
+            self.max_y_speed *= self.config.increase_ball_speed_multiplier
+
+        # set up y and x velocities
+        self.ball.physics_object.y_velocity = y
+        self.ball.physics_object.x_velocity = x
 
     # Change the velocity of the ball appropriately depending on how it hit the paddle
     def handle_paddle_ball_collision(self, paddle: PhysicsObject, collision: PhysicsObject):
@@ -44,20 +86,14 @@ class PongGame:
 
         # Determine if this is a collision from the side or the top/bottom.
         # This can't be quite perfect because we don't have inter-frame information.
-        side_collision = collision.height > collision.width
-        if side_collision:
+        if self.determine_side_collision(paddle, collision):
             # Push the ball back in bounds
             if paddle == self.left.paddle:
                 ball.x = paddle.top_right()[0]
             elif paddle == self.right.paddle:
                 ball.x = paddle.top_left()[0] - ball.width
 
-            ball.x_velocity *= -1
-            # TODO more logic with collision location relative to paddle and paddle's velocity
-            if paddle.y_velocity > 0:
-                ball.y_velocity += ball.y_velocity / 5
-            elif paddle.y_velocity < 0:
-                ball.y_velocity -= ball.y_velocity / 5
+            self.collision_update(paddle)
 
         else:
             # If it hits the top/bottom of the paddle, just bounce it vertically, it's about to score
@@ -99,15 +135,6 @@ class PongGame:
             if right_paddle_collision:
                 self.handle_paddle_ball_collision(self.right.paddle, right_paddle_collision)
 
-        # if self.ball.physics_object.temporary_collides(self.left.paddle) and self.ball.physics_object.x <= self.left.paddle.top_right()[0]:
-        #     # Hit left paddle
-        #     self.ball.physics_object.x = self.left.paddle.x + self.left.paddle.width
-        #     self.ball.physics_object.x_velocity *= -1
-        # elif self.ball.physics_object.temporary_collides(self.right.paddle) and self.ball.physics_object.x + self.ball.physics_object.width >= self.right.paddle.top_left()[0]:
-        #     # Hit right paddle
-        #     self.ball.physics_object.x = self.right.paddle.x - self.ball.physics_object.width
-        #     self.ball.physics_object.x_velocity *= -1
-
         # Handle scoring
         # Goal on left (by right)
         if self.ball.physics_object.x + self.ball.physics_object.width < 0:
@@ -116,8 +143,6 @@ class PongGame:
         elif self.ball.physics_object.x > self.config.game_width:
             self.round_won(self.left)
 
-        # print(f"{delta_time=}")
-        # print(f"{time.time()} {self.left.paddle.y=}")
         # TODO put all logic to prepare the next frame here
 
     def game_loop(self):
@@ -158,6 +183,8 @@ class PongGame:
         center_y = self.config.game_height // 2
 
         self.ball = PongBall(self.config.ball_height, "", (center_x, center_y), self.config.ball_speed)
+
+        self.max_y_speed = self.config.max_y_speed
 
         # Add this game to current games
         PongGame.all_games[self.uid] = self
