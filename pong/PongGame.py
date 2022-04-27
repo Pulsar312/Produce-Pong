@@ -1,5 +1,4 @@
 import json
-import math
 import random
 import threading
 import time
@@ -18,7 +17,6 @@ class PongGame:
     # Map game IDs to their PongGame instance. Only currently running games should be here.
     # Previous games will be in the database, but not in memory.
     all_games: Dict[str, "PongGame"] = {}
-
 
     # End the game, create a historic game record in the database,
     def game_over(self, winner: PongPlayer, dish: Recipe):
@@ -200,15 +198,13 @@ class PongGame:
         self.game_thread.join()
 
     # For writing to the database after the game is complete, NOT for sending to the client
-    def to_json(self) -> str:
+    def to_dict(self) -> Dict[str, Any]:
         d = {
             "id": self.uid,
-            "left": self.left.username,
-            "right": self.right.username,
-            "left_score": self.left.score,
-            "right_score": self.right.score,
+            "left": self.left.to_dict(),
+            "right": self.right.to_dict(),
         }
-        return json.dumps(d)
+        return d
 
     # Dictionary with info to send to all clients (both players and spectators)
     def to_all_clients(self) -> Dict[str, Any]:
@@ -217,7 +213,7 @@ class PongGame:
             "left": self.left.to_dict(),
             "right": self.right.to_dict(),
             "ball": self.ball.to_dict(),
-            # TODO more
+            # TODO more - handle if the game is ended to redirect to historic game page
         }
         return d
 
