@@ -12,6 +12,7 @@ user_profiles = db.profile_images  # creating/retrieving a collection for saving
 logged_in = db.logged_in_user
 pong_db = db.pong_db
 
+achievements = db.achievements # Save the users with their achievements
 
 def initialize():
     # Force this file to be run when the app is started
