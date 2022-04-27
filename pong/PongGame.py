@@ -46,7 +46,12 @@ class PongGame:
 
     def collision_update(self, paddle: PhysicsObject):
         # get the bounce back y velocity
-        y = max((-1 * self.config.max_y_speed), paddle.y_velocity + self.ball.physics_object.y_velocity) if paddle.y_velocity + self.ball.physics_object.y_velocity < 0 else min(self.config.max_y_speed, paddle.y_velocity + self.ball.physics_object.y_velocity)
+        y = 0
+        added_velocities = paddle.y_velocity + self.ball.physics_object.y_velocity
+        if added_velocities < 0:
+            y = max((-1 * self.max_y_speed), added_velocities)
+        else:
+            y = min(self.max_y_speed, added_velocities)
 
         # add on some randomness
         if y == 0.0:
