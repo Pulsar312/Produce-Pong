@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 
 from food.Cooking import Cooking
+from food.Recipe import Recipe
 from food.chef import Chef
 
 
@@ -200,6 +201,14 @@ def test_ingredient_images(cooking):
         except:
             print("NOT FOUND: ", i)
 
+def test_mongo(cooking):
+    chef = Chef()
+    recipe = Recipe("soMe food's")
+    chef.add_achievement("sia", recipe)
+    result = chef.get_player_achievements("sia")
+    print(result)
+
+
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
     # print_ingredients_and_recipes(cooking)
@@ -211,4 +220,5 @@ if __name__ == '__main__':
     # test_get_top_recipe(cooking)
     # test_get_top_recipe_no_ingredients(cooking)
     # test_chef_to_dict(cooking)
-    test_ingredient_images(cooking)
+    # test_ingredient_images(cooking)
+    test_mongo(cooking)

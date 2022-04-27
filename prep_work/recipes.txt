@@ -1,6 +1,6 @@
 Recipe Name: Pizza
 Main Ingredients: Flour, Tomato, Cheese, Pepperoni
-Extra Ingredients: Onion, mushroom, pineapple
+Extra Ingredients: Onion, mushroom
 Alternative Ingredients: Bacon(Pepperoni)
 
 Recipe Name: sandwich
@@ -11,7 +11,7 @@ Alternative Ingredients: bacon(ham)
 Recipe Name: Pancake
 Main ingredients: pancake mix, milk, egg, sugar
 Extra ingredients: butter, cinnamon, blueberry, banana
-Alternative ingredients: honey(sugar)
+Alternative ingredients:
 
 Recipe Name: Fried Rice
 Main ingredients: rice, sesame oil, pea, carrot, egg
