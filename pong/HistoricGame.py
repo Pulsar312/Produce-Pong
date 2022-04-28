@@ -1,9 +1,18 @@
+from typing import Dict, Any
+
 import database
-from pong.PongGame import PongGame
 
 
 class HistoricGame:
-    def __init__(self, game: PongGame):
+    def __init__(self, game: "PongGame", meta: Dict[str, Any]):
         # Create a historic game from a game in memory
-        database.historic_games.insert_one(game.to_dict())
-        # TODO more
+        d = {
+            "id": game.uid,
+            "game": game.to_dict(),
+            "meta": {
+                "winner_earned_achievement": meta.get("winner_earned_achievement", False),
+                "game_end_date_string": meta.get("game_end_date_string", "[Missing Date]"),
+
+            }
+        }
+        database.historic_games.insert_one(d)

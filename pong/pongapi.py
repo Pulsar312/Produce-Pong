@@ -1,6 +1,6 @@
 # This is the file that we'll use to interact with pong games in an abstract way
 from typing import Optional, Dict, Any
-from database import pong_db
+from database import historic_games
 from pong.PongConfig import PongConfig
 from pong.PongGame import PongGame
 
@@ -23,7 +23,7 @@ def create_new_game(username1: str = "", username2: str = "", config: PongConfig
 
 # Find a previous game from the database, and return a dictionary with its info, or None if it doesn't exist
 def find_historic_game(game_id: str) -> Optional[Dict[str, Any]]:
-    result = pong_db.find_one({"id": game_id})
+    result = historic_games.find_one({"id": game_id})
     if result:
         return dict(result)
     return None

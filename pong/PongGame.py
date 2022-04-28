@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import random
 import threading
@@ -7,6 +8,7 @@ from typing import Dict, Any, Optional
 from uuid import uuid4
 
 from food.Recipe import Recipe
+from pong.HistoricGame import HistoricGame
 from pong.PongBall import PongBall
 from pong.PhysicsObject import PhysicsObject
 from pong.PongConfig import PongConfig
@@ -19,8 +21,30 @@ class PongGame:
     all_games: Dict[str, "PongGame"] = {}
 
     # End the game, create a historic game record in the database,
-    def game_over(self, winner: PongPlayer, dish: Recipe):
-        pass
+    def game_over(self, winner: PongPlayer):
+        # TODO (this order mostly matters)
+        #  1. determine if the winner gets an achievement,
+        #  2. create a "HistoricGame" with metadata (so a new GET request finds the historic game instead of the live game)
+        #  3. Delete this game from all_games
+        #  3. set "game_ended" to True,
+        #  4. wait several frames to ensure the client gets the "game_over" message
+        #  (can wait in this thread because the game state is *sent* to players in a different thread),
+        #  5. Stop the game thread
+
+        # TODO we also need the dishes each player made
+
+        winner_earned_achievement: bool = False  # TODO get actual value
+
+        meta: Dict[str, Any] = {
+            "winner_earned_achievement": winner_earned_achievement,
+            "game_end_date_string": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+        historic_game = HistoricGame(self, meta)
+        del PongGame.all_games[self.uid]
+        self.game_ended = True
+        time.sleep(1)
+        self.stop_game_loop()
 
     # Move the ball to the center of the game region
     def center_ball(self):
@@ -141,12 +165,13 @@ class PongGame:
         elif self.ball.physics_object.x > self.config.game_width:
             self.round_won(self.left)
 
-        # TODO put all logic to prepare the next frame here
+        if self.left.score >= 3:
+            self.game_over(self.left)
 
     def game_loop(self):
         time_per_frame: float = 1 / self.config.framerate
         last_update_time: float = time.time()
-        while True:
+        while not self.game_ended:
             frame_start_time: float = time.time()
             time_since_last_frame: float = frame_start_time - last_update_time
 
@@ -165,6 +190,9 @@ class PongGame:
     def __init__(self, config: PongConfig):
         self.config: PongConfig = config
         self.uid: str = uuid4().hex
+        self.game_started = False  # Changes to true once both players are in
+        # TODO implement a wait (countdown?) before the ball starts moving
+        self.game_ended = False  # Changes to true once somebody has won
 
         # Create the players and their paddles
         paddle_vertical_center = self.config.game_height // 2 - self.config.paddle_height // 2
@@ -195,7 +223,7 @@ class PongGame:
         self.game_thread.start()
 
     def stop_game_loop(self):
-        self.game_thread.join()
+        pass  # Actually, we'll just let the main loop return when the game is over to stop the thread.
 
     # For writing to the database after the game is complete, NOT for sending to the client
     def to_dict(self) -> Dict[str, Any]:
@@ -213,7 +241,8 @@ class PongGame:
             "left": self.left.to_dict(),
             "right": self.right.to_dict(),
             "ball": self.ball.to_dict(),
-            # TODO more - handle if the game is ended to redirect to historic game page
+            "game_started": self.game_started,
+            "game_over": self.game_ended,
         }
         return d
 
