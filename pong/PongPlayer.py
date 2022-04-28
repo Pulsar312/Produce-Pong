@@ -16,6 +16,5 @@ class PongPlayer:
             "username": self.username,
             "score": self.score,
             "paddle": self.paddle.to_dict(),
-            "chef": "TODO!"
-            # TODO add chef/ingredients; they'll need a to_dict method too
+            "chef": self.chef.to_dict(),
         }

@@ -1,6 +1,8 @@
 import json
 import time
 from flask_sock import Sock
+
+import authentication
 import database
 from flask import Flask, send_from_directory, render_template, request
 from authentication import handle_login, get_login_page, get_username, handle_logout
@@ -30,7 +32,7 @@ def static_files(file):
 
 @app.route("/about", methods=['GET'])
 def request_about():
-    data = {"dessert": "ice cream", "ingredients": ["cream", "sugar", "sprinkles"]}
+    data = {"dessert": "ice cream", "ingredients": ["cream", "sugar", "sprinkles"], "all_users": authentication.get_all_logged_in_users()}
     return render_template("div_templates/about.html", **data)
 
 
@@ -108,17 +110,20 @@ def request_game_websocket(socket, game_id: str):
         return
     print("Websocket connection username: " + username)
     while True:
+        # TODO exit this loop once the websocket connection closes
+        # Maybe while socket.connected:
         raw_data = socket.receive(timeout=0)
         if raw_data:
             game.on_websocket_message(username, raw_data)
-        socket.send(json.dumps(game.to_all_clients()))
+        data_to_send: str = json.dumps(game.to_all_clients())
+        socket.send(data_to_send)
         time.sleep(1 / game.config.framerate)
 
 
 @app.route("/create_game_testing", methods=['GET'])
 def create_game_testing():
     my_cool_config = PongConfig()
-    my_cool_config.framerate = 120
+    my_cool_config.framerate = 300
     game = create_new_game(config=my_cool_config)
     return f"Game created: {game.uid}", 201
 

@@ -1,5 +1,5 @@
 import secrets
-from typing import Tuple
+from typing import Tuple, List
 import avatar
 import bcrypt
 from flask import render_template, make_response
@@ -110,6 +110,15 @@ def delete_all_sessions(username: str):
     database.sessions.delete_many({"username": username})
 
 
+# Get a list of usernames for everyone who's currently logged in (has a session)
+def get_all_logged_in_users() -> List[str]:
+    usernames = set()
+    sessions = database.sessions.find()
+    for session in sessions:
+        usernames.add(session["username"])
+    return list(usernames)
+
+
 # Set a cookie securely on a response object from make_response()
 def set_secure_cookie(resp, cookie_name, cookie_value):
     resp.set_cookie(cookie_name, cookie_value, secure=True, httponly=True, samesite="Strict")
@@ -142,7 +151,7 @@ def handle_login(request):
         if create_success:
             # New user successfully created
             print("should be here")
-            avatar.sign_up(username,database.user_profiles)
+            avatar.sign_up(username, database.user_profiles)
             data = {"username": username, "new_account": True}
             resp = make_response(render_template("div_templates/after_login.html", **data))
             set_secure_cookie(resp, av.SESSION_COOKIE_NAME, create_session(username))
