@@ -5,6 +5,8 @@ import database
 from flask import Flask, send_from_directory, render_template, request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 import avatar
+from food.Recipe import Recipe
+from food.chef import Chef
 from pong.PongConfig import PongConfig
 from pong.pong_views import handle_game_page_request
 from pong.pongapi import create_new_game, find_current_game
