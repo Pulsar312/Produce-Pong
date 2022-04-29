@@ -7,6 +7,8 @@ from json import JSONDecodeError
 from typing import Dict, Any, Optional
 from uuid import uuid4
 
+from food.Cooking import Cooking
+from food.Ingredient import Ingredient
 from food.Recipe import Recipe
 from pong.HistoricGame import HistoricGame
 from pong.PongBall import PongBall
@@ -43,7 +45,7 @@ class PongGame:
         historic_game = HistoricGame(self, meta)
         del PongGame.all_games[self.uid]
         self.game_ended = True
-        time.sleep(1)
+        time.sleep(max(1, 1 // self.config.framerate))
         self.stop_game_loop()
 
     # Move the ball to the center of the game region
@@ -188,6 +190,7 @@ class PongGame:
             last_update_time = frame_start_time
 
     def __init__(self, config: PongConfig):
+        # Basic stuff about the game
         self.config: PongConfig = config
         self.uid: str = uuid4().hex
         self.game_started = False  # Changes to true once both players are in
@@ -215,6 +218,10 @@ class PongGame:
         # Add this game to current games
         PongGame.all_games[self.uid] = self
 
+        # Prepare cooking things
+        self.kitchen: Cooking = Cooking("prep_work/recipes.json")
+        self.current_ingredient: Ingredient = self.kitchen.get_random_ingredient(self.left.chef, self.right.chef)
+
         # Game timing logic
         self.game_thread = threading.Thread(target=self.game_loop)
         self.start_game_loop()
@@ -241,6 +248,7 @@ class PongGame:
             "left": self.left.to_dict(),
             "right": self.right.to_dict(),
             "ball": self.ball.to_dict(),
+            "current_ingredient": self.current_ingredient.to_dict(),
             "game_started": self.game_started,
             "game_over": self.game_ended,
         }
@@ -256,13 +264,18 @@ class PongGame:
 
     # This is error handled in on_websocket_message, so it's okay if an action raises an exception
     def handle_player_input(self, player: PongPlayer, data: Dict[str, Any]):
-        velocity = int(data["velocity"])
-        if velocity < 0:
-            player.paddle.y_velocity = -1 * self.config.paddle_speed
-        elif velocity > 0:
-            player.paddle.y_velocity = self.config.paddle_speed
+        player.ready = True
+        if self.left.ready and self.right.ready:
+            self.game_started = True
+            velocity = int(data["velocity"])
+            if velocity < 0:
+                player.paddle.y_velocity = -1 * self.config.paddle_speed
+            elif velocity > 0:
+                player.paddle.y_velocity = self.config.paddle_speed
+            else:
+                player.paddle.y_velocity = 0
         else:
-            player.paddle.y_velocity = 0
+            return  # Not both players are ready, don't start the game
 
     # This gets called every time a message is received from the websocket for this game
     def on_websocket_message(self, username: str, message: str):
