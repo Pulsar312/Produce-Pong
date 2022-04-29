@@ -18,9 +18,8 @@
 </form>
 </div>
 <div class = "achievements">Achievements</br>
-    <!--All of these are for testing yes it's messy but it's quick-->
     {%for i in achievements%}
-    <img src = {{i}} class = "achievement">
+    <img src = "{{ i.recipe_image }}" class = "achievement">
     {%endfor%}
 </div>
 </div>

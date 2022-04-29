@@ -8,12 +8,13 @@ function pageLoaded() {
 //path: the path for the request
 //inputFunction: function to call after getting response from the server
 //data: the data to send- note that it will be converted to a json string before sending
-function makeAjaxRequest(method, path, inputFunction, data, div_id, isBinaryData = false) {
+//"makeAjaxRequest(`POST`, `/auth/logout`, loadDiv, {}, 'div', false, true);"
+function makeAjaxRequest(method, path, inputFunction, data, divId, isBinaryData = false, reloadHeader = false) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if (div_id !== "") {
-                inputFunction(this, div_id);
+            if (divId !== "") {
+                inputFunction(this, divId, reloadHeader);
             } else {
                 inputFunction(this);
             }
@@ -27,12 +28,16 @@ function makeAjaxRequest(method, path, inputFunction, data, div_id, isBinaryData
     }
 }
 
-function submitAjaxForm(form, callback) {
-    makeAjaxRequest(form.method, form.action, callback, new FormData(form), "div", true);
+function submitAjaxForm(form, callback, reloadHeader = false) {
+    makeAjaxRequest(form.method, form.action, callback, new FormData(form), "div", true, reloadHeader);
     return false; // This is important! Prevents the browser from loading a new page on form submission.
 }
 
-function loadDiv(data, div_id) {
-    const div = document.getElementById(div_id);
+function loadDiv(data, divId, reloadHeader = false) {
+    const div = document.getElementById(divId);
     div.innerHTML = data.responseText;
+    console.log(data, divId, reloadHeader)
+    if (reloadHeader) {
+        makeAjaxRequest('GET','/header', loadDiv, {}, "header", true, false);
+    }
 }

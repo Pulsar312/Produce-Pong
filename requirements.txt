@@ -1,3 +1,4 @@
 flask~=2.0.3
 pymongo~=4.0.1
 bcrypt~=3.2.0
+flask-sock~=0.5.2

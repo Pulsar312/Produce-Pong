@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Game - {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='pong.css') }}">
+{% endblock %}
+{% block content %}
+
+    {# ONLY the game config is guaranteed to exist within this template. The players might not be assigned yet! #}
+    {# DO NOT fetch player info in this template, that must be obtained through the websocket and JavaScript #}
+
+    <h1>Pulsar's Produce Pong</h1>
+    <p>Game page</p>
+    <p>Game id {{ game_id }} requested by {{ username }}</p>
+    <p>Some debug info (doesn't update automatically; needs refresh)</p>
+    <p>{{ game }}</p>
+    <p>{{ game2 }}</p>
+    <p>{{ game3 }}</p>
+
+    <div class="center row" style="width: {{ game.config.game_width }}px;">
+        <div class="column left">
+            <p id="left_username" class="medium-text">left_user</p>
+            <p id="left_score" class="score-text">99</p>
+        </div>
+
+        <div class="column">
+            <div class="center">
+                <img class="fit-img center-text" src="/static/avatar1.jpg" alt="Current ingredient image"/>
+            </div>
+            <p class="center-text"><span id="current_ingredient">INGREDIENT</span></p>
+        </div>
+
+        <div class="column right">
+            <p id="right_username" class="medium-text">right_user</p>
+            <p id="right_score" class="score-text">99</p>
+        </div>
+    </div>
+
+    <div id="game-border" class="center"
+         style="width: {{ game.config.game_width }}px; height: {{ game.config.game_height }}px;">
+        <div id="left" class="paddle" style="width: {{ game.config.paddle_width }}px;
+                height: {{ game.config.paddle_height }}px;
+                left: {{ game.left.paddle.x }}px;
+                top: {{ game.left.paddle.y }}px;"></div>
+        <div id="right" class="paddle" style="width: {{ game.config.paddle_width }}px;
+                height: {{ game.config.paddle_height }}px;
+                left: {{ game.right.paddle.x }}px;
+                top: {{ game.right.paddle.y }}px;"></div>
+        <div id="ball" class="ball" style="width: {{ game.ball.physics_object.width }}px;
+                height: {{ game.ball.physics_object.height }}px;
+                left: {{ game.ball.physics_object.x }}px;
+                top: {{ game.ball.physics_object.y }}px;"></div>
+    </div>
+
+    <div class="center row" style="width: {{ game.config.game_width }}px;">
+        <div id="left_ingredients" class="column left">
+            LEFT_INGREDIENTS
+        </div>
+        <div id="right_ingredients" class="column right">
+            RIGHT_INGREDIENTS
+        </div>
+    </div>
+
+
+
+    <script>
+        const socket = new WebSocket("ws://" + location.host + "/gamews/{{ game_id }}");
+    </script>
+    <script src="{{ url_for('static', filename='pong.js') }}"></script>
+
+
+{% endblock %}

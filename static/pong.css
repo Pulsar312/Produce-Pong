@@ -1,0 +1,63 @@
+body {
+    font-family: "Arial", sans-serif;
+}
+
+p {
+    margin: 0;
+}
+
+#game-border {
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    flex: 1;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.paddle {
+    background-color: darkblue;
+    position: absolute;
+}
+
+.ball {
+    background-color: black;
+    position: absolute;
+}
+
+.score-text {
+    font-family: "Quantico", monospace;
+    font-size: 96px;
+}
+
+.medium-text {
+    font-size: 36px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.fit-img {
+    height: 150px;
+    margin: 0 auto;
+    display: block;
+}
