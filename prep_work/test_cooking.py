@@ -27,32 +27,47 @@ def test_get_random_ingredient(cooking):
     chef1 = Chef()
     chef2 = Chef()
 
-    for j in range(0, 10):
+    print(len(cooking.ingredients))
+
+    for j in range(0, 48):
         print()
-        print()
+        print(j)
         i = cooking.get_random_ingredient(chef1, chef2)
         chef1.add_ingredient(i)
-
-        print("chef1: ", end="\t\t")
-        for k in chef1.ingredients:
-            print(k.name, end=", ")
-        print()
-        print("chef2: ", end="\t\t")
-        for k in chef2.ingredients:
-            print(k.name, end=", ")
-        print()
-
-        i = cooking.get_random_ingredient(chef1, chef2)
         chef2.add_ingredient(i)
 
-        print("chef1: ", end="\t\t")
-        for k in chef1.ingredients:
-            print(k.name, end=", ")
-        print()
-        print("chef2: ", end="\t\t")
-        for k in chef2.ingredients:
-            print(k.name, end=", ")
-        print()
+        # print("chef1: ", end="\t\t")
+        # for k in chef1.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+        # print("chef2: ", end="\t\t")
+        # for k in chef2.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+
+        # i = cooking.get_random_ingredient(chef1, chef2)
+        # chef2.add_ingredient(i)
+
+        # print("chef1: ", end="\t\t")
+        # for k in chef1.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+        # print("chef2: ", end="\t\t")
+        # for k in chef2.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+
+    list1 = []
+    for k in chef1.ingredients:
+        list1.append(k.name)
+    list1.sort()
+    print("sorted1: ", list1)
+
+    list2 = []
+    for k in chef2.ingredients:
+        list2.append(k.name)
+    list2.sort()
+    print("sorted2:", list2)
 
 
 def test_find_recipes(cooking):
@@ -217,7 +232,7 @@ def debug_get_random_ingredient(cooking):
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
     # print_ingredients_and_recipes(cooking)
-    # test_get_random_ingredient(cooking)
+    test_get_random_ingredient(cooking)
     # test_find_recipes(cooking)
     # test_all_recipe_scores(cooking)
     # test_one_recipe_score(cooking)
@@ -227,4 +242,4 @@ if __name__ == '__main__':
     # test_chef_to_dict(cooking)
     # test_ingredient_images(cooking)
     # test_mongo(cooking)
-    debug_get_random_ingredient(cooking)
+    # debug_get_random_ingredient(cooking)
