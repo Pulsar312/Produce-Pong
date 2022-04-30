@@ -5,15 +5,15 @@
 <div class = "bookmark">
 <img src = "{{pfp}}" class = "pfpAvatar">
 <div class = "forms">
-<form action="/change_avatar" id="image-form" method="post" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
-    <label for="form-file" class="imageLabel">Image: </label>
+<form action="/change_avatar" id="image-form" method="POST" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
+    <label for="pfp-file" class="imageLabel">Image: </label>
     <input id="pfp-file" type="file" name="upload" class="uploadButton">
     <button type = "submit" class="changeButton">Change Profile Picture</button>
     {% if error %}
     <div class = "error">{{error}}</div>
     {% endif %}
 </form>
-<form action = "/default_avatar" method = "post" onsubmit="return submitAjaxForm(this,loadDiv);" enctype="multipart/form-data">
+<form action = "/default_avatar" method = "POST" onsubmit="return submitAjaxForm(this,loadDiv);" enctype="multipart/form-data">
 <button type = "submit" class="changeButton">Use A Random Default Picture</button>
 </form>
 </div>
