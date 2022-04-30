@@ -10,6 +10,7 @@ from uuid import uuid4
 from food.Cooking import Cooking
 from food.Ingredient import Ingredient
 from food.Recipe import Recipe
+from food.achievement_database import add_achievement
 from pong.HistoricGame import HistoricGame
 from pong.PongBall import PongBall
 from pong.PhysicsObject import PhysicsObject
@@ -35,7 +36,12 @@ class PongGame:
 
         # TODO we also need the dishes each player made
 
-        winner_earned_achievement: bool = False  # TODO get actual value
+        # Try to add the achievement to the winner and get whether that really happened or not (e.g., they may already have this achievement)
+        if winner:
+            winner_earned_achievement: bool = add_achievement(winner.username, winner.best_recipe)
+        else:
+            winner_earned_achievement: bool = False
+            print(f"PROBLEM WITH WINNER??? {winner}")
 
         meta: Dict[str, Any] = {
             "winner_earned_achievement": winner_earned_achievement,
@@ -66,12 +72,22 @@ class PongGame:
     # Handle a round victory
     def round_won(self, winner: PongPlayer):
         winner.score += 1
-        print(f"{winner.username} won that round. Score: {self.left.score} to {self.right.score}")
-        # TODO give ingredient to winner and set up next round
+        print(f"{winner.username} won {self.current_ingredient} that round. Score: {self.left.score} to {self.right.score}")
+
+        winner.chef.add_ingredient(self.current_ingredient)
+        self.current_ingredient = self.kitchen.get_random_ingredient(self.left.chef, self.right.chef)
+
+        self.left.best_recipe, left_recipe_score = self.kitchen.get_best_recipe_and_score(self.left.chef.ingredients)
+        self.right.best_recipe, right_recipe_score = self.kitchen.get_best_recipe_and_score(self.right.chef.ingredients)
+        if self.left.best_recipe and self.right.best_recipe:
+            print("Both have full dishes, so end game")
+            winner: PongPlayer = self.left if left_recipe_score > right_recipe_score else self.right
+            self.game_over(winner)
+
         self.center_ball()
         self.reset_ball(winner)
 
-    def determine_side_collision(self, paddle, collision):
+    def determine_side_collision(self, collision):
         return collision.height > collision.width
 
     def collision_update(self, paddle: PhysicsObject):
@@ -110,7 +126,7 @@ class PongGame:
 
         # Determine if this is a collision from the side or the top/bottom.
         # This can't be quite perfect because we don't have inter-frame information.
-        if self.determine_side_collision(paddle, collision):
+        if self.determine_side_collision(collision):
             # Push the ball back in bounds
             if paddle == self.left.paddle:
                 ball.x = paddle.top_right()[0]
@@ -133,42 +149,39 @@ class PongGame:
 
     # delta_time is how much time passed since the last frame
     def update_frame(self, delta_time: float):
+        if self.game_started:
+            # Handle paddle movement
+            self.left.paddle.update_position(delta_time)
+            self.right.paddle.update_position(delta_time)
+            self.ensure_in_bounds(self.right.paddle)
+            self.ensure_in_bounds(self.left.paddle)
 
-        # Handle paddle movement
-        self.left.paddle.update_position(delta_time)
-        self.right.paddle.update_position(delta_time)
-        self.ensure_in_bounds(self.right.paddle)
-        self.ensure_in_bounds(self.left.paddle)
+            # Handle ball movement
+            self.ball.physics_object.update_position(delta_time)
+            # Check for bouncing on top/bottom walls:
+            if self.ball.physics_object.top_left()[1] < 0:
+                self.ball.physics_object.y = 0
+                self.ball.physics_object.y_velocity *= -1
+            elif self.ball.physics_object.bottom_left()[1] > self.config.game_height:
+                self.ball.physics_object.y = self.config.game_height - self.config.ball_height
+                self.ball.physics_object.y_velocity *= -1
 
-        # Handle ball movement
-        self.ball.physics_object.update_position(delta_time)
-        # Check for bouncing on top/bottom walls:
-        if self.ball.physics_object.top_left()[1] < 0:
-            self.ball.physics_object.y = 0
-            self.ball.physics_object.y_velocity *= -1
-        elif self.ball.physics_object.bottom_left()[1] > self.config.game_height:
-            self.ball.physics_object.y = self.config.game_height - self.config.ball_height
-            self.ball.physics_object.y_velocity *= -1
+            # Check for hitting paddles
+            left_paddle_collision = self.ball.physics_object.intersection(self.left.paddle)
+            if left_paddle_collision:
+                self.handle_paddle_ball_collision(self.left.paddle, left_paddle_collision)
+            else:
+                right_paddle_collision = self.ball.physics_object.intersection(self.right.paddle)
+                if right_paddle_collision:
+                    self.handle_paddle_ball_collision(self.right.paddle, right_paddle_collision)
 
-        # Check for hitting paddles
-        left_paddle_collision = self.ball.physics_object.intersection(self.left.paddle)
-        if left_paddle_collision:
-            self.handle_paddle_ball_collision(self.left.paddle, left_paddle_collision)
-        else:
-            right_paddle_collision = self.ball.physics_object.intersection(self.right.paddle)
-            if right_paddle_collision:
-                self.handle_paddle_ball_collision(self.right.paddle, right_paddle_collision)
-
-        # Handle scoring
-        # Goal on left (by right)
-        if self.ball.physics_object.x + self.ball.physics_object.width < 0:
-            self.round_won(self.right)
-        # Goal on right (by left)
-        elif self.ball.physics_object.x > self.config.game_width:
-            self.round_won(self.left)
-
-        if self.left.score >= 3:
-            self.game_over(self.left)
+            # Handle scoring
+            # Goal on left (by right)
+            if self.ball.physics_object.x + self.ball.physics_object.width < 0:
+                self.round_won(self.right)
+            # Goal on right (by left)
+            elif self.ball.physics_object.x > self.config.game_width:
+                self.round_won(self.left)
 
     def game_loop(self):
         time_per_frame: float = 1 / self.config.framerate

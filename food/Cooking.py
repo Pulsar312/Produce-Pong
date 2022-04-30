@@ -1,6 +1,6 @@
 import json
 import random
-from typing import List, Dict
+from typing import List, Dict, Tuple, Optional
 
 from food.Ingredient import Ingredient
 from food.Recipe import Recipe
@@ -147,11 +147,11 @@ class Cooking:
 
     # Method to get the recipe with the highest score
     # Returns recipe, score
-    def get_best_recipe_and_score(self, ingredients: List[Ingredient], recipes: List[Recipe] = None):
+    def get_best_recipe_and_score(self, ingredients: List[Ingredient], recipes: List[Recipe] = None) -> Tuple[Recipe, float]:
         score_dict: Dict[Recipe, float] = self.get_recipes_scores_from_ingredients(ingredients, recipes)  # get the dictionary of recipes->scores
 
-        best_recipe: Recipe = None
-        best_score: float = 0
+        best_recipe: Optional[Recipe] = None
+        best_score: float = 0.0
         for recipe in score_dict:
             if (best_recipe is None and best_score == 0) or (best_score < score_dict[recipe]):  # if we haven't found a recipe yet, or if the score is better than the score saved, then update best_recipe and best_score
                 best_recipe = recipe
