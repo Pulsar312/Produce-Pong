@@ -4,6 +4,7 @@ from pathlib import Path
 
 from food.Cooking import Cooking
 from food.Recipe import Recipe
+from food.achievement_database import add_achievement, get_player_achievements
 from food.chef import Chef
 
 
@@ -202,12 +203,16 @@ def test_ingredient_images(cooking):
             print("NOT FOUND: ", i)
 
 def test_mongo(cooking):
-    chef = Chef()
     recipe = Recipe("soMe food's")
-    chef.add_achievement("sia", recipe)
-    result = chef.get_player_achievements("sia")
+    add_achievement("sia", recipe)
+    result = get_player_achievements("sia")
     print(result)
 
+def debug_get_random_ingredient(cooking):
+    print(len(cooking.recipes))
+    print(len(cooking.ingredients))
+    print(cooking.ingredients)
+    print(cooking.get_random_ingredient(Chef(), Chef()))
 
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
@@ -221,4 +226,5 @@ if __name__ == '__main__':
     # test_get_top_recipe_no_ingredients(cooking)
     # test_chef_to_dict(cooking)
     # test_ingredient_images(cooking)
-    test_mongo(cooking)
+    # test_mongo(cooking)
+    debug_get_random_ingredient(cooking)
