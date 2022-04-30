@@ -7,7 +7,7 @@ allowed_extensions = {'png', 'jpg', 'jpeg', 'gif','ico'}
 
 def sign_up(username, user_profiles):
     random_init = random.randint(1,8)
-    user_profiles.insert_one({'username': username, 'pfp': 'static/avatar'+str(random_init)+'.jpg'})
+    user_profiles.insert_one({'username': username, 'pfp': 'static/avatars/avatar'+str(random_init)+'.jpg'})
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -17,9 +17,9 @@ def change_avatar(request, user_profiles, username):
     up = request.files['upload']
     to_send = {}
     if up and allowed_file(up.filename):
-        secured = secure_filename("./static/"+up.filename)
+        secured = secure_filename("static/avatars/"+up.filename)
         up.save(secured)
-        image_to_be = "./static/avatar"+secrets.token_urlsafe(20)+"."+up.filename.rsplit('.', 1)[1].lower()
+        image_to_be = "static/avatars/avatar"+secrets.token_urlsafe(20)+"."+up.filename.rsplit('.', 1)[1].lower()
         with open(secured, "rb") as f:
             with open(image_to_be,"wb") as f2:
                 for byte in f:
@@ -38,7 +38,7 @@ def change_avatar(request, user_profiles, username):
 def default_avatar(user_profiles, username):
     to_send = {}
     random_init = random.randint(1,8)
-    new_pic = {"$set": {"pfp": 'static/avatar'+str(random_init)+'.jpg'}}
+    new_pic = {"$set": {"pfp": 'static/avatars/avatar'+str(random_init)+'.jpg'}}
     user_profiles.update_one({'username': username}, new_pic)
     profile = user_profiles.find_one({'username': username})
     to_send["pfp"]=profile["pfp"]
