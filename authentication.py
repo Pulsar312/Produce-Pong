@@ -136,7 +136,7 @@ def handle_login(request):
         success = check_user_password(username, password)
         if success:
             # Successful login
-            data = {"username": username}
+            data = {"username": username, "all_users": get_all_logged_in_users()}
             resp = make_response(render_template("div_templates/after_login.html", **data))
             set_secure_cookie(resp, av.SESSION_COOKIE_NAME, create_session(username))
             return resp
@@ -152,7 +152,7 @@ def handle_login(request):
             # New user successfully created
             print("should be here")
             avatar.sign_up(username, database.user_profiles)
-            data = {"username": username, "new_account": True}
+            data = {"username": username, "new_account": True, "all_users": get_all_logged_in_users()}
             resp = make_response(render_template("div_templates/after_login.html", **data))
             set_secure_cookie(resp, av.SESSION_COOKIE_NAME, create_session(username))
             return resp
