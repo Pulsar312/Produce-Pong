@@ -46,6 +46,7 @@ class PongGame:
         meta: Dict[str, Any] = {
             "winner_earned_achievement": winner_earned_achievement,
             "game_end_date_string": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "winner": winner.username,
         }
 
         historic_game = HistoricGame(self, meta)
@@ -77,11 +78,10 @@ class PongGame:
         winner.chef.add_ingredient(self.current_ingredient)
         self.current_ingredient = self.kitchen.get_random_ingredient(self.left.chef, self.right.chef)
 
-        self.left.best_recipe, left_recipe_score = self.kitchen.get_best_recipe_and_score(self.left.chef.ingredients)
-        self.right.best_recipe, right_recipe_score = self.kitchen.get_best_recipe_and_score(self.right.chef.ingredients)
+        winner.best_recipe, winner.recipe_score = self.kitchen.get_best_recipe_and_score(winner.chef.ingredients)
         if self.left.best_recipe and self.right.best_recipe:
             print("Both have full dishes, so end game")
-            winner: PongPlayer = self.left if left_recipe_score > right_recipe_score else self.right
+            winner: PongPlayer = self.left if self.left.recipe_score > self.right.recipe_score else self.right
             self.game_over(winner)
 
         self.center_ball()
