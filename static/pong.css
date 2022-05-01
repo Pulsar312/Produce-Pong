@@ -61,3 +61,7 @@ p {
     margin: 0 auto;
     display: block;
 }
+
+.historic-game-container {
+    max-width: 800px;
+}

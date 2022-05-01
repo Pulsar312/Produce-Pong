@@ -16,7 +16,7 @@ def handle_game_page_request(request, game_id: str):
     historic_game: Optional[Dict[str, Any]] = find_historic_game(game_id)
     if historic_game:
         data = {
-            "historic_game": historic_game,
+            "game": historic_game,
         }
         return render_template("pong_templates/historic_game.html", **data)
 
