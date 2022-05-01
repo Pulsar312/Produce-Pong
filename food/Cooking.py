@@ -97,7 +97,7 @@ class Cooking:
         if len(ingredient_list) == 0:  # this should really never happen, if theres no ingredients left in the list, then both people should have a dish
             return None
 
-        random_num = random.randint(0, updated_total - 1)  # get a random ingredient
+        random_num = random.randint(0, updated_total - 2)  # get a random ingredient
 
         ingredient_index = 0  # start at index 0 to find ingredient
         while random_num >= (len(ingredient_list[ingredient_index].main_recipes) + len(ingredient_list[ingredient_index].extra_recipes)):  # calculate which ingredient to get
