@@ -348,7 +348,7 @@ div.loading > .dot.sharon {
     align-items: flex-start;
     height: 40vh;
     flex-direction: column;
-    
+    overflow-y: scroll;
 }
 
 .chats{
