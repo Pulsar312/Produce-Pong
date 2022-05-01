@@ -17,6 +17,9 @@ class Recipe:
         image_name = "../static/recipes/" + self.name.replace(" ", "_").replace("\'", "").replace("\"", "").lower() + ".png"
         return image_name
 
+    def to_dict(self):
+        return {"name": self.name, "image": self.get_recipe_image()}
+
     # Method to add a main ingredient to the recipe
     def add_main_ingredient(self, ingredient: Ingredient):
         if ingredient not in self.main_ingredients:  # make sure not in main ingredient list yet
