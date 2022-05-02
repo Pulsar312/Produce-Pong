@@ -2,20 +2,27 @@ body {
     font-family: "Roboto", sans-serif;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/background.png") no-repeat center center fixed;
     background-size: cover;
+}
+
+.fixcontent {
+    margin-bottom: 40px;
     color: white;
 }
 
 h1 {
     text-align: center;
+    text-shadow: 1px 1px 5px var(--pink);
 }
 
 .fixcontent p {
     text-align: center;
     margin-top: -15px;
+    color: white;
+    margin-bottom: 25px;
 }
 
 #game-border {
-    background-color: rgba(34, 26, 41, 0.75);
+    background-color: var(--trans-black);
     position: relative;
     overflow: hidden;
 }
@@ -56,16 +63,17 @@ h1 {
 }
 
 #left.paddle {
-    background-color: #ffb3de;
+    background-color: lightskyblue;
 }
 
 #right.paddle {
-    background-color: #A284D3;
+    background-color: var(--purple);
 }
 
 .ball {
     background-color: white;
     position: absolute;
+    text-shadow: 1px 1px 5px var(--pink);
 }
 
 .score-text {
@@ -79,20 +87,23 @@ h1 {
 }
 
 #left_username.medium-text {
-    color: #ffb3de;
+    color: lightskyblue;
 }
 
 #right_username.medium-text {
-    color: #A284D3;
+    color: var(--purple);
 }
 
 #current_ingredient_name {
     margin-bottom: 20px;
     font-family: "Quantico", monospace;
+    text-shadow: 1px 1px 5px var(--pink);
+    text-decoration: underline;
+    font-size: large;
 }
 
 .fit-img {
-    height: auto;
+    height: 200px;
     width: 200px;
     object-fit: contain;
 }
