@@ -1,6 +1,4 @@
 <!--  TODO:  Show chats-->
-<h2>Home page</h2>
-
 {% if username %}
     <p>You're signed in as {{ username }}</p>
     <br>
@@ -37,6 +35,6 @@
         <span>Grocery shopping with a pong game!</span>
         <br/>
         <img src="./static/advertisement.gif" class="advertisement">
-        <button class="homepageButton">Login to play the game!</button>
+        <button class="homepageButton" onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {}, 'div');" id="play">Login to play the game!</button>
     </div>
 {% endif %}
