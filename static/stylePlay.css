@@ -1,6 +1,6 @@
 /* getting rid of certain css from style.css */
 body {
-    background: url("/static/background.png") no-repeat center center fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/background.png") no-repeat center center fixed;
     background-size: cover;
 }
 

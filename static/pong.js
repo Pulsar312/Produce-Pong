@@ -41,12 +41,14 @@ function updateGame(data) {
     for (let ingredient of data.left.chef.ingredients) {
         const elem = document.createElement("img");
         elem.src = ingredient.image;
+        elem.id = "left-ingredient";
         left_ingredients.appendChild(elem);
     }
 
     for (let ingredient of data.right.chef.ingredients) {
         const elem = document.createElement("img");
         elem.src = ingredient.image;
+        elem.id = "right-ingredient"
         right_ingredients.appendChild(elem);
     }
 
