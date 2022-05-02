@@ -9,29 +9,29 @@
     {# DO NOT fetch player info in this template, that must be obtained through the websocket and JavaScript #}
 
     <h1>Pulsar's Produce Pong</h1>
-    <p>Game page</p>
-    <p>Game id {{ game_id }} requested by {{ username }}</p>
-    <p>Some debug info (doesn't update automatically; needs refresh)</p>
+    <!--<p>Game page</p>-->
+    <p>Game ID: {{ game_id }} (Requested by {{ username }})</p>
+    <!--<p>Some debug info (doesn't update automatically; needs refresh)</p>
     <p>{{ game }}</p>
     <p>{{ game2 }}</p>
-    <p>{{ game3 }}</p>
+    <p>{{ game3 }}</p>-->
 
     <div class="center row" style="width: {{ game.config.game_width }}px;">
-        <div class="column left">
-            <p id="left_username" class="medium-text">left_user</p>
-            <p id="left_score" class="score-text">99</p>
+        <div class="column_left">
+            <span id="left_username" class="medium-text">left_user</span>
+            <span id="left_score" class="score-text">99</span>
         </div>
 
         <div class="column">
             <div class="center">
                 <img id="current_ingredient_img" class="fit-img center-text" src="/static/avatar1.jpg" alt="Current ingredient image"/>
             </div>
-            <p class="center-text"><span id="current_ingredient_name">INGREDIENT</span></p>
+            <span class="center-text" id="current_ingredient_name">INGREDIENT</span>
         </div>
 
-        <div class="column right">
-            <p id="right_username" class="medium-text">right_user</p>
-            <p id="right_score" class="score-text">99</p>
+        <div class="column_right">
+            <span id="right_username" class="medium-text">right_user</span>
+            <span id="right_score" class="score-text">99</span>
         </div>
     </div>
 
