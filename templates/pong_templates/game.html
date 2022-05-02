@@ -16,7 +16,27 @@
     <p>{{ game2 }}</p>
     <p>{{ game3 }}</p>
 
-    <div id="game-border" style="width: {{ game.config.game_width }}px; height: {{ game.config.game_height }}px;">
+    <div class="center row" style="width: {{ game.config.game_width }}px;">
+        <div class="column left">
+            <p id="left_username" class="medium-text">left_user</p>
+            <p id="left_score" class="score-text">99</p>
+        </div>
+
+        <div class="column">
+            <div class="center">
+                <img class="fit-img center-text" src="/static/avatar1.jpg" alt="Current ingredient image"/>
+            </div>
+            <p class="center-text"><span id="current_ingredient">INGREDIENT</span></p>
+        </div>
+
+        <div class="column right">
+            <p id="right_username" class="medium-text">right_user</p>
+            <p id="right_score" class="score-text">99</p>
+        </div>
+    </div>
+
+    <div id="game-border" class="center"
+         style="width: {{ game.config.game_width }}px; height: {{ game.config.game_height }}px;">
         <div id="left" class="paddle" style="width: {{ game.config.paddle_width }}px;
                 height: {{ game.config.paddle_height }}px;
                 left: {{ game.left.paddle.x }}px;
@@ -29,6 +49,15 @@
                 height: {{ game.ball.physics_object.height }}px;
                 left: {{ game.ball.physics_object.x }}px;
                 top: {{ game.ball.physics_object.y }}px;"></div>
+    </div>
+
+    <div class="center row" style="width: {{ game.config.game_width }}px;">
+        <div id="left_ingredients" class="column left">
+            LEFT_INGREDIENTS
+        </div>
+        <div id="right_ingredients" class="column right">
+            RIGHT_INGREDIENTS
+        </div>
     </div>
 
 

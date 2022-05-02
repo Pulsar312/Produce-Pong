@@ -1,0 +1,41 @@
+<!--  TODO:  Show messages here! -->
+<h2>Message page</h2>
+
+<div class="container">
+    <div class="leftcontainer">
+        {% for user in all_users %}
+            {% if user != main_user %}
+            <div class="show_img">
+                <img class="fit-img-msg" src={{all_user_pfps[user]}} alt="userpfp"/>
+                <b><li class="users_list" id="msg_user" onclick="makeAjaxRequest('GET', '/messages/{{user}}', loadDiv, {}, 'div')">{{ user }}</li></b>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="rightcontainer">
+        <div class="show_msg">
+            {% for one_msg in chat_list %}
+                {% if one_msg["from"] == main_user %}
+                    <div class="align_msg_right">
+                        <img src={{all_user_pfps[main_user]}} class="fit-img-msg">
+                        <li class="chats" id="chats">{{one_msg["from"]}}: {{one_msg["message"]}}</li>
+                    </div>
+                {% else %}
+                    <div class="align_msg_left">
+                        <img src={{all_user_pfps[user]}} class="fit-img-msg">
+                        <li class="chats" id="chats">{{one_msg["from"]}}: {{one_msg["message"]}}</li>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="write_msg">
+            
+                <label class="user" for="msg">Message: </label>
+                <input class="input_box" type="text" id="msg" name="msg"/>
+                <button class="send_button" onclick="makeAjaxRequest('POST', '/messages/{{user}}', loadDiv, {'send_msg': document.getElementById('msg').value}, 'div');">Send</button>
+
+        </div>
+    </div>
+
+</div>
