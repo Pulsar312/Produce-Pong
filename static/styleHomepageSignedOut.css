@@ -1,0 +1,53 @@
+/* getting rid of certain css from style.css */
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/background.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.div {
+    background-color: transparent;
+    border: none;
+}
+
+.header {
+    background-color: transparent;
+    background-image: none;
+    min-height: 0;
+    padding: 0;
+}
+
+/* homepage */
+.homepageBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    color: white;
+}
+
+.homepage-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.advertisement {
+    min-width: 55vw;
+    border-radius: 5px;
+}
+
+.homepageButton {
+    cursor: pointer;
+    background-color: var(--purple);
+    color: white;
+    font-size: 16px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 10px;
+    border-style: none;
+    margin-top: -60px;
+}
+
+.homepageButton:hover {
+    background-color: var(--darker-purple);
+    color: #D7D7D7;
+}

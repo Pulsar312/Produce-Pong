@@ -1,6 +1,6 @@
 /* getting rid of certain css from style.css */
 body {
-    background: url("/static/bg.jpg") no-repeat center center fixed;
+    background: url("/static/background.png") no-repeat center center fixed;
     background-size: cover;
 }
 
