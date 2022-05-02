@@ -1,8 +1,47 @@
 {% extends "base.html" %}
-{% block title %}Historic Game{% endblock %}
+{% block title %}Pong Game Results - {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='pong.css') }}">
+{% endblock %}
 {% block content %}
 
-    <p>Stats for historic game (TODO)</p>
-    <p>Show the players, the ingredients, the dishes made, and the winner. Maybe even some more stats.</p>
+    <div class="center historic-game-container">
+        <h1 class="center-text">Pong Game Results</h1>
+        <h2 class="center-text">{{ game.game.left.username }} vs {{ game.game.right.username }}</h2>
+        <p class="center-text">Game ID: {{ game.id }}</p>
+        <p class="center-text">Game end date and time: {{ game.meta.game_end_date_string }}</p>
+
+        <div class="row">
+
+            {% for player in [game.game.left, game.game.right] %}
+
+                <div class="column">
+                    <h2 class="center-text">{{ player.username }}</h2>
+                    <p>Won {{ player.score }} rounds of Pong.</p>
+                    <p>Won these ingredients:</p>
+                    {% for ingredient in player.chef.ingredients %}
+                        <img src="{{ ingredient.image }}" alt="Image of {{ ingredient.name }}"/>
+                    {% endfor %}
+
+                    <p>Created {{ player.recipe.name }}</p>
+                    <img src="{{ player.recipe.image }}" alt="Image of {{ player.recipe.name }}"/>
+
+                    {% if player.username == game.meta.winner %}
+                        <h1>Winner!</h1>
+                        {% if game.meta.winner_earned_achievement %}
+                            <p><b>Achievement earned:</b> This is the first time {{ player.username }} made {{ player.recipe.name }}!</p>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <h4 class="center-text">Thank you for playing Pulsar's Produce Pong!
+            <a class="center-text" href="/">Return to homepage</a></h4>
+
+    </div>
 
 {% endblock %}

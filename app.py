@@ -8,9 +8,12 @@ import database
 from flask import Flask, send_from_directory, render_template, request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 import avatar
+from food.Recipe import Recipe
+from food.chef import Chef
 from pong.PongConfig import PongConfig
 from pong.pong_views import handle_game_page_request
 from pong.pongapi import create_new_game, find_current_game
+import food.achievement_database
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000  # limits uploaded profile image size to 16MB
@@ -64,9 +67,10 @@ def request_contact():
 def request_profile():
     user = get_username(request)
     profile = database.user_profiles.find_one({'username': user})
+    achievements = food.achievement_database.get_player_achievements(user)
     to_send = {}
     if profile != None:
-        to_send = {"pfp": profile["pfp"], "username": user}
+        to_send = {"pfp": profile["pfp"], "username": user, "achievements":achievements}
     return render_template("div_templates/profile.html", **to_send)
 
 
@@ -129,7 +133,7 @@ def request_game_websocket(socket, game_id: str):
     if not game:
         return
     print("Websocket connection username: " + username)
-    while True:
+    while not game.game_ended and socket.connected:
         # TODO exit this loop once the websocket connection closes
         # Maybe while socket.connected:
         raw_data = socket.receive(timeout=0)
