@@ -1,13 +1,33 @@
 body {
-    font-family: "Arial", sans-serif;
+    font-family: "Roboto", sans-serif;
+    
+    background-size: cover;
 }
 
-p {
-    margin: 0;
+.fixcontent {
+    margin-bottom: 40px;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    text-shadow: 1px 1px 5px var(--pink);
+}
+
+.fixcontent p {
+    text-align: center;
+    margin-top: -15px;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.pressw {
+    color: var(--pink);
+    font-weight: bold;
 }
 
 #game-border {
-    border: 1px solid black;
+    background-color: var(--trans-black);
     position: relative;
     overflow: hidden;
 }
@@ -21,8 +41,18 @@ p {
     flex-direction: row;
 }
 
+.column_left, .column_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
 .column {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .left {
@@ -34,34 +64,85 @@ p {
 }
 
 .paddle {
-    background-color: darkblue;
     position: absolute;
 }
 
+#left.paddle {
+    background-color: lightskyblue;
+}
+
+#right.paddle {
+    background-color: var(--purple);
+}
+
 .ball {
-    background-color: black;
+    background-color: white;
     position: absolute;
+    text-shadow: 1px 1px 5px var(--pink);
 }
 
 .score-text {
     font-family: "Quantico", monospace;
-    font-size: 96px;
+    font-size: 80px;
 }
 
 .medium-text {
     font-size: 36px;
+    margin-bottom: -15px;
 }
 
-.center-text {
-    text-align: center;
+#left_username.medium-text {
+    color: lightskyblue;
+}
+
+#right_username.medium-text {
+    color: var(--purple);
+}
+
+#current_ingredient_name {
+    margin-bottom: 20px;
+    font-family: "Quantico", monospace;
+    text-shadow: 1px 1px 5px var(--pink);
+    text-decoration: underline;
+    font-size: large;
 }
 
 .fit-img {
-    height: 150px;
-    margin: 0 auto;
-    display: block;
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+    animation-name: float-ingred;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes float-ingred {
+    0% {
+        transform: translate(-5px, -5px)
+    }
+
+    50% {
+        transform: translate(-5px, 5px)
+    }
+
+    100% {
+        transform: translate(-5px, -5px)
+    }
 }
 
 .historic-game-container {
     max-width: 800px;
+}
+
+#left_ingredients, #right_ingredients {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#left-ingredient, #right-ingredient {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
 }

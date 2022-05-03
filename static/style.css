@@ -23,6 +23,8 @@
 body {
     background-color: var(--background);
     color: var(--primary);
+    display: flex;
+    flex-direction: column;
 }
 
 p {
@@ -43,6 +45,11 @@ p {
     padding-left: 30px;
 }
 
+/* Needed to fix the footer*/
+.fixcontent{        
+    flex: 1 0 auto;
+    min-height: calc(100vh - 40px);
+}
 
 /*-----------------HEADER-----------------*/
 .header {
@@ -128,11 +135,36 @@ p {
     color: white;
 }
 
+@media screen and (max-width: 520px) {
+    .nav-left {
+        margin-left: 4vw;
+    }
+    .webname {
+        margin: 0;
+    }
+    .pulsar {
+        display: none;
+    }
+    .nav-right {
+        margin-right: 4vw;
+    }
+    .tabs {
+        margin-left: 3vw;
+    }
+}
+
 
 /*-----------------FOOTER-----------------*/
 .footer {
     background-color: var(--primary);
     color: var(--background);
+    bottom:0;
+    left:0;
+    right:0;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .footer p {
@@ -267,4 +299,193 @@ div.loading > .dot.sharon {
     background-color: var(--sharon-color);
     animation: dot5 3s infinite;
     animation-delay: -2.4s;
+}
+
+
+/*-----------------CONTACT PAGE-----------------*/
+.contact-page {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+}
+.meet-our-team {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--primary);
+}
+.contact-container {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 15px 0px 15px 0px;
+}
+.contact-box {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    background-color: var(--trans-black);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    padding: 20px;
+    margin: 10px;
+    gap: 10px;
+}
+.contact-pfp {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+#nicholas-pfp {
+    border: 3px solid var(--nicholas-color);
+}
+#taisia-pfp {
+    border: 3px solid var(--taisia-color);
+}
+#hannah-pfp {
+    border: 3px solid var(--hannah-color);
+}
+#melisha-pfp {
+    border: 3px solid var(--melisha-color);
+}
+#sharon-pfp {
+    border: 3px solid var(--sharon-color);
+}
+.contact-name {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+#nicholas {
+    color: var(--nicholas-color);
+}
+#taisia {
+    color: var(--taisia-color);
+}
+#hannah {
+    color: var(--hannah-color);
+}
+#melisha {
+    color: var(--melisha-color);
+}
+#sharon {
+    color: var(--sharon-color);
+}
+.contact-box a {
+    text-decoration: none;
+    color: white;
+}
+.team-github, .meet-our-team-desc {
+    color: black;
+    text-decoration: none;
+}
+.contact-page a {
+    font-size: 13px;
+}
+.contact-page a:hover {
+    text-decoration: underline;
+}
+/*-----------------MESSAGES-----------------*/
+
+.leftcontainer {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border: solid 2px #7d789b;
+    padding: 21px;
+    border-radius: 20px;
+    background-color: #b6b4c3;
+    overflow-y: auto;
+}
+
+.users_list{
+    list-style-type: none;
+    font-size: large;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    color: #2243e3;
+}
+
+.rightcontainer {
+    display: flex;
+    flex-direction: column;
+    border: solid 2px #7d789b;
+    padding: 1rem;
+    width: 70%;
+    border-radius: 20px;
+}
+
+.show_img{
+    display: flex;
+    flex-direction: row;
+}
+
+.fit-img-msg{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    height:40vh;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    height: 35vh;
+}
+
+.write_msg {
+    display: flex;
+    align-items: baseline;
+}
+
+.show_msg {
+    display: flex;
+    align-items: flex-start;
+    height: 40vh;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.chats{
+    list-style-type: none;
+    margin: 5px;
+    background-color: #b6b4c3;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.send_button{
+    background-color: #7d789b;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 20px;
+    width: 10%;
+}
+
+.align_msg_right{
+    display: flex;
+    justify-content: right;
+    width: 98%;
+    flex-direction: row-reverse;
+}
+
+.align_msg_left{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    flex-direction: row;
+}
+
+.input_box{
+    width: 55vw;
+    border-radius: 10px;
+    height: 50%;
+    padding: 5px;
+    border: solid 2px #7d789b;
 }
