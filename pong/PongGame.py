@@ -34,8 +34,6 @@ class PongGame:
         #  (can wait in this thread because the game state is *sent* to players in a different thread),
         #  5. Stop the game thread
 
-        # TODO we also need the dishes each player made
-
         # Try to add the achievement to the winner and get whether that really happened or not (e.g., they may already have this achievement)
         if winner:
             winner_earned_achievement: bool = add_achievement(winner.username, winner.best_recipe)
@@ -53,7 +51,7 @@ class PongGame:
         del PongGame.all_games[self.uid]
         self.game_ended = True
         time.sleep(max(1, 1 // self.config.framerate))
-        self.stop_game_loop()
+        self.game_thread_running = False
 
     # Move the ball to the center of the game region
     def center_ball(self):
@@ -186,7 +184,7 @@ class PongGame:
     def game_loop(self):
         time_per_frame: float = 1 / self.config.framerate
         last_update_time: float = time.time()
-        while not self.game_ended:
+        while self.game_thread_running:
             frame_start_time: float = time.time()
             time_since_last_frame: float = frame_start_time - last_update_time
 
@@ -209,6 +207,7 @@ class PongGame:
         self.game_started = False  # Changes to true once both players are in
         # TODO implement a wait (countdown?) before the ball starts moving
         self.game_ended = False  # Changes to true once somebody has won
+        self.game_thread_running = True  # Changes to false once the game logic can stop running, generally a few seconds after a game ends
 
         # Create the players and their paddles
         paddle_vertical_center = self.config.game_height // 2 - self.config.paddle_height // 2
