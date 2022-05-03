@@ -59,7 +59,8 @@ def request_profile():
 def pfp_too_big(e):
     user = get_username(request)
     profile = database.user_profiles.find_one({'username': user})
-    to_send = {"pfp": profile["pfp"], "username": user, "error": "WOAH! This file exceeds the size of our universe. Please choose something smaller."}
+    achievements = food.achievement_database.get_player_achievements(user)
+    to_send = {"pfp": profile["pfp"], "username": user, "error": "WOAH! This file exceeds the size of our universe. Please choose something smaller.", "achievements":achievements}
     return render_template("div_templates/profile.html", **to_send)
 
 

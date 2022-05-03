@@ -2,6 +2,7 @@ import random
 from werkzeug.utils import secure_filename #for profile image uploads
 from flask import render_template
 import secrets
+import food.achievement_database
 
 allowed_extensions = {'png', 'jpg', 'jpeg', 'gif','ico'}
 
@@ -33,6 +34,8 @@ def change_avatar(request, user_profiles, username):
     profile = user_profiles.find_one({'username': username})
     to_send["pfp"]=profile["pfp"]
     to_send["username"]=username
+    achievements = food.achievement_database.get_player_achievements(username)
+    to_send["achievements"] = achievements
     return render_template("div_templates/profile.html", **to_send)
 
 def default_avatar(user_profiles, username):
@@ -43,4 +46,6 @@ def default_avatar(user_profiles, username):
     profile = user_profiles.find_one({'username': username})
     to_send["pfp"]=profile["pfp"]
     to_send["username"]=username
+    achievements = food.achievement_database.get_player_achievements(username)
+    to_send["achievements"] = achievements
     return render_template("div_templates/profile.html", **to_send)
