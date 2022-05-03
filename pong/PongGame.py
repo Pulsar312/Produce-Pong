@@ -9,7 +9,6 @@ from uuid import uuid4
 
 from food.Cooking import Cooking
 from food.Ingredient import Ingredient
-from food.Recipe import Recipe
 from food.achievement_database import add_achievement
 from pong.HistoricGame import HistoricGame
 from pong.PongBall import PongBall

@@ -134,9 +134,7 @@ def request_game_websocket(socket, game_id: str):
     if not game:
         return
     print("Websocket connection username: " + username)
-    while not game.game_ended and socket.connected:
-        # TODO exit this loop once the websocket connection closes
-        # Maybe while socket.connected:
+    while game.game_thread_running and socket.connected:
         raw_data = socket.receive(timeout=0)
         if raw_data:
             game.on_websocket_message(username, raw_data)
