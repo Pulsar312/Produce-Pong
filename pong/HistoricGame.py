@@ -12,6 +12,7 @@ class HistoricGame:
             "meta": {
                 "winner_earned_achievement": meta.get("winner_earned_achievement", False),
                 "game_end_date_string": meta.get("game_end_date_string", "[Missing Date]"),
+                "winner": meta.get("winner", "[Missing Winner]"),
 
             }
         }

@@ -47,3 +47,6 @@ class Ingredient:
         ret_str = ret_str + "]"
 
         return ret_str
+
+    def __str__(self):
+        return self.name

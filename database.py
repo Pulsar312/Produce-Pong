@@ -13,7 +13,7 @@ logged_in = db.logged_in_user
 pong_db = db.pong_db
 achievements = db.achievements  # Save the users with their achievements
 historic_games = db.historic_games
-
+messages = db.messages
 
 def initialize():
     # Force this file to be run when the app is started

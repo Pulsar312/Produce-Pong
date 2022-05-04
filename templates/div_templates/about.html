@@ -1,4 +1,26 @@
 <!--  TODO:  Show instructions to play here! -->
-<p>About page</p>
+<link rel="stylesheet" href="{{ url_for('static', filename='styleAbout.css') }}">
 
-{{ all_users }}
+<div class="about-section">
+    <span class="about-title" id="ppp">Pulsar's Produce Pong</span>
+    <span>A grocery shopping pong game</span>
+    <br />
+    <span>Create a game, and invite your friend to play! If you have no friends, invite a random stranger! Gather ingredients as you play against your opponent and see what dish you end up making. Will it be a sandwich, pancake, or perhaps curry? Prove that you are the surperior cook!</span>
+</div>
+
+<div class="preview-section">
+    <span class="about-title">Ingredients Preview</span>
+    <span>Check out some of the ingredients!</span>
+    <br />
+    <br />
+    <div class="preview-ingreds">
+        <img src="./static/ingredients/rice.png" class="preview-ingred" id="ingred1">
+        <img src="./static/ingredients/carrot.png" class="preview-ingred" id="ingred2">
+        <img src="./static/ingredients/pork.png" class="preview-ingred" id="ingred3">
+        <img src="./static/ingredients/peach.png" class="preview-ingred" id="ingred4">
+        <img src="./static/ingredients/cream.png" class="preview-ingred" id="ingred5">
+    </div>
+    <br />
+    <br />
+    <button type="button" class="randomize" onclick="ingredRandom()">Randomize</button>
+</div>
