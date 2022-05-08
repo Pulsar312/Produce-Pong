@@ -24,7 +24,7 @@ class PongGame:
 
     # End the game, create a historic game record in the database,
     def game_over(self, winner: PongPlayer):
-        # TODO (this order mostly matters)
+        # (this order mostly matters)
         #  1. determine if the winner gets an achievement,
         #  2. create a "HistoricGame" with metadata (so a new GET request finds the historic game instead of the live game)
         #  3. Delete this game from all_games
@@ -46,7 +46,7 @@ class PongGame:
             "winner": winner.username,
         }
 
-        historic_game = HistoricGame(self, meta)
+        HistoricGame(self, meta)  # Side effects are performed in this constructor!
         del PongGame.all_games[self.uid]
         self.game_ended = True
         time.sleep(max(1, 1 // self.config.framerate))

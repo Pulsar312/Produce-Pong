@@ -1,5 +1,7 @@
 # This is the file that we'll use to interact with pong games in an abstract way
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
+
+import database
 from database import historic_games
 from pong.PongConfig import PongConfig
 from pong.PongGame import PongGame
@@ -37,5 +39,30 @@ def find_current_game(game_id: str) -> Optional[PongGame]:
 
 
 # Find the game a player is currently in. Useful to prevent playing multiple games simultaneously. Returns None if they're not in a game.
+# They may actually be in multiple games, so we might want to return more than one. This needs some more thought.
 def find_player_current_game(username: str) -> Optional[PongGame]:
     pass  # TODO
+
+
+def get_current_games() -> List[Dict[str, str]]:
+    ret: List[Dict[str, str]] = []
+    for game in PongGame.all_games.values():
+        if game.game_started:
+            d = {
+                "name": f"{game.left.username} ({game.left.score}) vs {game.right.username} ({game.right.score})",
+                "id": game.uid,
+            }
+            ret.append(d)
+    return ret
+
+
+def get_recent_games() -> List[Dict[str, str]]:
+    ret: List[Dict[str, str]] = []
+    recent_games = list(database.historic_games.find().sort([("_id", -1)]).limit(25))
+    for game in recent_games:
+        d = {
+            "name": f"{game['game']['left']['username']} ({game['game']['left']['score']}) vs {game['game']['right']['username']} ({game['game']['right']['score']})",
+            "id": game["id"],
+        }
+        ret.append(d)
+    return ret

@@ -8,6 +8,7 @@ import database
 from flask import Flask, send_from_directory, render_template, request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 import avatar
+from pong import pongapi
 from pong.PongConfig import PongConfig
 from pong.pong_views import handle_game_page_request
 from pong.pongapi import create_new_game, find_current_game
@@ -158,6 +159,15 @@ def create_game_testing():
     my_cool_config.framerate = 300
     game = create_new_game(config=my_cool_config)
     return f"Game created: {game.uid}", 201
+
+
+@app.route("/games", methods=['GET'])
+def games():
+    data = {
+        "current_games": pongapi.get_current_games(),
+        "recent_games": pongapi.get_recent_games(),
+    }
+    return render_template("pong_templates/games.html", **data)
 
 
 @app.route("/default_avatar", methods=['POST'])
