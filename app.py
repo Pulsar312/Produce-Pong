@@ -118,6 +118,12 @@ def request_logout():
     return handle_logout(request)
 
 
+# Handle clicking the logout EVERYWHERE button
+@app.route("/auth/logout-everywhere", methods=['POST'])
+def request_logout_everywhere():
+    return handle_logout(request, all_sessions=True)
+
+
 @app.route("/change_avatar", methods=['POST'])
 def change_avatar():
     return avatar.change_avatar(request, database.user_profiles, get_username(request))

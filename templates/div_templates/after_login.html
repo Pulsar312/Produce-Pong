@@ -1,9 +1,11 @@
-<h1>After login</h1>
-
-<p>Signed in as {{ username }}</p>
-
-<p>Look at your cookies to see your session token</p>
-
 {% if new_account %}
+    <h1 class="space-font">Hi {{ username }}!</h1>
     <h2>Welcome to your brand-new Pulsar account!</h2>
+{% else %}
+    <h1 class="space-font">Welcome back, {{ username }}!</h1>
 {% endif %}
+
+<p>You can start a game by messaging an opponent. Click the logo on the top left for chat.</p>
+<p>Explore the other tabs for more info and functionality.</p>
+
+<h1 class="space-font">Have fun!</h1>
