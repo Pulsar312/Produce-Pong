@@ -3,7 +3,7 @@ import time
 from flask_sock import Sock
 
 import authentication
-from message import handle_chat, get_chat, get_all_pfps
+from message import handle_chat, get_chat, get_all_pfps, receive_notification, send_list_msg, fix_list_msg
 import database
 from flask import Flask, send_from_directory, render_template, request
 from authentication import handle_login, get_login_page, get_username, handle_logout
@@ -39,6 +39,9 @@ def request_about():
 @app.route("/messages/<username>", methods=['GET'])
 def request_message(username: str):
     main_user = get_username(request)
+    s=fix_list_msg(username, main_user)
+    list_msg=send_list_msg()
+    print(list_msg)
     get_data = get_chat(main_user, username)
     all_users_pfps = get_all_pfps(authentication.get_all_logged_in_users())
     data = {"user": username,"main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
@@ -52,8 +55,23 @@ def post_message(username: str):
     all_users_pfps = get_all_pfps(authentication.get_all_logged_in_users())
     get_data = handle_chat(msg, main_user, username)
     data = {"user": username,"main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
+    s=receive_notification(username, main_user)
     #data = {"user": username, "sent_msg": msg, "main_user": main_user, "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
     return render_template("div_templates/message.html", **data)
+
+@app.route("/newmessage", methods=['GET'])
+def request_newmessage():
+    data=[]
+    username = get_username(request)
+    list_msg=send_list_msg()
+    for one_msg in list_msg:
+        if (one_msg[1]==username):      #get the msg that was sent to_user
+            data.append([one_msg[0],username])
+    main_data={"list_of_notifications": data}
+    return render_template("notification_template/notification.html", **main_data)
+
+
+
 
 @app.route("/contact", methods=['GET'])
 def request_contact():
