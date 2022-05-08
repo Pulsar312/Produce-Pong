@@ -240,9 +240,6 @@ class PongGame:
     def start_game_loop(self):
         self.game_thread.start()
 
-    def stop_game_loop(self):
-        pass  # Actually, we'll just let the main loop return when the game is over to stop the thread.
-
     # For writing to the database after the game is complete, NOT for sending to the client
     def to_dict(self) -> Dict[str, Any]:
         d = {
