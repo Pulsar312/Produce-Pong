@@ -4,6 +4,7 @@ from pathlib import Path
 
 from food.Cooking import Cooking
 from food.Recipe import Recipe
+from food.achievement_database import add_achievement, get_player_achievements
 from food.chef import Chef
 
 
@@ -26,32 +27,47 @@ def test_get_random_ingredient(cooking):
     chef1 = Chef()
     chef2 = Chef()
 
-    for j in range(0, 10):
+    print(len(cooking.ingredients))
+
+    for j in range(0, 48):
         print()
-        print()
+        print(j)
         i = cooking.get_random_ingredient(chef1, chef2)
         chef1.add_ingredient(i)
-
-        print("chef1: ", end="\t\t")
-        for k in chef1.ingredients:
-            print(k.name, end=", ")
-        print()
-        print("chef2: ", end="\t\t")
-        for k in chef2.ingredients:
-            print(k.name, end=", ")
-        print()
-
-        i = cooking.get_random_ingredient(chef1, chef2)
         chef2.add_ingredient(i)
 
-        print("chef1: ", end="\t\t")
-        for k in chef1.ingredients:
-            print(k.name, end=", ")
-        print()
-        print("chef2: ", end="\t\t")
-        for k in chef2.ingredients:
-            print(k.name, end=", ")
-        print()
+        # print("chef1: ", end="\t\t")
+        # for k in chef1.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+        # print("chef2: ", end="\t\t")
+        # for k in chef2.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+
+        # i = cooking.get_random_ingredient(chef1, chef2)
+        # chef2.add_ingredient(i)
+
+        # print("chef1: ", end="\t\t")
+        # for k in chef1.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+        # print("chef2: ", end="\t\t")
+        # for k in chef2.ingredients:
+        #     print(k.name, end=", ")
+        # print()
+
+    list1 = []
+    for k in chef1.ingredients:
+        list1.append(k.name)
+    list1.sort()
+    print("sorted1: ", list1)
+
+    list2 = []
+    for k in chef2.ingredients:
+        list2.append(k.name)
+    list2.sort()
+    print("sorted2:", list2)
 
 
 def test_find_recipes(cooking):
@@ -202,17 +218,21 @@ def test_ingredient_images(cooking):
             print("NOT FOUND: ", i)
 
 def test_mongo(cooking):
-    chef = Chef()
     recipe = Recipe("soMe food's")
-    chef.add_achievement("sia", recipe)
-    result = chef.get_player_achievements("sia")
+    add_achievement("sia", recipe)
+    result = get_player_achievements("sia")
     print(result)
 
+def debug_get_random_ingredient(cooking):
+    print(len(cooking.recipes))
+    print(len(cooking.ingredients))
+    print(cooking.ingredients)
+    print(cooking.get_random_ingredient(Chef(), Chef()))
 
 if __name__ == '__main__':
     cooking: Cooking = Cooking('recipes.json')
     # print_ingredients_and_recipes(cooking)
-    # test_get_random_ingredient(cooking)
+    test_get_random_ingredient(cooking)
     # test_find_recipes(cooking)
     # test_all_recipe_scores(cooking)
     # test_one_recipe_score(cooking)
@@ -221,4 +241,5 @@ if __name__ == '__main__':
     # test_get_top_recipe_no_ingredients(cooking)
     # test_chef_to_dict(cooking)
     # test_ingredient_images(cooking)
-    test_mongo(cooking)
+    # test_mongo(cooking)
+    # debug_get_random_ingredient(cooking)
