@@ -1,0 +1,10 @@
+<div class="top-notify">
+    <div class="inner_notification_bar">
+        <span>Notifications:</span>
+        <div class="all_notifications">
+            {% for each_notification in list_of_notifications %}
+                <button class="notification_button" onclick="makeAjaxRequest('GET', '/messages/{{each_notification[0]}}', loadDiv, {}, 'div',false,true)">{{each_notification[0]}}</button>
+            {% endfor %}
+        <div>
+    </div>
+</div>

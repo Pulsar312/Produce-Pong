@@ -1,6 +1,7 @@
 function pageLoaded() {
     makeAjaxRequest('GET', '/homepage', loadDiv, {}, "div");
     makeAjaxRequest('GET', '/header', loadDiv, {}, "header");
+    setInterval(pageloadNotification, 1000);
 }
 
 //Generic method to make a request and get a response
@@ -37,5 +38,10 @@ function loadDiv(data, divId, reloadHeader = false) {
     div.innerHTML = data.responseText;
     if (reloadHeader) {
         makeAjaxRequest('GET', '/header', loadDiv, {}, "header");
+        makeAjaxRequest('GET', '/newmessage', loadDiv, {}, "notification");
     }
+}
+
+function pageloadNotification(){
+    makeAjaxRequest('GET', '/newmessage', loadDiv, {}, "notification");
 }

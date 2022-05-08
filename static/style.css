@@ -389,3 +389,43 @@ div.loading > .dot.sharon {
     padding: 5px;
     border: solid 2px #7d789b;
 }
+
+.top-notify {
+    background-color: var(--trans-black);
+    height: 45px;
+    overflow: hidden;
+    box-shadow: 0px 4px 4px 0px var(--box-shadow);
+    font-family: "Quantico";
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.notification_button {
+    background-color: #c78860;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    height: 22px;
+    width: fit-content;
+    margin-right: 5vw;
+}
+
+.all_notifications {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.inner_notification_bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.inner_notification_bar span {
+    margin-right: 20px;
+    margin-left: 20px;
+}
