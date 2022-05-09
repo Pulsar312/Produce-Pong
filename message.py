@@ -10,6 +10,7 @@ from flask import Flask, send_from_directory, render_template, request
 # ------------messages handling methods ----------------#
 # {"from": user1, "to": user2, "message": message_sent}
 
+list_msg=[]
 
 # gets the msg from the user, inserts it into the database,
 # and returns all the chat history between two people
@@ -46,8 +47,7 @@ def get_all_pfps(users: list):
             user_pfps[user]=profile["pfp"]
     return user_pfps
 
-list_msg=[]
-
+#receive the notification from the user
 def receive_notification(to_user: str, from_user: str):
     does_exist=False
     for each_msg in list_msg:
@@ -55,11 +55,12 @@ def receive_notification(to_user: str, from_user: str):
             does_exist=True
     if(does_exist == False):
         list_msg.append([from_user,to_user])
-    -1
 
+#get list of notification
 def send_list_msg():
     return list_msg
 
+#fix the list of notifications
 def fix_list_msg(from_user: str, to_user:str):
     does_exist=False
     for each_msg in list_msg:
@@ -67,4 +68,3 @@ def fix_list_msg(from_user: str, to_user:str):
             does_exist=True
     if(does_exist == True):
         list_msg.remove([from_user,to_user])
-    -1

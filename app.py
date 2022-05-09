@@ -36,18 +36,17 @@ def request_about():
     data = {"dessert": "ice cream", "ingredients": ["cream", "sugar", "sprinkles"], "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
     return render_template("div_templates/about.html", **data)
 
+#get the messages with the other user
 @app.route("/messages/<username>", methods=['GET'])
 def request_message(username: str):
     main_user = get_username(request)
     s=fix_list_msg(username, main_user)
-    list_msg=send_list_msg()
-    print(list_msg)
     get_data = get_chat(main_user, username)
     all_users_pfps = get_all_pfps(authentication.get_all_logged_in_users())
     data = {"user": username,"main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
-    #data = {"user": username, "sent_msg": "","main_user": get_username(request), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
     return render_template("div_templates/message.html", **data)
 
+#store the message into the database
 @app.route("/messages/<username>", methods=['POST'])
 def post_message(username: str):
     msg = request.get_json(force=True)
@@ -56,9 +55,9 @@ def post_message(username: str):
     get_data = handle_chat(msg, main_user, username)
     data = {"user": username,"main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
     s=receive_notification(username, main_user)
-    #data = {"user": username, "sent_msg": msg, "main_user": main_user, "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
     return render_template("div_templates/message.html", **data)
 
+#handle the new message notifications
 @app.route("/newmessage", methods=['GET'])
 def request_newmessage():
     data=[]
