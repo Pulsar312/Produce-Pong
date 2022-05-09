@@ -111,3 +111,4 @@ function ingredRandom() {
         document.getElementById(id[i]).src = path + ingredients[num[i]]
     }
 }
+
