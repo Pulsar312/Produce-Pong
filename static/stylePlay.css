@@ -1,6 +1,6 @@
 /* getting rid of certain css from style.css */
 body {
-    background: url("/static/bg.jpg") no-repeat center center fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/background.png") no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -55,8 +55,9 @@ body {
 input[type="text"], input[type="password"], button {
     border-radius: 10px;
     height: 36px;
-    width: 331px;
+    width: 302px;
     border-style: none;
+    padding: 0px 15px 0px 15px;
 }
 
 button {
@@ -66,6 +67,7 @@ button {
     font-size: 16px;
     margin-top: 25px;
     margin-bottom: 10px;
+    width: 331px;
 }
 
 button:hover {

@@ -1,5 +1,5 @@
+from datetime import datetime
 import json
-import math
 import random
 import threading
 import time
@@ -7,6 +7,10 @@ from json import JSONDecodeError
 from typing import Dict, Any, Optional
 from uuid import uuid4
 
+from food.Cooking import Cooking
+from food.Ingredient import Ingredient
+from food.achievement_database import add_achievement
+from pong.HistoricGame import HistoricGame
 from pong.PongBall import PongBall
 from pong.PhysicsObject import PhysicsObject
 from pong.PongConfig import PongConfig
@@ -17,6 +21,36 @@ class PongGame:
     # Map game IDs to their PongGame instance. Only currently running games should be here.
     # Previous games will be in the database, but not in memory.
     all_games: Dict[str, "PongGame"] = {}
+
+    # End the game, create a historic game record in the database,
+    def game_over(self, winner: PongPlayer):
+        # (this order mostly matters)
+        #  1. determine if the winner gets an achievement,
+        #  2. create a "HistoricGame" with metadata (so a new GET request finds the historic game instead of the live game)
+        #  3. Delete this game from all_games
+        #  3. set "game_ended" to True,
+        #  4. wait several frames to ensure the client gets the "game_over" message
+        #  (can wait in this thread because the game state is *sent* to players in a different thread),
+        #  5. Stop the game thread
+
+        # Try to add the achievement to the winner and get whether that really happened or not (e.g., they may already have this achievement)
+        if winner:
+            winner_earned_achievement: bool = add_achievement(winner.username, winner.best_recipe)
+        else:
+            winner_earned_achievement: bool = False
+            print(f"PROBLEM WITH WINNER??? {winner}")
+
+        meta: Dict[str, Any] = {
+            "winner_earned_achievement": winner_earned_achievement,
+            "game_end_date_string": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "winner": winner.username,
+        }
+
+        HistoricGame(self, meta)  # Side effects are performed in this constructor!
+        del PongGame.all_games[self.uid]
+        self.game_ended = True
+        time.sleep(max(1, 1 // self.config.framerate))
+        self.game_thread_running = False
 
     # Move the ball to the center of the game region
     def center_ball(self):
@@ -36,12 +70,21 @@ class PongGame:
     # Handle a round victory
     def round_won(self, winner: PongPlayer):
         winner.score += 1
-        print(f"{winner.username} won that round. Score: {self.left.score} to {self.right.score}")
-        # TODO give ingredient to winner and set up next round
+        print(f"{winner.username} won {self.current_ingredient} that round. Score: {self.left.score} to {self.right.score}")
+
+        winner.chef.add_ingredient(self.current_ingredient)
+        self.current_ingredient = self.kitchen.get_random_ingredient(self.left.chef, self.right.chef)
+
+        winner.best_recipe, winner.recipe_score = self.kitchen.get_best_recipe_and_score(winner.chef.ingredients)
+        if self.left.best_recipe and self.right.best_recipe:
+            print("Both have full dishes, so end game")
+            winner: PongPlayer = self.left if self.left.recipe_score > self.right.recipe_score else self.right
+            self.game_over(winner)
+
         self.center_ball()
         self.reset_ball(winner)
 
-    def determine_side_collision(self, paddle, collision):
+    def determine_side_collision(self, collision):
         return collision.height > collision.width
 
     def collision_update(self, paddle: PhysicsObject):
@@ -77,12 +120,10 @@ class PongGame:
         if not collision:
             return
         ball: PhysicsObject = self.ball.physics_object
-        print("Paddle ball collision")
 
         # Determine if this is a collision from the side or the top/bottom.
         # This can't be quite perfect because we don't have inter-frame information.
-        if self.determine_side_collision(paddle, collision):
-            print("Side collision")
+        if self.determine_side_collision(collision):
             # Push the ball back in bounds
             if paddle == self.left.paddle:
                 ball.x = paddle.top_right()[0]
@@ -92,7 +133,6 @@ class PongGame:
             self.collision_update(paddle)
 
         else:
-            print("Vertical collision")
             # If it hits the top/bottom of the paddle, just bounce it vertically, it's about to score
             ball.y_velocity *= -1
             # TODO prevent overlapping with paddle
@@ -106,49 +146,44 @@ class PongGame:
 
     # delta_time is how much time passed since the last frame
     def update_frame(self, delta_time: float):
+        if self.game_started:
+            # Handle paddle movement
+            self.left.paddle.update_position(delta_time)
+            self.right.paddle.update_position(delta_time)
+            self.ensure_in_bounds(self.right.paddle)
+            self.ensure_in_bounds(self.left.paddle)
 
-        # Handle paddle movement
-        self.left.paddle.update_position(delta_time)
-        self.right.paddle.update_position(delta_time)
-        self.ensure_in_bounds(self.right.paddle)
-        self.ensure_in_bounds(self.left.paddle)
+            # Handle ball movement
+            self.ball.physics_object.update_position(delta_time)
+            # Check for bouncing on top/bottom walls:
+            if self.ball.physics_object.top_left()[1] < 0:
+                self.ball.physics_object.y = 0
+                self.ball.physics_object.y_velocity *= -1
+            elif self.ball.physics_object.bottom_left()[1] > self.config.game_height:
+                self.ball.physics_object.y = self.config.game_height - self.config.ball_height
+                self.ball.physics_object.y_velocity *= -1
 
-        # Handle ball movement
-        self.ball.physics_object.update_position(delta_time)
-        # Check for bouncing on top/bottom walls:
-        if self.ball.physics_object.top_left()[1] < 0:
-            self.ball.physics_object.y = 0
-            self.ball.physics_object.y_velocity *= -1
-        elif self.ball.physics_object.bottom_left()[1] > self.config.game_height:
-            self.ball.physics_object.y = self.config.game_height - self.config.ball_height
-            self.ball.physics_object.y_velocity *= -1
+            # Check for hitting paddles
+            left_paddle_collision = self.ball.physics_object.intersection(self.left.paddle)
+            if left_paddle_collision:
+                self.handle_paddle_ball_collision(self.left.paddle, left_paddle_collision)
+            else:
+                right_paddle_collision = self.ball.physics_object.intersection(self.right.paddle)
+                if right_paddle_collision:
+                    self.handle_paddle_ball_collision(self.right.paddle, right_paddle_collision)
 
-        # Check for hitting paddles
-        left_paddle_collision = self.ball.physics_object.intersection(self.left.paddle)
-        if left_paddle_collision:
-            print("Left paddle collision")
-            self.handle_paddle_ball_collision(self.left.paddle, left_paddle_collision)
-        else:
-            right_paddle_collision = self.ball.physics_object.intersection(self.right.paddle)
-            if right_paddle_collision:
-                print("Right paddle collision")
-                print(f"{right_paddle_collision}")
-                self.handle_paddle_ball_collision(self.right.paddle, right_paddle_collision)
-
-        # Handle scoring
-        # Goal on left (by right)
-        if self.ball.physics_object.x + self.ball.physics_object.width < 0:
-            self.round_won(self.right)
-        # Goal on right (by left)
-        elif self.ball.physics_object.x > self.config.game_width:
-            self.round_won(self.left)
-
-        # TODO put all logic to prepare the next frame here
+            # Handle scoring
+            # Goal on left (by right)
+            if self.ball.physics_object.x + self.ball.physics_object.width < 0:
+                self.round_won(self.right)
+            # Goal on right (by left)
+            elif self.ball.physics_object.x > self.config.game_width:
+                self.round_won(self.left)
 
     def game_loop(self):
         time_per_frame: float = 1 / self.config.framerate
         last_update_time: float = time.time()
-        while True:
+        while self.game_thread_running:
             frame_start_time: float = time.time()
             time_since_last_frame: float = frame_start_time - last_update_time
 
@@ -165,8 +200,13 @@ class PongGame:
             last_update_time = frame_start_time
 
     def __init__(self, config: PongConfig):
+        # Basic stuff about the game
         self.config: PongConfig = config
         self.uid: str = uuid4().hex
+        self.game_started = False  # Changes to true once both players are in
+        # TODO implement a wait (countdown?) before the ball starts moving
+        self.game_ended = False  # Changes to true once somebody has won
+        self.game_thread_running = True  # Changes to false once the game logic can stop running, generally a few seconds after a game ends
 
         # Create the players and their paddles
         paddle_vertical_center = self.config.game_height // 2 - self.config.paddle_height // 2
@@ -189,6 +229,10 @@ class PongGame:
         # Add this game to current games
         PongGame.all_games[self.uid] = self
 
+        # Prepare cooking things
+        self.kitchen: Cooking = Cooking("prep_work/recipes.json")
+        self.current_ingredient: Ingredient = self.kitchen.get_random_ingredient(self.left.chef, self.right.chef)
+
         # Game timing logic
         self.game_thread = threading.Thread(target=self.game_loop)
         self.start_game_loop()
@@ -196,19 +240,14 @@ class PongGame:
     def start_game_loop(self):
         self.game_thread.start()
 
-    def stop_game_loop(self):
-        self.game_thread.join()
-
     # For writing to the database after the game is complete, NOT for sending to the client
-    def to_json(self) -> str:
+    def to_dict(self) -> Dict[str, Any]:
         d = {
             "id": self.uid,
-            "left": self.left.username,
-            "right": self.right.username,
-            "left_score": self.left.score,
-            "right_score": self.right.score,
+            "left": self.left.to_dict(),
+            "right": self.right.to_dict(),
         }
-        return json.dumps(d)
+        return d
 
     # Dictionary with info to send to all clients (both players and spectators)
     def to_all_clients(self) -> Dict[str, Any]:
@@ -217,7 +256,9 @@ class PongGame:
             "left": self.left.to_dict(),
             "right": self.right.to_dict(),
             "ball": self.ball.to_dict(),
-            # TODO more
+            "current_ingredient": self.current_ingredient.to_dict(),
+            "game_started": self.game_started,
+            "game_over": self.game_ended,
         }
         return d
 
@@ -231,13 +272,18 @@ class PongGame:
 
     # This is error handled in on_websocket_message, so it's okay if an action raises an exception
     def handle_player_input(self, player: PongPlayer, data: Dict[str, Any]):
-        velocity = int(data["velocity"])
-        if velocity < 0:
-            player.paddle.y_velocity = -1 * self.config.paddle_speed
-        elif velocity > 0:
-            player.paddle.y_velocity = self.config.paddle_speed
+        player.ready = True
+        if self.left.ready and self.right.ready:
+            self.game_started = True
+            velocity = int(data["velocity"])
+            if velocity < 0:
+                player.paddle.y_velocity = -1 * self.config.paddle_speed
+            elif velocity > 0:
+                player.paddle.y_velocity = self.config.paddle_speed
+            else:
+                player.paddle.y_velocity = 0
         else:
-            player.paddle.y_velocity = 0
+            return  # Not both players are ready, don't start the game
 
     # This gets called every time a message is received from the websocket for this game
     def on_websocket_message(self, username: str, message: str):

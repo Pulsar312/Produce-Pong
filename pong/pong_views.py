@@ -1,4 +1,6 @@
 # Flask Views for the Pong game
+from typing import Optional, Dict, Any
+
 from flask import render_template
 
 from authentication import get_username
@@ -9,12 +11,14 @@ def handle_game_page_request(request, game_id: str):
 
     username = get_username(request)
     if not username:
-        return "You must be logged in to join a game.", 403
+        return "You must be logged in to join a game or view historic game results.", 403
 
-    historic_game = find_historic_game(game_id)
+    historic_game: Optional[Dict[str, Any]] = find_historic_game(game_id)
     if historic_game:
-        # TODO style better
-        return f"This game already ended.\n{historic_game}", 200
+        data = {
+            "game": historic_game,
+        }
+        return render_template("pong_templates/historic_game.html", **data)
 
     current_game = find_current_game(game_id)
     if current_game:
@@ -30,7 +34,6 @@ def handle_game_page_request(request, game_id: str):
             "game_id": game_id,
             "username": username,
             "game": current_game,
-            "game2": current_game.to_json(),
             "game3": current_game.to_all_clients(),
         }
         return render_template("pong_templates/game.html", **data)
