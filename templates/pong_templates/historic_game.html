@@ -2,35 +2,35 @@
 {% block title %}Pong Game Results - {% endblock %}
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='pong.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 {% block content %}
 
-    <div class="center historic-game-container">
+    <div class="center-historic-game-container">
         <h1 class="center-text">Pong Game Results</h1>
-        <h2 class="center-text">{{ game.game.left.username }} vs {{ game.game.right.username }}</h2>
+        <p class="center-text">{{ game.game.left.username }} vs {{ game.game.right.username }}</p>
         <p class="center-text">Game ID: {{ game.id }}</p>
         <p class="center-text">Game end date and time: {{ game.meta.game_end_date_string }}</p>
 
-        <div class="row">
+        <div class="row-historic">
 
             {% for player in [game.game.left, game.game.right] %}
 
-                <div class="column">
-                    <h2 class="center-text">{{ player.username }}</h2>
+                <div class="column-historic">
+                    <h2 class="playername">{{ player.username }}</h2>
                     {# TODO get their profile picture #}
-                    <p>Won {{ player.score }} rounds of Pong.</p>
-                    <p>Won these ingredients:</p>
+                    <p>Won {{ player.score }} rounds of Pong, with these ingredients:</p>
                     {% for ingredient in player.chef.ingredients %}
-                        <img src="{{ ingredient.image }}" alt="Image of {{ ingredient.name }}"/>
+                        <img class="ingred-historic" src="{{ ingredient.image }}" alt="Image of {{ ingredient.name }}"/>
                     {% endfor %}
 
-                    <p>Created {{ player.recipe.name }}</p>
-                    <img src="{{ player.recipe.image }}" alt="Image of {{ player.recipe.name }}"/>
+                    <h4 class="created">Created {{ player.recipe.name }}</h4>
+                    <img class="recipe-historic" src="{{ player.recipe.image }}" alt="Image of {{ player.recipe.name }}"/>
 
                     {% if player.username == game.meta.winner %}
-                        <h1>Winner!</h1>
+                        <h1 class="historic-text">Winner!</h1>
                         {% if game.meta.winner_earned_achievement %}
-                            <p><b>Achievement earned:</b> This is the first time {{ player.username }} made {{ player.recipe.name }}!</p>
+                            <p class="historic-text"><b>Achievement earned:</b> This is the first time <span class="pressw">{{ player.username }}</span> made <span class="pressw">{{ player.recipe.name }}</span>!</p>
                         {% endif %}
                     {% endif %}
 
@@ -40,8 +40,8 @@
 
         </div>
 
-        <h4 class="center-text">Thank you for playing Pulsar's Produce Pong!
-            <a class="center-text" href="/">Return to homepage</a></h4>
+        <h4 class="thankyou">Thank you for playing Pulsar's Produce Pong!
+            <a class="pressw" href="/">Return to homepage.</a></h4>
 
     </div>
 

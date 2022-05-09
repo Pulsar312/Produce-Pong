@@ -1,6 +1,6 @@
 body {
     font-family: "Roboto", sans-serif;
-    
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/background.png") no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -30,6 +30,8 @@ h1 {
     background-color: var(--trans-black);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
 .center {
@@ -39,6 +41,7 @@ h1 {
 .row {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .column_left, .column_right {
@@ -133,6 +136,7 @@ h1 {
 
 .historic-game-container {
     max-width: 800px;
+    text-align: center;
 }
 
 #left_ingredients, #right_ingredients {
@@ -277,4 +281,57 @@ div.loading > .dot.sharon {
     background-color: var(--sharon-color);
     animation: dot5 3s infinite;
     animation-delay: -2.4s;
+}
+
+/*-----------------HISTORIC_GAME.HTML-----------------*/
+
+.center-historic-game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-historic-game-container h1, .created {
+    text-shadow: 1px 1px 5px var(--pink);
+}
+
+.ingred-historic, .recipe-historic {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+}
+
+.recipe-historic {
+    height: 200px;
+    width: 200px;
+    animation-name: float-ingred;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.playername {
+    font-family: "Quantico", monospace;
+    text-shadow: 1px 1px 5px var(--pink);
+}
+
+.column-historic {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 25px 0px 25px;
+}
+
+.row-historic {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--trans-black);
+    border-radius: 5px;
+}
+
+.thankyou {
+    text-align: center;
 }
