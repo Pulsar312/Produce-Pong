@@ -1,6 +1,3 @@
-<!--  TODO:  Show chats-->
-<h2>Home page</h2>
-
 {% if username %}
     <p>You're signed in as {{ username }}</p>
     <br>
@@ -31,5 +28,12 @@
         </div>
     </div>
 {% else %}
-    <p>You're not logged in.</p>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleHomepageSignedOut.css') }}">
+    <div class="homepageBox">
+        <span class="homepage-title">Homepage</span>
+        <span>Grocery shopping with a pong game!</span>
+        <br/>
+        <img src="./static/advertisement.png" class="advertisement">
+        <button class="homepageButton" onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {}, 'div');" id="play">Login to play the game!</button>
+    </div>
 {% endif %}

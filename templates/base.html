@@ -5,14 +5,17 @@
     <title>{% block title %}{% endblock %}Pulsar's Produce Pong</title>
     {# Template inheritance documentaiton https://flask.palletsprojects.com/en/2.0.x/patterns/templateinheritance/ #}
     <link href='https://fonts.googleapis.com/css?family=Quantico' rel='stylesheet'>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='pulsar.png') }}"/>
     {% block head %}
         {# If we need any page-specific head info it can go here in the child template #}
     {% endblock %}
 </head>
 <body {% block body_tag_attributes %}{% endblock %}>
-    <div class="fixcontent">
-{% block content %}{% endblock content %}
-    </div>
+
+<div class="fixcontent">
+    {% block content %}{% endblock content %}
+</div>
+
 <div class="footer">
     <p>&copy; Copyright 2022 by <a href="https://github.com/Pulsar312">Team Pulsar</a>. All rights reserved.</p>
 </div>

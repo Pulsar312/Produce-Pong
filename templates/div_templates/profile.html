@@ -1,28 +1,30 @@
-<!--  TODO: Show profile for user -->
 <link rel="stylesheet" href="{{ url_for('static', filename='profilePage.css') }}">
 
 {% if username %}
-<div class = "bookmark">
-<img src = "{{pfp}}" class = "pfpAvatar">
-<div class = "forms">
-<form action="/change_avatar" id="image-form" method="POST" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
-    <label for="pfp-file" class="imageLabel">Image: </label>
-    <input id="pfp-file" type="file" name="upload" class="uploadButton">
-    <button type = "submit" class="changeButton">Change Profile Picture</button>
-    {% if error %}
-    <div class = "error">{{error}}</div>
-    {% endif %}
-</form>
-<form action = "/default_avatar" method = "POST" onsubmit="return submitAjaxForm(this,loadDiv);" enctype="multipart/form-data">
-<button type = "submit" class="changeButton">Use A Random Default Picture</button>
-</form>
-</div>
-<div class = "achievements">Achievements</br>
-    {%for i in achievements%}
-    <img src = "{{ i.recipe_image }}" class = "achievement">
-    {%endfor%}
-</div>
-</div>
+    <h1 class="space-font">{{ username }}</h1>
+    <div class="bookmark">
+        <img src="{{ pfp }}" class="pfpAvatar">
+        <div class="forms">
+            <form action="/change_avatar" id="image-form" method="POST" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
+                <label for="pfp-file" class="imageLabel">Image: </label>
+                <input id="pfp-file" type="file" name="upload" class="uploadButton">
+                <button type="submit" class="changeButton">Change Profile Picture</button>
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
+            </form>
+            <form action="/default_avatar" method="POST" onsubmit="return submitAjaxForm(this,loadDiv);" enctype="multipart/form-data">
+                <button type="submit" class="changeButton">Use A Random Default Picture</button>
+            </form>
+        </div>
+        <div class="achievements">Achievements</br>
+            {% for i in achievements %}
+                <img src="{{ i.recipe_image }}" class="achievement">
+            {% endfor %}
+        </div>
+    </div>
+    <p><a href="/games">Spectate current games and view results from recent games</a></p>
+    <p>If you'd like to delete all active sessions from all devices, you can <a class="normal-link" onclick="makeAjaxRequest(`POST`, `/auth/logout-everywhere`, loadDiv, {}, 'div', false, true);">Logout Everywhere</a>.</p>
 {% else %}
     <p>Sign in or register to view your profile!</p>
 {% endif %}
