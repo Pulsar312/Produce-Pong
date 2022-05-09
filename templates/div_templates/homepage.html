@@ -1,9 +1,39 @@
-<!--  TODO:  Show chats-->
-<h2>Home page</h2>
-<p>Show chats</p>
-
 {% if username %}
     <p>You're signed in as {{ username }}</p>
+    <br>
+    <h3>Online People:</h3>
+    <div class="container1">
+        <div class="leftcontainer">
+            {% for user in all_users %}
+                {% if user != main_user %}
+                <div class="show_img">
+
+                    <img class="fit-img-msg" src={{all_user_pfps[user]}} alt="userpfp"/>
+                    <b><li class="users_list" id="msg_user" onclick="makeAjaxRequest('GET', '/messages/{{user}}', loadDiv, {}, 'div')">{{ user }}</li></b>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="rightcontainer">
+            <div class="show_msg">
+                <h1><== Select people on the left to chat them!!</h1>
+            </div>
+            <div class="write_msg">
+            
+                <label class="user" for="msg">Message: </label>
+                <input class="input_box" type="text" id="msg" name="msg"/>
+                <button class="send_button">Send</button>
+
+            </div>
+        </div>
+    </div>
 {% else %}
-    <p>You're not logged in.</p>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleHomepageSignedOut.css') }}">
+    <div class="homepageBox">
+        <span class="homepage-title">Homepage</span>
+        <span>Grocery shopping with a pong game!</span>
+        <br/>
+        <img src="./static/advertisement.png" class="advertisement">
+        <button class="homepageButton" onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {}, 'div');" id="play">Login to play the game!</button>
+    </div>
 {% endif %}

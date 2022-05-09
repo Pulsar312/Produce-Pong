@@ -1,6 +1,8 @@
 # This is the file that we'll use to interact with pong games in an abstract way
-from typing import Optional, Dict, Any
-from database import pong_db
+from typing import Optional, Dict, Any, List
+
+import database
+from database import historic_games
 from pong.PongConfig import PongConfig
 from pong.PongGame import PongGame
 
@@ -23,7 +25,7 @@ def create_new_game(username1: str = "", username2: str = "", config: PongConfig
 
 # Find a previous game from the database, and return a dictionary with its info, or None if it doesn't exist
 def find_historic_game(game_id: str) -> Optional[Dict[str, Any]]:
-    result = pong_db.find_one({"id": game_id})
+    result = historic_games.find_one({"id": game_id})
     if result:
         return dict(result)
     return None
@@ -37,5 +39,30 @@ def find_current_game(game_id: str) -> Optional[PongGame]:
 
 
 # Find the game a player is currently in. Useful to prevent playing multiple games simultaneously. Returns None if they're not in a game.
+# They may actually be in multiple games, so we might want to return more than one. This needs some more thought.
 def find_player_current_game(username: str) -> Optional[PongGame]:
     pass  # TODO
+
+
+def get_current_games() -> List[Dict[str, str]]:
+    ret: List[Dict[str, str]] = []
+    for game in PongGame.all_games.values():
+        if game.game_started:
+            d = {
+                "name": f"{game.left.username} ({game.left.score}) vs {game.right.username} ({game.right.score})",
+                "id": game.uid,
+            }
+            ret.append(d)
+    return ret
+
+
+def get_recent_games() -> List[Dict[str, str]]:
+    ret: List[Dict[str, str]] = []
+    recent_games = list(database.historic_games.find().sort([("_id", -1)]).limit(25))
+    for game in recent_games:
+        d = {
+            "name": f"{game['game']['left']['username']} ({game['game']['left']['score']}) vs {game['game']['right']['username']} ({game['game']['right']['score']})",
+            "id": game["id"],
+        }
+        ret.append(d)
+    return ret

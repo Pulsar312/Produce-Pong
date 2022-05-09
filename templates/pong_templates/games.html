@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Games - {% endblock %}
+{% block content %}
+
+    <h1 class="space-font">Current Games</h1>
+    <ul>
+        {% for game in current_games %}
+            <li><a href="/game/{{ game.id }}">{{ game.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h1 class="space-font">Recent Games</h1>
+    <ul>
+        {% for game in recent_games %}
+            <li><a href="/game/{{ game.id }}">{{ game.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <a class="center-text" href="/">Return to homepage</a>
+{% endblock %}
