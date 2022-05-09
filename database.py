@@ -3,7 +3,7 @@ import os
 
 import pymongo
 
-client = pymongo.MongoClient(os.getenv("MONGO_HOST", "localhost"))
+client = pymongo.MongoClient(os.getenv("MONGO_HOST", "localhost:27055"))
 db = client.mydata
 users = db.users  # creating/retrieving a collection for saving usernames and passwords
 count_users = db.count_users  # creating/retrieving a collection for saving the amount of users we have
