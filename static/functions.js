@@ -44,8 +44,9 @@ function loadDiv(data, divId, reloadHeader = false) {
     }
 }
 
-function pageloadNotification(){
+function pageloadNotification() {
     makeAjaxRequest('GET', '/newmessage', loadDiv, {}, "notification");
+}
 
 // about page randomize button
 function ingredRandom() {
