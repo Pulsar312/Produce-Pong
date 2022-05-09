@@ -9,6 +9,7 @@ function pageLoaded() {
 //path: the path for the request
 //inputFunction: function to call after getting response from the server
 //data: the data to send- note that it will be converted to a json string before sending
+//"makeAjaxRequest(`POST`, `/auth/logout`, loadDiv, {}, 'div', false, true);"
 function makeAjaxRequest(method, path, inputFunction, data, divId, isBinaryData = false, reloadHeader = false) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -36,6 +37,7 @@ function submitAjaxForm(form, callback, reloadHeader = false) {
 function loadDiv(data, divId, reloadHeader = false) {
     const div = document.getElementById(divId);
     div.innerHTML = data.responseText;
+    console.log(data, divId, reloadHeader)
     if (reloadHeader) {
         makeAjaxRequest('GET', '/header', loadDiv, {}, "header");
         makeAjaxRequest('GET', '/newmessage', loadDiv, {}, "notification");

@@ -48,7 +48,7 @@ def sign_in(request, users, count_users, user_profiles, logged_in):
         result = users.find_one({'username': data['username'], 'password': data['password']})
         random_init = random.randint(1, 8)  # will choose a random integer to append to following line
         print("user_profiles before:", user_profiles)
-        user_profiles.insert_one({'username': data['username'], 'pfp': 'static/avatar' + str(random_init) + '.jpg'})  # will initialize a user with one of the eight possible given profile pictures
+        user_profiles.insert_one({'username': data['username'], 'pfp': 'static/avatars/avatar' + str(random_init) + '.jpg'})  # will initialize a user with one of the eight possible given profile pictures
         print("User created with id:  ", result['id'])  # just making sure it works
         return jsonify({'id': result['id']})  # returns the id to save as a cookie
     elif users.count_documents({'username': data['username'], 'password': data['password']}) == 1:  # username and password exist in the database, so sign user in
