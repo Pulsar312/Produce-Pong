@@ -7,6 +7,7 @@ from json import JSONDecodeError
 from typing import Dict, Any, Optional
 from uuid import uuid4
 
+
 from food.Cooking import Cooking
 from food.Ingredient import Ingredient
 from food.achievement_database import add_achievement
@@ -123,6 +124,7 @@ class PongGame:
 
         # Determine if this is a collision from the side or the top/bottom.
         # This can't be quite perfect because we don't have inter-frame information.
+
         if self.determine_side_collision(collision):
             # Push the ball back in bounds
             if paddle == self.left.paddle:
