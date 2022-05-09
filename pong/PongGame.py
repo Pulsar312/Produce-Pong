@@ -7,6 +7,7 @@ from json import JSONDecodeError
 from typing import Dict, Any, Optional
 from uuid import uuid4
 
+
 from food.Cooking import Cooking
 from food.Ingredient import Ingredient
 from food.achievement_database import add_achievement
@@ -24,7 +25,7 @@ class PongGame:
 
     # End the game, create a historic game record in the database,
     def game_over(self, winner: PongPlayer):
-        # TODO (this order mostly matters)
+        # (this order mostly matters)
         #  1. determine if the winner gets an achievement,
         #  2. create a "HistoricGame" with metadata (so a new GET request finds the historic game instead of the live game)
         #  3. Delete this game from all_games
@@ -46,7 +47,7 @@ class PongGame:
             "winner": winner.username,
         }
 
-        historic_game = HistoricGame(self, meta)
+        HistoricGame(self, meta)  # Side effects are performed in this constructor!
         del PongGame.all_games[self.uid]
         self.game_ended = True
         time.sleep(max(1, 1 // self.config.framerate))
@@ -123,6 +124,7 @@ class PongGame:
 
         # Determine if this is a collision from the side or the top/bottom.
         # This can't be quite perfect because we don't have inter-frame information.
+
         if self.determine_side_collision(collision):
             # Push the ball back in bounds
             if paddle == self.left.paddle:
@@ -239,9 +241,6 @@ class PongGame:
 
     def start_game_loop(self):
         self.game_thread.start()
-
-    def stop_game_loop(self):
-        pass  # Actually, we'll just let the main loop return when the game is over to stop the thread.
 
     # For writing to the database after the game is complete, NOT for sending to the client
     def to_dict(self) -> Dict[str, Any]:

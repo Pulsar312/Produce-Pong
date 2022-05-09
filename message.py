@@ -10,12 +10,14 @@ from flask import Flask, send_from_directory, render_template, request
 # ------------messages handling methods ----------------#
 # {"from": user1, "to": user2, "message": message_sent}
 
+list_msg=[]
 
 # gets the msg from the user, inserts it into the database,
 # and returns all the chat history between two people
 def handle_chat(msg: str, main_user: str, username: str):
     parse_message=json.loads(json.dumps(msg))
-    data = {"from": main_user, "to": username, "message": parse_message["send_msg"]}
+    parse_message_data=parse_message["send_msg"]
+    data = {"from": main_user, "to": username, "message": parse_message_data}
     database.messages.insert_one(data)
     chats= get_chat(main_user, username)
     return chats
@@ -44,3 +46,25 @@ def get_all_pfps(users: list):
         else:
             user_pfps[user]=profile["pfp"]
     return user_pfps
+
+#receive the notification from the user
+def receive_notification(to_user: str, from_user: str):
+    does_exist=False
+    for each_msg in list_msg:
+        if (each_msg == ([from_user,to_user])):
+            does_exist=True
+    if(does_exist == False):
+        list_msg.append([from_user,to_user])
+
+#get list of notification
+def send_list_msg():
+    return list_msg
+
+#fix the list of notifications
+def fix_list_msg(from_user: str, to_user:str):
+    does_exist=False
+    for each_msg in list_msg:
+        if (each_msg == ([from_user,to_user])):
+            does_exist=True
+    if(does_exist == True):
+        list_msg.remove([from_user,to_user])

@@ -3,19 +3,18 @@ import time
 from flask_sock import Sock
 
 import authentication
-from message import handle_chat, get_chat, get_all_pfps
+from message import handle_chat, get_chat, get_all_pfps, receive_notification, send_list_msg, fix_list_msg
 import database
 from flask import Flask, send_from_directory, render_template, request
 from authentication import handle_login, get_login_page, get_username, handle_logout
 import avatar
-from food.Recipe import Recipe
-from food.chef import Chef
+from pong import pongapi
 from pong.PongConfig import PongConfig
 from pong.pong_views import handle_game_page_request
 from pong.pongapi import create_new_game, find_current_game
 import food.achievement_database
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000  # limits uploaded profile image size to 16MB
 sock = Sock(app)
 database.initialize()
@@ -29,25 +28,29 @@ def index():
 
 
 # method gets images, CSS, and JS
-@app.route("/static/<path:file>", methods=['GET'])
-def static_files(file):
-    return send_from_directory("static", file)
+@app.route("/static/<path:filename>", methods=['GET'])
+def static(filename):
+    resp = send_from_directory("static", filename)
+    resp.headers["X-Content-Type-Options"] = "nosniff"
+    return resp
 
 
 @app.route("/about", methods=['GET'])
 def request_about():
-    data = {"dessert": "ice cream", "ingredients": ["cream", "sugar", "sprinkles"], "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
+    data = {"all_users": authentication.get_all_logged_in_users(), "len": len(authentication.get_all_logged_in_users())}
     return render_template("div_templates/about.html", **data)
 
+#get the messages with the other user
 @app.route("/messages/<username>", methods=['GET'])
 def request_message(username: str):
     main_user = get_username(request)
+    s=fix_list_msg(username, main_user)
     get_data = get_chat(main_user, username)
     all_users_pfps = get_all_pfps(authentication.get_all_logged_in_users())
     data = {"user": username,"main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
-    #data = {"user": username, "sent_msg": "","main_user": get_username(request), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
     return render_template("div_templates/message.html", **data)
 
+#store the message into the database
 @app.route("/messages/<username>", methods=['POST'])
 def post_message(username: str):
     msg = request.get_json(force=True)
@@ -55,8 +58,44 @@ def post_message(username: str):
     all_users_pfps = get_all_pfps(authentication.get_all_logged_in_users())
     get_data = handle_chat(msg, main_user, username)
     data = {"user": username,"main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
-    #data = {"user": username, "sent_msg": msg, "main_user": main_user, "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
+    s=receive_notification(username, main_user)
     return render_template("div_templates/message.html", **data)
+
+#handle the new message notifications
+@app.route("/newmessage", methods=['GET'])
+def request_newmessage():
+    data=[]
+    username = get_username(request)
+    list_msg=send_list_msg()
+    for one_msg in list_msg:
+        if (one_msg[1]==username):      #get the msg that was sent to_user
+            data.append([one_msg[0],username])
+    main_data={"list_of_notifications": data}
+    return render_template("notification_template/notification.html", **main_data)
+
+
+
+
+@app.route("/messages/<username>", methods=['GET'])
+def request_message(username: str):
+    main_user = get_username(request)
+    get_data = get_chat(main_user, username)
+    all_users_pfps = get_all_pfps(authentication.get_all_logged_in_users())
+    data = {"user": username, "main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(), "len": len(authentication.get_all_logged_in_users())}
+    # data = {"user": username, "sent_msg": "","main_user": get_username(request), "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
+    return render_template("div_templates/message.html", **data)
+
+
+@app.route("/messages/<username>", methods=['POST'])
+def post_message(username: str):
+    msg = request.get_json(force=True)
+    main_user = get_username(request)
+    all_users_pfps = get_all_pfps(authentication.get_all_logged_in_users())
+    get_data = handle_chat(msg, main_user, username)
+    data = {"user": username, "main_user": main_user, "chat_list": get_data, "all_user_pfps": all_users_pfps, "len_chat": len(get_data), "all_users": authentication.get_all_logged_in_users(), "len": len(authentication.get_all_logged_in_users())}
+    # data = {"user": username, "sent_msg": msg, "main_user": main_user, "all_users": authentication.get_all_logged_in_users(),"len": len(authentication.get_all_logged_in_users())}
+    return render_template("div_templates/message.html", **data)
+
 
 @app.route("/contact", methods=['GET'])
 def request_contact():
@@ -70,7 +109,7 @@ def request_profile():
     achievements = food.achievement_database.get_player_achievements(user)
     to_send = {}
     if profile != None:
-        to_send = {"pfp": profile["pfp"], "username": user, "achievements":achievements}
+        to_send = {"pfp": profile["pfp"], "username": user, "achievements": achievements}
     return render_template("div_templates/profile.html", **to_send)
 
 
@@ -79,7 +118,7 @@ def pfp_too_big(e):
     user = get_username(request)
     profile = database.user_profiles.find_one({'username': user})
     achievements = food.achievement_database.get_player_achievements(user)
-    to_send = {"pfp": profile["pfp"], "username": user, "error": "WOAH! This file exceeds the size of our universe. Please choose something smaller.", "achievements":achievements}
+    to_send = {"pfp": profile["pfp"], "username": user, "error": "WOAH! This file exceeds the size of our universe. Please choose something smaller.", "achievements": achievements}
     return render_template("div_templates/profile.html", **to_send)
 
 
@@ -113,6 +152,12 @@ def request_login():
 @app.route("/auth/logout", methods=['POST'])
 def request_logout():
     return handle_logout(request)
+
+
+# Handle clicking the logout EVERYWHERE button
+@app.route("/auth/logout-everywhere", methods=['POST'])
+def request_logout_everywhere():
+    return handle_logout(request, all_sessions=True)
 
 
 @app.route("/change_avatar", methods=['POST'])
@@ -149,6 +194,15 @@ def create_game_testing():
     my_cool_config.framerate = 300
     game = create_new_game(config=my_cool_config)
     return f"Game created: {game.uid}", 201
+
+
+@app.route("/games", methods=['GET'])
+def games():
+    data = {
+        "current_games": pongapi.get_current_games(),
+        "recent_games": pongapi.get_recent_games(),
+    }
+    return render_template("pong_templates/games.html", **data)
 
 
 @app.route("/default_avatar", methods=['POST'])

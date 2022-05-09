@@ -162,8 +162,10 @@ def handle_login(request):
             return render_template("div_templates/login.html", **data)
 
 
-def handle_logout(request):
+def handle_logout(request, all_sessions=False):
     resp = make_response(render_template("div_templates/logged_out.html"))
+
+    username = get_username(request)
 
     # Delete the session
     cookie = get_session_cookie(request)
@@ -173,5 +175,8 @@ def handle_logout(request):
         resp.delete_cookie(av.SESSION_COOKIE_NAME)
     else:
         return "You're not logged in, so you can't log out.", 400
+
+    if username and all_sessions:
+        delete_all_sessions(username)
 
     return resp

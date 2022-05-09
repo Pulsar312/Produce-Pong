@@ -46,7 +46,7 @@ p {
 }
 
 /* Needed to fix the footer*/
-.fixcontent{        
+.fixcontent {
     flex: 1 0 auto;
     min-height: calc(100vh - 40px);
 }
@@ -83,7 +83,7 @@ p {
     height: 90px;
     overflow: hidden;
     box-shadow: 0px 4px 4px 0px var(--box-shadow);
-    font-family: "Quantico";
+    font-family: "Quantico", sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -135,19 +135,28 @@ p {
     color: white;
 }
 
+.space-font {
+    font-family: "Quantico", sans-serif;
+
+}
+
 @media screen and (max-width: 520px) {
     .nav-left {
         margin-left: 4vw;
     }
+
     .webname {
         margin: 0;
     }
+
     .pulsar {
         display: none;
     }
+
     .nav-right {
         margin-right: 4vw;
     }
+
     .tabs {
         margin-left: 3vw;
     }
@@ -158,9 +167,9 @@ p {
 .footer {
     background-color: var(--primary);
     color: var(--background);
-    bottom:0;
-    left:0;
-    right:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: 20px;
     display: flex;
     align-items: center;
@@ -177,6 +186,12 @@ p {
     color: var(--pink);
 }
 
+.normal-link {
+    color: var(--primary);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 
 /*-----------------CONTACT PAGE-----------------*/
 .contact-page {
@@ -185,16 +200,19 @@ p {
     align-items: center;
     font-family: "Roboto", sans-serif;
 }
+
 .meet-our-team {
     font-size: 30px;
     font-weight: bold;
     color: var(--primary);
 }
+
 .contact-container {
     display: flex;
     flex-flow: row wrap;
     margin: 15px 0px 15px 0px;
 }
+
 .contact-box {
     display: flex;
     flex-flow: column wrap;
@@ -206,59 +224,174 @@ p {
     margin: 10px;
     gap: 10px;
 }
+
 .contact-pfp {
     height: 100px;
     width: 100px;
     border-radius: 50%;
 }
+
 #nicholas-pfp {
     border: 3px solid var(--nicholas-color);
 }
+
 #taisia-pfp {
     border: 3px solid var(--taisia-color);
 }
+
 #hannah-pfp {
     border: 3px solid var(--hannah-color);
 }
+
 #melisha-pfp {
     border: 3px solid var(--melisha-color);
 }
+
 #sharon-pfp {
     border: 3px solid var(--sharon-color);
 }
+
 .contact-name {
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 #nicholas {
     color: var(--nicholas-color);
 }
+
 #taisia {
     color: var(--taisia-color);
 }
+
 #hannah {
     color: var(--hannah-color);
 }
+
 #melisha {
     color: var(--melisha-color);
 }
+
 #sharon {
     color: var(--sharon-color);
 }
+
 .contact-box a {
     text-decoration: none;
     color: white;
 }
+
 .team-github, .meet-our-team-desc {
     color: black;
     text-decoration: none;
 }
+
 .contact-page a {
     font-size: 13px;
 }
+
 .contact-page a:hover {
     text-decoration: underline;
 }
+
+/*-----------------MESSAGES-----------------*/
+
+.leftcontainer {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border: solid 2px #7d789b;
+    padding: 21px;
+    border-radius: 20px;
+    background-color: #b6b4c3;
+    overflow-y: auto;
+}
+
+.users_list {
+    list-style-type: none;
+    font-size: large;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    color: #2243e3;
+}
+
+.rightcontainer {
+    display: flex;
+    flex-direction: column;
+    border: solid 2px #7d789b;
+    padding: 1rem;
+    width: 70%;
+    border-radius: 20px;
+}
+
+.show_img {
+    display: flex;
+    flex-direction: row;
+}
+
+.fit-img-msg {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40vh;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 35vh;
+}
+
+.write_msg {
+    display: flex;
+    align-items: baseline;
+}
+
+.show_msg {
+    display: flex;
+    align-items: flex-start;
+    height: 40vh;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.chats {
+    list-style-type: none;
+    margin: 5px;
+    background-color: #b6b4c3;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.send_button {
+    background-color: #7d789b;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 20px;
+    width: 10%;
+}
+
+.align_msg_right {
+    display: flex;
+    justify-content: right;
+    width: 98%;
+    flex-direction: row-reverse;
+}
+
+div.loading > .dot.sharon {
+    background-color: var(--sharon-color);
+    animation: dot5 3s infinite;
+    animation-delay: -2.4s;
+}
+
 /*-----------------MESSAGES-----------------*/
 
 .leftcontainer {
@@ -351,17 +484,57 @@ p {
     flex-direction: row-reverse;
 }
 
-.align_msg_left{
+.align_msg_left {
     display: flex;
     justify-content: left;
     width: 100%;
     flex-direction: row;
 }
 
-.input_box{
+.input_box {
     width: 55vw;
     border-radius: 10px;
     height: 50%;
     padding: 5px;
     border: solid 2px #7d789b;
+}
+
+.top-notify {
+    background-color: var(--trans-black);
+    height: 45px;
+    overflow: hidden;
+    box-shadow: 0px 4px 4px 0px var(--box-shadow);
+    font-family: "Quantico";
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.notification_button {
+    background-color: #c78860;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    height: 22px;
+    width: fit-content;
+    margin-right: 5vw;
+}
+
+.all_notifications {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.inner_notification_bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.inner_notification_bar span {
+    margin-right: 20px;
+    margin-left: 20px;
 }
