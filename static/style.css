@@ -20,11 +20,19 @@
 }
 
 /*-----------------BODY-----------------*/
+
+html, body {
+  height: 100%;
+}
+
 body {
     background-color: var(--background);
     color: var(--primary);
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
+
 }
 
 p {
@@ -48,7 +56,31 @@ p {
 /* Needed to fix the footer*/
 .fixcontent {
     flex: 1 0 auto;
-    min-height: calc(100vh - 40px);
+}
+
+/*-----------------FOOTER-----------------*/
+.footer {
+    background-color: var(--primary);
+    color: var(--background);
+    width: 100%;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.footer p {
+    color: var(--light);
+
+}
+
+.footer a {
+    color: var(--pink);
+}
+
+.normal-link {
+    color: var(--primary);
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 /*-----------------HEADER-----------------*/
@@ -162,35 +194,6 @@ p {
     }
 }
 
-
-/*-----------------FOOTER-----------------*/
-.footer {
-    background-color: var(--primary);
-    color: var(--background);
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.footer p {
-    color: var(--light);
-    padding-right: 5px;
-    padding-left: 5px;
-}
-
-.footer a {
-    color: var(--pink);
-}
-
-.normal-link {
-    color: var(--primary);
-    text-decoration: underline;
-    cursor: pointer;
-}
 
 
 /*-----------------CONTACT PAGE-----------------*/
