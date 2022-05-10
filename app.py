@@ -1,6 +1,8 @@
 import json
 import time
 from flask_sock import Sock
+from os import listdir
+from os.path import isfile
 
 import authentication
 from message import handle_chat, get_chat, get_all_pfps, receive_notification, send_list_msg, fix_list_msg
@@ -39,6 +41,16 @@ def static(filename):
 def request_about():
     data = {"all_users": authentication.get_all_logged_in_users(), "len": len(authentication.get_all_logged_in_users())}
     return render_template("div_templates/about.html", **data)
+
+@app.route("/about_ingredients", methods=['GET'])
+def get_about_ingredients():
+    path = "./static/ingredients/"
+    ingredient_files = []
+    for file in listdir(path):
+        if isfile(path + file):
+            ingredient_files.append(path + file)
+    sample = random.sample(ingredient_files, 5)
+    return sample
 
 #get the messages with the other user
 @app.route("/messages/<username>", methods=['GET'])
