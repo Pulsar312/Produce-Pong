@@ -5,6 +5,7 @@ from os import listdir
 from os.path import isfile
 import random
 import json
+from typing import List, Dict, Tuple, Optional
 
 import authentication
 from message import handle_chat, get_chat, get_all_pfps, receive_notification, send_list_msg, fix_list_msg
@@ -46,12 +47,9 @@ def request_about():
 
 @app.route("/about_ingredients", methods=['GET'])
 def get_about_ingredients():
-    path = "./static/ingredients/"
-    ingredient_files = []
-    for file in listdir(path):
-        if isfile(path + file):
-            ingredient_files.append(path + file)
-    sample = random.sample(ingredient_files, 5)
+    path: str = "./static/ingredients/"
+    ingredient_files: List[str] = [file for file in listdir(path) if isfile(join(path, file))]
+    sample: List[str] = random.sample(ingredient_files, 5)
     return json.dumps(sample)
 
 #get the messages with the other user
