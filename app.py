@@ -3,6 +3,8 @@ import time
 from flask_sock import Sock
 from os import listdir
 from os.path import isfile
+import random
+import json
 
 import authentication
 from message import handle_chat, get_chat, get_all_pfps, receive_notification, send_list_msg, fix_list_msg
@@ -50,7 +52,7 @@ def get_about_ingredients():
         if isfile(path + file):
             ingredient_files.append(path + file)
     sample = random.sample(ingredient_files, 5)
-    return sample
+    return json.dumps(sample)
 
 #get the messages with the other user
 @app.route("/messages/<username>", methods=['GET'])
