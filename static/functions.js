@@ -47,14 +47,16 @@ function pageloadNotification() {
     makeAjaxRequest('GET', '/newmessage', loadDiv, {}, "notification");
 }
 
-// about page randomize button
-function ingredRandom() {
-    makeAjaxRequest('GET', '/about_ingredients', loadDiv, {}, 'preview-ingreds')
-    const div = document.getElementById("preview-ingreds")
-    var ingredients = JSON.parse(div.innerHTML)
+// about page randomize ingredients
+function loadImg(data) {
+    var ingredients = JSON.parse(data.responseText)
     var imgID = ["ingred1", "ingred2", "ingred3", "ingred4", "ingred5"]
     for (let i = 0; i < imgID.length; i++) {
         document.getElementById(imgID[i]).src = ingredients[i]
     }
+}
+
+function ingredRandom() {
+    makeAjaxRequest('GET', '/about_ingredients', loadImg, {}, 'preview-ingred')
 }
 
