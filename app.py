@@ -2,7 +2,7 @@ import json
 import time
 from flask_sock import Sock
 from os import listdir
-from os.path import isfile
+from os.path import isfile, join
 import random
 import json
 from typing import List, Dict, Tuple, Optional
@@ -48,7 +48,7 @@ def request_about():
 @app.route("/about_ingredients", methods=['GET'])
 def get_about_ingredients():
     path: str = "./static/ingredients/"
-    ingredient_files: List[str] = [file for file in listdir(path) if isfile(join(path, file))]
+    ingredient_files: List[str] = [join(path, file) for file in listdir(path) if isfile(join(path, file))]
     sample: List[str] = random.sample(ingredient_files, 5)
     return json.dumps(sample)
 
