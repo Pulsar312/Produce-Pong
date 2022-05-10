@@ -93,7 +93,7 @@ p {
     min-height: 250px;
 
     /* Center and scale the image nicely */
-    background-position: center bottom;
+    background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
 
