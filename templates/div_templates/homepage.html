@@ -7,10 +7,8 @@
                     <div class="show-img">
 
                         <img class="fit-img-msg" src={{ all_user_pfps[user] }} alt="userpfp"/>
-                        <b>
                             <div class="users-list" id="msg-user"
-                                onclick="makeAjaxRequest('GET', '/messages/{{ user }}', loadDiv, {}, 'div')">{{ user }}</div>
-                        </b>
+                                onclick="makeAjaxRequest('GET', '/messages/{{ user }}', loadDiv, {}, 'div')"><b>{{ user }}</b></div>
                     </div>
                 {% endif %}
             {% endfor %}
