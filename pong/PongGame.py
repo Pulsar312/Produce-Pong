@@ -264,6 +264,9 @@ class PongGame:
         }
         return d
 
+    def get_url(self):
+        return f"/game/{self.uid}"
+
     # Return the PongPlayer instance for a given username
     def get_player(self, username: str) -> Optional[PongPlayer]:
         if self.left.username == username:

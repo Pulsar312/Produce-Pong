@@ -1,39 +1,45 @@
-<!--  TODO:  Show messages here! -->
 <h2>Message page</h2>
 
 <div class="container">
     <div class="leftcontainer">
         {% for user in all_users %}
-            {% if user != main_user %}
-            <div class="show_img">
-                <img class="fit-img-msg" src={{all_user_pfps[user]}} alt="userpfp"/>
-                <b><li class="users_list" id="msg_user" onclick="makeAjaxRequest('GET', '/messages/{{user}}', loadDiv, {}, 'div')">{{ user }}</li></b>
+        {% if user != main_user %}
+        <div class="show-img">
+            <img class="fit-img-msg" src={{ all_user_pfps[user] }} alt="userpfp"/>
+            <div class="users-list" id="msg-user"
+                 onclick="makeAjaxRequest('GET', '/messages/{{ user }}', loadDiv, {}, 'div')"><b>{{ user }}</b>
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
         {% endfor %}
     </div>
 
     <div class="rightcontainer">
-        <div class="show_msg">
+        <div class="show-msg">
             {% for one_msg in chat_list %}
-                {% if one_msg["from"] == main_user %}
-                    <div class="align_msg_right">
-                        <img src={{all_user_pfps[main_user]}} class="fit-img-msg">
-                        <li class="chats" id="chats">{{one_msg["from"]}}: {{one_msg["message"]}}</li>
-                    </div>
-                {% else %}
-                    <div class="align_msg_left">
-                        <img src={{all_user_pfps[user]}} class="fit-img-msg">
-                        <li class="chats" id="chats">{{one_msg["from"]}}: {{one_msg["message"]}}</li>
-                    </div>
-                {% endif %}
+            {% if one_msg["from"] == main_user %}
+            <div class="align-msg-right">
+                <img src={{ all_user_pfps[main_user] }} class="fit-img-msg"/>
+                <div class="chats" id="chats">{{ one_msg["from"] }}: {{ one_msg["message"]|safe }}</div>
+            </div>
+            {% else %}
+            <div class="align-msg-left">
+                <img src={{ all_user_pfps[user] }} class="fit-img-msg"/>
+                <div class="chats" id="chats">{{ one_msg["from"] }}: {{ one_msg["message"]|safe }}</div>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
-        <div class="write_msg">
-            
-                <label class="user" for="msg">Message: </label>
-                <input class="input_box" type="text" id="msg" name="msg"/>
-                <button class="send_button" onclick="makeAjaxRequest('POST', '/messages/{{user}}', loadDiv, {'send_msg': document.getElementById('msg').value}, 'div');">Send</button>
+        <div class="write-msg">
+            <form onsubmit="makeAjaxRequest('POST', '/messages/{{user}}', loadDiv, {'send_msg': document.getElementById('msg').value}, 'div'); return false;" id="message-form">
+                <div class="chat-bottom">
+                    <label id="user" for="msg">Message: </label>
+                    <input class="input-box" type="text" id="msg" name="msg" placeholder="Enter Message..."/>
+                </div>
+                <input class="send-button" type="submit" value="Send">
+                <button class="send-button2" onclick="makeAjaxRequest('POST', '/messages/{{user}}', loadDiv, {'send_msg': 'Pong'}, 'div');">Play Pong</button>
+
+            </form>
 
         </div>
     </div>
