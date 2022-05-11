@@ -347,6 +347,10 @@ div.loading > .dot.sharon {
     border-radius: 50%;
 }
 
+.fit-img-msg:hover, .users-list:hover, .send-button:hover, .send-button2:hover, .notification-button:hover {
+    cursor: pointer;
+}
+
 .container {
     display: flex;
     flex-direction: row;
