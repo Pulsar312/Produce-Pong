@@ -116,6 +116,8 @@ function movePlayer(velocity) {
 }
 
 document.addEventListener("keydown", event => {
+    event.preventDefault();  // Prevent scrolling the page
+
     let up_keys = ["KeyW", "ArrowUp", "KeyK"];
     let down_keys = ["KeyS", "ArrowDown", "KeyJ"];
 
