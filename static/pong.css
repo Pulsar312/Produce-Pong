@@ -292,14 +292,16 @@ div.loading > .dot.sharon {
     align-items: center;
 }
 
-.center-historic-game-container h1, .created {
-    text-shadow: 1px 1px 5px var(--pink);
-}
-
 .ingred-historic, .recipe-historic {
     height: 100px;
     width: 100px;
     object-fit: contain;
+}
+
+.winner-text {
+    width: 100%;
+    position: absolute;
+    left: 0%;
 }
 
 .recipe-historic {
@@ -309,11 +311,18 @@ div.loading > .dot.sharon {
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+    margin-bottom: 20px;
 }
 
 .playername {
     font-family: "Quantico", monospace;
     text-shadow: 1px 1px 5px var(--pink);
+    margin-top: 100px;
+    margin-bottom: -15px;
+}
+
+h4.created {
+    margin-bottom: 5px;
 }
 
 .column-historic {
@@ -321,7 +330,7 @@ div.loading > .dot.sharon {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 0px 25px 0px 25px;
+    padding: 0px 40px 25px 40px;
 }
 
 .row-historic {

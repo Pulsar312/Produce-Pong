@@ -17,22 +17,26 @@
             {% for player in [game.game.left, game.game.right] %}
 
                 <div class="column-historic">
-                    <h2 class="playername">{{ player.username }}</h2>
-                    {# TODO get their profile picture #}
-                    <p>Won {{ player.score }} rounds of Pong, with these ingredients:</p>
-                    {% for ingredient in player.chef.ingredients %}
-                        <img class="ingred-historic" src="{{ ingredient.image }}" alt="Image of {{ ingredient.name }}"/>
-                    {% endfor %}
-
-                    <h4 class="created">Created {{ player.recipe.name }}</h4>
-                    <img class="recipe-historic" src="{{ player.recipe.image }}" alt="Image of {{ player.recipe.name }}"/>
-
+                    
+                    <div class="winner-text">
                     {% if player.username == game.meta.winner %}
-                        <h1 class="historic-text">Winner!</h1>
+                        <h1 class="historic-text">{{ player.username }} is the winner!</h1>
                         {% if game.meta.winner_earned_achievement %}
                             <p class="historic-text"><b>Achievement earned:</b> This is the first time <span class="pressw">{{ player.username }}</span> made <span class="pressw">{{ player.recipe.name }}</span>!</p>
                         {% endif %}
                     {% endif %}
+                    </div>
+
+                    <h2 class="playername">{{ player.username }}</h2>
+                    {# TODO get their profile picture #}
+
+                    <h4 class="created">Created {{ player.recipe.name }}</h4>
+                    <img class="recipe-historic" src="{{ player.recipe.image }}" alt="Image of {{ player.recipe.name }}"/>
+
+                    <p>Won {{ player.score }} rounds of Pong, with these ingredients:</p>
+                    {% for ingredient in player.chef.ingredients %}
+                        <img class="ingred-historic" src="{{ ingredient.image }}" alt="Image of {{ ingredient.name }}"/>
+                    {% endfor %}
 
                 </div>
 

@@ -1,6 +1,11 @@
 import json
 import time
 from flask_sock import Sock
+from os import listdir
+from os.path import isfile, join
+import random
+import json
+from typing import List, Dict, Tuple, Optional
 
 import authentication
 from message import handle_chat, get_chat, get_all_pfps, receive_notification, send_list_msg, fix_list_msg
@@ -38,7 +43,24 @@ def static(filename):
 @app.route("/about", methods=['GET'])
 def request_about():
     data = {"all_users": authentication.get_all_logged_in_users(), "len": len(authentication.get_all_logged_in_users())}
+
+    number_random_ingredients = 5
+    path: str = "./static/ingredients/"
+    ingredient_files: List[str] = [join(path, file) for file in listdir(path) if isfile(join(path, file))]
+    sample: List[str] = random.sample(ingredient_files, number_random_ingredients)
+    # data: Dict[str, str] = {}
+    for i in range(0, number_random_ingredients):
+        data["ingred" + str(i+1) + "_src"] = sample[i]
+
     return render_template("div_templates/about.html", **data)
+
+@app.route("/about_ingredients", methods=['GET'])
+def get_about_ingredients():
+    number_random_ingredients = 5
+    path: str = "./static/ingredients/"
+    ingredient_files: List[str] = [join(path, file) for file in listdir(path) if isfile(join(path, file))]
+    sample: List[str] = random.sample(ingredient_files, number_random_ingredients)
+    return json.dumps(sample)
 
 #get the messages with the other user
 @app.route("/messages/<username>", methods=['GET'])

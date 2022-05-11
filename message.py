@@ -39,6 +39,7 @@ def get_chat(main_user: str, username: str):
             all_msgs.append(data)
         if (data["to"] == main_user and data["from"] == username):
             all_msgs.append(data)
+    all_msgs.reverse()
     return all_msgs
 
 
