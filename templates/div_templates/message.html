@@ -37,7 +37,7 @@
                     <input class="input-box" type="text" id="msg" name="msg" placeholder="Enter Message..."/>
                 </div>
                 <input class="send-button" type="submit" value="Send">
-                <button class="send-button2" onclick="makeAjaxRequest('POST', '/messages/{{user}}', loadDiv, {'send_msg': 'Pong'}, 'div');">Play Pong</button>
+                <button class="send-button2" type="button" onclick="makeAjaxRequest('POST', '/messages/{{user}}', loadDiv, {'send_msg': 'Pong'}, 'div');">Play Pong</button>
 
             </form>
 
