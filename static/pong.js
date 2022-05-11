@@ -116,15 +116,15 @@ function movePlayer(velocity) {
 }
 
 document.addEventListener("keydown", event => {
-    event.preventDefault();  // Prevent scrolling the page
-
     let up_keys = ["KeyW", "ArrowUp", "KeyK"];
     let down_keys = ["KeyS", "ArrowDown", "KeyJ"];
 
     if (up_keys.includes(event.code)) {
         movePlayer(-1);
+        event.preventDefault();  // Prevent scrolling the page
     } else if (down_keys.includes(event.code)) {
         movePlayer(1);
+        event.preventDefault();  // Prevent scrolling the page
     }
 });
 
