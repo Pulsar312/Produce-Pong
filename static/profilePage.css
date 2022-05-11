@@ -7,7 +7,7 @@
   margin-right: 1%;
 }
 .imageLabel {
-  font-family: "Quantico";
+  font-family: "Quantico", sans-serif;
 }
 .changeButton {
   border-radius: 5px;

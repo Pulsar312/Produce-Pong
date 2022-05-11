@@ -23,10 +23,7 @@
             {% endfor %}
         </div>
     </div>
-    <p><a href="/games">Spectate current games and view results from recent games</a></p>
-    <p>If you'd like to delete all active sessions from all devices, you can <a class="normal-link" onclick="makeAjaxRequest(`POST`, `/auth/logout-everywhere`, loadDiv, {}, 'div', false, true);">Logout Everywhere</a>.</p>
+    <p><button class="standard-button" style="width:180px" onclick="makeAjaxRequest(`POST`, `/auth/logout-everywhere`, loadDiv, {}, 'div', false, true);">Logout Everywhere</button></p>
 {% else %}
     <p>Sign in or register to view your profile!</p>
 {% endif %}
-
-
