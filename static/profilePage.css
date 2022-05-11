@@ -43,6 +43,7 @@
 .achievement {
   width: 16vmin;
   height: 16vmin;
+  object-fit: contain;
   margin-left: 2px;
   border-radius: 10px;
 }
