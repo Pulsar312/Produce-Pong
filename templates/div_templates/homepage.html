@@ -1,16 +1,15 @@
 {% if username %}
-    <p>You're signed in as {{ username }}</p>
-    <br>
-    <h3>Online People:</h3>
+    <h2>Online People</h2>
     <div class="container1">
         <div class="leftcontainer">
             {% for user in all_users %}
                 {% if user != main_user %}
-                <div class="show-img">
+                    <div class="show-img">
 
-                    <img class="fit-img-msg" src={{all_user_pfps[user]}} alt="userpfp"/>
-                    <b><li class="users-list" id="msg-user" onclick="makeAjaxRequest('GET', '/messages/{{user}}', loadDiv, {}, 'div')">{{ user }}</li></b>
-                </div>
+                        <img class="fit-img-msg" src={{ all_user_pfps[user] }} alt="userpfp"/>
+                            <div class="users-list" id="msg-user"
+                                onclick="makeAjaxRequest('GET', '/messages/{{ user }}', loadDiv, {}, 'div')"><b>{{ user }}</b></div>
+                    </div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -22,6 +21,10 @@
             </div>
         </div>
     </div>
+    <p>
+        <button class="standard-button" style="width: calc(20% + 42px);" onclick="location.href='/games';">Spectate Games</button>
+    </p>
+
 {% else %}
     <link rel="stylesheet" href="{{ url_for('static', filename='styleHomepageSignedOut.css') }}">
     <div class="homepageBox">
@@ -29,6 +32,8 @@
         <span>Grocery shopping with a pong game!</span>
         <br/>
         <img src="./static/advertisement.png" class="advertisement">
-        <button class="homepageButton" onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {}, 'div');" id="play">Login to play the game!</button>
+        <button class="homepageButton" onclick="makeAjaxRequest(`GET`, `/play`, loadDiv, {}, 'div');" id="play">Login to
+            play the game!
+        </button>
     </div>
 {% endif %}
