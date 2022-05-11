@@ -5,7 +5,7 @@
         {% for user in all_users %}
             {% if user != main_user %}
                 <div class="show-img">
-                    <img class="fit-img-msg" src={{ all_user_pfps[user] }} alt="userpfp"/>
+                    <img class="fit-img-msg" src={{ all_user_pfps[user] }} alt="userpfp" onclick="makeAjaxRequest('GET', '/messages/{{ user }}', loadDiv, {}, 'div')"/>
                     <div class="users-list" id="msg-user"
                          onclick="makeAjaxRequest('GET', '/messages/{{ user }}', loadDiv, {}, 'div')"><b>{{ user }}</b>
                     </div>
