@@ -76,7 +76,11 @@
 
 
     <script>
-        const socket = new WebSocket("ws://" + location.host + "/gamews/{{ game_id }}");
+        let wsProtocol = "wss";
+        if (window.location.protocol === "http:") {
+            wsProtocol = "ws";
+        }
+        const socket = new WebSocket(wsProtocol + "://" + location.host + "/gamews/{{ game_id }}");
     </script>
     <script src="{{ url_for('static', filename='pong.js') }}"></script>
 
