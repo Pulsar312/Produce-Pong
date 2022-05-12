@@ -37,6 +37,7 @@ body {
 
 p {
     color: var(--dark);
+    font-family: "Arial", "sans-serif";
 }
 
 /*-----------------DIV CONTAINERS-----------------*/
@@ -65,7 +66,8 @@ p {
     width: 100%;
     flex-shrink: 0;
     margin: 0;
-    padding: 0;
+    padding-left: 25px;
+    box-sizing: border-box;
 }
 
 .footer p {
@@ -345,6 +347,10 @@ div.loading > .dot.sharon {
     border-radius: 50%;
 }
 
+.fit-img-msg:hover, .users-list:hover, .send-button:hover, .send-button2:hover, .notification-button:hover {
+    cursor: pointer;
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -470,4 +476,17 @@ div.loading > .dot.sharon {
 
 .chat-bottom {
   padding-right: 240px;
+}
+
+.standard-button {
+    width: 420px;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Arial", serif;
+    cursor: pointer;
+    background-color: #492390;
+    color: white;
+    border-radius: 7px;
+    display: inline-block;
+    padding: 1px 5px;
 }

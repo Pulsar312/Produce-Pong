@@ -121,8 +121,10 @@ document.addEventListener("keydown", event => {
 
     if (up_keys.includes(event.code)) {
         movePlayer(-1);
+        event.preventDefault();  // Prevent scrolling the page
     } else if (down_keys.includes(event.code)) {
         movePlayer(1);
+        event.preventDefault();  // Prevent scrolling the page
     }
 });
 
