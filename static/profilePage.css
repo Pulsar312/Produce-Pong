@@ -9,11 +9,6 @@
 .imageLabel {
   font-family: "Quantico", sans-serif;
 }
-.uploadCheck{
-  cursor:pointer;
-  background-color:#492390;
-  color:white;
-}
 input[type="file"]::file-selector-button {
   border-radius: 5px;
   color: white;
