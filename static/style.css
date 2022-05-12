@@ -490,3 +490,8 @@ div.loading > .dot.sharon {
     display: inline-block;
     padding: 1px 5px;
 }
+
+.error-container {
+    margin: 0 auto;
+    max-width: 800px;
+}

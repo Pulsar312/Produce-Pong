@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Error - {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="top-nav">
+        <div class="nav-left">
+            <a class="webname" href="/">
+                <img class="nav-logo" src="/static/pulsar.png" alt="logo">
+                <span class="pulsar">Pulsar's Produce Pong</span>
+            </a>
+        </div>
+    </div>
+    <div class="error-container">
+        <h2 class="space-font">{{ title }}</h2>
+        <p>{{ message }}</p>
+        <p><a href="/">Return to Homepage</a></p>
+    </div>
+{% endblock %}
+
