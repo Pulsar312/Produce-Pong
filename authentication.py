@@ -7,6 +7,7 @@ from flask import render_template, make_response
 # Get the login page for the initial page request
 import database
 import authentication_variables as av
+from error import simple_error_page
 
 
 def get_login_page():
@@ -174,7 +175,7 @@ def handle_logout(request, all_sessions=False):
         # Erase the client's cookie
         resp.delete_cookie(av.SESSION_COOKIE_NAME)
     else:
-        return "You're not logged in, so you can't log out.", 400
+        return simple_error_page("Login Required", "You're not logged in, so you can't log out.", 400)
 
     if username and all_sessions:
         delete_all_sessions(username)

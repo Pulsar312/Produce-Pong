@@ -7,6 +7,7 @@ import json
 from typing import List
 
 import authentication
+from error import simple_error_page
 from message import handle_chat, get_chat, get_all_pfps, receive_notification, send_list_msg, fix_list_msg
 import database
 from flask import Flask, send_from_directory, render_template, request, redirect, url_for
@@ -234,6 +235,10 @@ def request_game_websocket(socket, game_id: str):
 
 @app.route("/games", methods=['GET'])
 def games():
+    username = get_username(request)
+    if not username:
+        return simple_error_page("Login Required",
+                                 "You must be logged in to view current games.", 403)
     data = {
         "current_games": pongapi.get_current_games(),
         "recent_games": pongapi.get_recent_games(),
@@ -243,6 +248,10 @@ def games():
 
 @app.route("/cleanup-games", methods=['GET'])
 def cleanup_games():
+    username = get_username(request)
+    if not username:
+        return simple_error_page("Login Required",
+                                 "You must be logged in to clean up idle games", 403)
     clean_up_idle_games()
     return redirect(url_for("games"), code=302)
 

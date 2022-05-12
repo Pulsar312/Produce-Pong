@@ -494,4 +494,5 @@ div.loading > .dot.sharon {
 .error-container {
     margin: 0 auto;
     max-width: 800px;
+    padding:25px;
 }

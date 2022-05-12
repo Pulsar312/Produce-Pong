@@ -11,7 +11,7 @@ from pong.pongapi import find_historic_game, find_current_game
 def handle_game_page_request(request, game_id: str):
     username = get_username(request)
     if not username:
-        return "You must be logged in to join a game or view historic game results.", 403
+        return simple_error_page("Login Required", "You must be logged in to join a game or view historic game results.", 403)
 
     historic_game: Optional[Dict[str, Any]] = find_historic_game(game_id)
     if historic_game:
