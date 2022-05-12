@@ -71,7 +71,7 @@ def get_recent_games() -> List[Dict[str, str]]:
 
 # Remove any games that were created a long time ago that haven't started yet
 def clean_up_idle_games():
-    number_of_seconds_to_purge: int = 30  # Remove games that have been running for this many seconds without starting
+    number_of_seconds_to_purge: int = 120  # Remove games that have been running for this many seconds without starting
     current_time: datetime = datetime.datetime.now()
     all_games: List[PongGame] = list(PongGame.all_games.values())
     for game in all_games:
