@@ -6,8 +6,10 @@
         <img src="{{ pfp }}" class="pfpAvatar">
         <div class="forms">
             <form action="/change_avatar" id="image-form" method="POST" onsubmit="return submitAjaxForm(this, loadDiv);" enctype="multipart/form-data">
-                <label for="pfp-file" class="imageLabel">Image: </label>
-                <input id="pfp-file" type="file" name="upload" class="uploadButton">
+                <label for="pfp-file" class="imageLabel">
+                    Image:
+                    <input id="pfp-file" type="file" name="upload" class="uploadButton" />
+                </label>
                 <button type="submit" class="changeButton">Change Profile Picture</button>
                 {% if error %}
                     <div class="error">{{ error }}</div>
