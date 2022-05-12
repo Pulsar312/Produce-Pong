@@ -69,7 +69,7 @@ function updateGame(data) {
         for (let ingredient of data.left.chef.ingredients) {
             const elem = document.createElement("img");
             elem.src = ingredient.image;
-            elem.id = "left-ingredient";
+            elem.classList.add("ingredient-in-list");
             left_ingredients.prepend(elem);
         }
     }
@@ -79,7 +79,7 @@ function updateGame(data) {
         for (let ingredient of data.right.chef.ingredients) {
             const elem = document.createElement("img");
             elem.src = ingredient.image;
-            elem.id = "right-ingredient"
+            elem.classList.add("ingredient-in-list");
             right_ingredients.prepend(elem);
         }
     }
