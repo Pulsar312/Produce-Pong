@@ -9,6 +9,15 @@
 .imageLabel {
   font-family: "Quantico", sans-serif;
 }
+input[type="file"]::file-selector-button {
+  border-radius: 5px;
+  color: white;
+  background-color: #492390;
+  padding: 2px;
+  display: block;
+  margin-top: 3px;
+  cursor: pointer;
+}
 .changeButton {
   border-radius: 5px;
   color: white;
@@ -16,6 +25,7 @@
   padding: 2px;
   display: block;
   margin-top: 3px;
+  cursor:pointer;
 }
 .uploadButton {
   display: block;
