@@ -6,7 +6,7 @@ socket.addEventListener("message", event => {
     updateGame(JSON.parse(event.data));
 });
 
-let previousFrame = null;  // The previous "data" received. Used for determining what has changed between frames
+var globalPreviousFrame = null;  // The previous "data" received. Used for determining what has changed between frames
 
 // Find all our elements only ONCE to reduce overhead in a loop
 const left_score = document.getElementById("left_score");
@@ -22,6 +22,8 @@ const left_status = document.getElementById("left-status");
 const right_status = document.getElementById("right-status");
 
 function updateGame(data) {
+    const previousFrame = globalPreviousFrame;
+    globalPreviousFrame = data;
     // Update the position of the paddles and ball
     const left = document.getElementById("left");
     left.style.top = `${data.left.paddle.y}px`;
@@ -58,23 +60,23 @@ function updateGame(data) {
     }
 
     // Update which ingredients both players have
-    if (!previousFrame || previousFrame.left.chef.ingredients !== data.left.chef.ingredients) {
+    if (!previousFrame || previousFrame.left.chef.ingredients.length !== data.left.chef.ingredients.length) {
         left_ingredients.innerHTML = "";
         for (let ingredient of data.left.chef.ingredients) {
             const elem = document.createElement("img");
             elem.src = ingredient.image;
             elem.id = "left-ingredient";
-            left_ingredients.appendChild(elem);
+            left_ingredients.prepend(elem);
         }
     }
 
-    if (!previousFrame || previousFrame.right.chef.ingredients !== data.right.chef.ingredients) {
+    if (!previousFrame || previousFrame.right.chef.ingredients.length !== data.right.chef.ingredients.length) {
         right_ingredients.innerHTML = "";
         for (let ingredient of data.right.chef.ingredients) {
             const elem = document.createElement("img");
             elem.src = ingredient.image;
             elem.id = "right-ingredient"
-            right_ingredients.appendChild(elem);
+            right_ingredients.prepend(elem);
         }
     }
 
@@ -105,9 +107,6 @@ function updateGame(data) {
     if (data.game_over) {
         window.location.reload();
     }
-
-    // Update the previous frame to this frame for the next time through this "loop"
-    previousFrame = data;
 }
 
 function movePlayer(velocity) {
