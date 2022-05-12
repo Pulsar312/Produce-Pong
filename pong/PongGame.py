@@ -71,14 +71,14 @@ class PongGame:
     # Handle a round victory
     def round_won(self, winner: PongPlayer):
         winner.score += 1
-        print(f"{winner.username} won {self.current_ingredient} that round. Score: {self.left.score} to {self.right.score}")
+        # print(f"{winner.username} won {self.current_ingredient} that round. Score: {self.left.score} to {self.right.score}")
 
         winner.chef.add_ingredient(self.current_ingredient)
         self.current_ingredient = self.kitchen.get_random_ingredient(self.left.chef, self.right.chef)
 
         winner.best_recipe, winner.recipe_score = self.kitchen.get_best_recipe_and_score(winner.chef.ingredients)
         if self.left.best_recipe and self.right.best_recipe:
-            print("Both have full dishes, so end game")
+            # print("Both have full dishes, so end game")
             winner: PongPlayer = self.left if self.left.recipe_score > self.right.recipe_score else self.right
             self.game_over(winner)
 
@@ -205,6 +205,7 @@ class PongGame:
         # Basic stuff about the game
         self.config: PongConfig = config
         self.uid: str = uuid4().hex
+        self.game_created_time = datetime.now()
         self.game_started = False  # Changes to true once both players are in
         # TODO implement a wait (countdown?) before the ball starts moving
         self.game_ended = False  # Changes to true once somebody has won
@@ -292,27 +293,28 @@ class PongGame:
 
     # This gets called every time a message is received from the websocket for this game
     def on_websocket_message(self, username: str, message: str):
-        print(f"{username=}, {message=}")
+        # print(f"{username=}, {message=}")
 
         # Identify who sent the message
         this_player: PongPlayer = self.get_player(username)
         if not this_player:
             # Only allow players to influence the game
-            print(f"Ignoring command sent from non-player: {username}: {message}")
+            # print(f"Ignoring command sent from non-player: {username}: {message}")
             return
 
         # Decode the JSON string
         try:
             d = json.loads(message)
         except JSONDecodeError as e:
-            print(f"Error decoding JSON from {username}: '{message}': {e}")
+            # print(f"Error decoding JSON from {username}: '{message}': {e}")
             return
 
         # Handle the input and potential errors
         try:
             self.handle_player_input(this_player, d)
         except Exception as e:
-            print(f"Error handling player input from {username}: '{message}': {e}")
+            pass
+            # print(f"Error handling player input from {username}: '{message}': {e}")
 
     def __repr__(self):
         return f"PongGame {self.uid} ({self.left.username} vs {self.right.username})"

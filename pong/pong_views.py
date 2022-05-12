@@ -4,14 +4,14 @@ from typing import Optional, Dict, Any
 from flask import render_template
 
 from authentication import get_username
+from error import simple_error_page
 from pong.pongapi import find_historic_game, find_current_game
 
 
 def handle_game_page_request(request, game_id: str):
-
     username = get_username(request)
     if not username:
-        return "You must be logged in to join a game or view historic game results.", 403
+        return simple_error_page("Login Required", "You must be logged in to join a game or view historic game results.", 403)
 
     historic_game: Optional[Dict[str, Any]] = find_historic_game(game_id)
     if historic_game:
@@ -39,5 +39,5 @@ def handle_game_page_request(request, game_id: str):
         return render_template("pong_templates/game.html", **data)
 
     else:
-        return "That game doesn't exist.", 404
-
+        return simple_error_page("This Game Doesn't Exist!",
+                                 "This may be due to one of the following: you didn't copy the full the URL, the game was cancelled due to inactivity, or the server rebooted before the game finished.")

@@ -6,6 +6,10 @@ socket.addEventListener("message", event => {
     updateGame(JSON.parse(event.data));
 });
 
+socket.addEventListener("close", event => {
+    window.location.reload();
+});
+
 var globalPreviousFrame = null;  // The previous "data" received. Used for determining what has changed between frames
 
 // Find all our elements only ONCE to reduce overhead in a loop
@@ -65,7 +69,7 @@ function updateGame(data) {
         for (let ingredient of data.left.chef.ingredients) {
             const elem = document.createElement("img");
             elem.src = ingredient.image;
-            elem.id = "left-ingredient";
+            elem.classList.add("ingredient-in-list");
             left_ingredients.prepend(elem);
         }
     }
@@ -75,7 +79,7 @@ function updateGame(data) {
         for (let ingredient of data.right.chef.ingredients) {
             const elem = document.createElement("img");
             elem.src = ingredient.image;
-            elem.id = "right-ingredient"
+            elem.classList.add("ingredient-in-list");
             right_ingredients.prepend(elem);
         }
     }

@@ -1,4 +1,5 @@
 # This is the file that we'll use to interact with pong games in an abstract way
+import datetime
 from typing import Optional, Dict, Any, List
 
 import database
@@ -47,7 +48,7 @@ def find_player_current_game(username: str) -> Optional[PongGame]:
 def get_current_games() -> List[Dict[str, str]]:
     ret: List[Dict[str, str]] = []
     for game in PongGame.all_games.values():
-        if game.game_started:
+        if not game.game_ended:
             d = {
                 "name": f"{game.left.username} ({game.left.score}) vs {game.right.username} ({game.right.score})",
                 "id": game.uid,
@@ -66,3 +67,16 @@ def get_recent_games() -> List[Dict[str, str]]:
         }
         ret.append(d)
     return ret
+
+
+# Remove any games that were created a long time ago that haven't started yet
+def clean_up_idle_games():
+    number_of_seconds_to_purge: int = 120  # Remove games that have been running for this many seconds without starting
+    current_time: datetime = datetime.datetime.now()
+    all_games: List[PongGame] = list(PongGame.all_games.values())
+    for game in all_games:
+        if not game.game_started:
+            delta_seconds: int = (current_time - game.game_created_time).seconds
+            if delta_seconds > number_of_seconds_to_purge:
+                del PongGame.all_games[game.uid]
+                game.game_thread_running = False
