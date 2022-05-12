@@ -205,6 +205,7 @@ class PongGame:
         # Basic stuff about the game
         self.config: PongConfig = config
         self.uid: str = uuid4().hex
+        self.game_created_time = datetime.now()
         self.game_started = False  # Changes to true once both players are in
         # TODO implement a wait (countdown?) before the ball starts moving
         self.game_ended = False  # Changes to true once somebody has won

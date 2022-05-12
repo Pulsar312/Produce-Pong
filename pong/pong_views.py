@@ -39,5 +39,5 @@ def handle_game_page_request(request, game_id: str):
         return render_template("pong_templates/game.html", **data)
 
     else:
-        return "That game doesn't exist.", 404
+        return "This game doesn't exist.\nThis may be due to one of the following:\n- You didn't copy the full the URL\n- The game was cancelled due to inactivity\n- The server rebooted before the game finished", 404
 

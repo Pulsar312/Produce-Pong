@@ -6,6 +6,10 @@ socket.addEventListener("message", event => {
     updateGame(JSON.parse(event.data));
 });
 
+socket.addEventListener("close", event => {
+    window.location.reload();
+});
+
 var globalPreviousFrame = null;  // The previous "data" received. Used for determining what has changed between frames
 
 // Find all our elements only ONCE to reduce overhead in a loop
