@@ -89,6 +89,10 @@ h1 {
     font-size: 80px;
 }
 
+#right_score {
+    text-align: end;
+}
+
 .medium-text {
     font-size: 36px;
     margin-bottom: -15px;
