@@ -5,6 +5,7 @@
   display: block;
   margin-left: 1%;
   margin-right: 1%;
+  object-fit: contain;
 }
 .imageLabel {
   font-family: "Quantico", sans-serif;
