@@ -210,12 +210,12 @@ def request_game_websocket(socket, game_id: str):
         time.sleep(1 / game.config.framerate)
 
 
-@app.route("/create_game_testing", methods=['GET'])
-def create_game_testing():
-    my_cool_config = PongConfig()
-    my_cool_config.framerate = 300
-    game = create_new_game(config=my_cool_config)
-    return f"Game created: {game.uid}", 201
+# @app.route("/create_game_testing", methods=['GET'])
+# def create_game_testing():
+#     my_cool_config = PongConfig()
+#     my_cool_config.framerate = 300
+#     game = create_new_game(config=my_cool_config)
+#     return f"Game created: {game.uid}", 201
 
 
 @app.route("/games", methods=['GET'])
