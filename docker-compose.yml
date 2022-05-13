@@ -1,18 +1,24 @@
 version: '3.3'
 services:
-   mongo:
-     image: mongo:4.2.5
-     ports:
-       - "27055:27017"  # For local debugging
-   app:
-     build:
-       context: ""
-       dockerfile: Dockerfile
-     environment:
-       MONGO_HOST: mongo
-       WAIT_HOSTS: mongo:27017
-     depends_on:
-       - "mongo"
-     ports:
-       - '9090:9091'
-
+  mongo:
+    image: mongo:4.2.5
+#    ports:
+#      - "27055:27017"  # For local debugging
+    volumes:
+      - mongo_data:/data/db
+  app:
+    build:
+      context: ""
+      dockerfile: Dockerfile
+    environment:
+      MONGO_HOST: mongo
+      WAIT_HOSTS: mongo:27017
+    depends_on:
+      - "mongo"
+    ports:
+      - '9090:9091'
+    volumes:
+      - avatars:/root/static/avatars
+volumes:
+  avatars:
+  mongo_data:
