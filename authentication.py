@@ -151,7 +151,6 @@ def handle_login(request):
         create_success, create_message = create_new_user(username, password)
         if create_success:
             # New user successfully created
-            print("should be here")
             avatar.sign_up(username, database.user_profiles)
             data = {"username": username, "new_account": True, "all_users": get_all_logged_in_users()}
             resp = make_response(render_template("div_templates/after_login.html", **data))
