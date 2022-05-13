@@ -9,8 +9,7 @@
     <span class="login-text">New here? Register with the same form!</span>
 
     {% if error %}
-        <p class="login-text">{{ error }}</p>
-        {# TODO better error style #}
+        <p class="error-banner">{{ error }}</p>
     {% endif %}
 
     <form action="/auth/login" method="post" onsubmit="return submitAjaxForm(this, loadDiv, true);"

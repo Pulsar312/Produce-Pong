@@ -496,3 +496,11 @@ div.loading > .dot.sharon {
     max-width: 800px;
     padding:25px;
 }
+
+.error-banner {
+    background-color: #490b19;
+    border-left: 5px solid #d22b2b;
+    color: white;
+    padding: 6px;
+    margin: 0;
+}
